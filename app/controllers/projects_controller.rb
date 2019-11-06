@@ -2,6 +2,7 @@ class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy, :archive, :unarchive]
   before_action :set_user
   before_action :set_default_project, only: [:destroy]
+  before_action :set_default_location, only: [:show]
 
   # GET /projects
   # GET /projects.json
@@ -17,7 +18,7 @@ class ProjectsController < ApplicationController
   # GET /projects/1.json
   def show
     if logged_in?
-      #@tasks = @inbox.tasks
+      @tasks = @project.tasks
     else
       redirect_to login_path
     end
@@ -43,7 +44,7 @@ class ProjectsController < ApplicationController
   # POST /projects.json
   def create
     if logged_in?
-      @project = Project.new(name: project_params[:name],description: project_params[:description], user:@user)
+      @project = Project.new(name: project_params[:name], description: project_params[:description], user:@user)
 
       if @project.save
         redirect_to @project
@@ -112,6 +113,10 @@ class ProjectsController < ApplicationController
 
     def set_default_project
       @default = Project.where(user: @user, name: "Unassigned").first
+    end
+
+    def set_default_location
+      @default_location = Location.where(user: @user, name: "Anywhere").first
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

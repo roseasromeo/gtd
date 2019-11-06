@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :tags
+  resources :tasks
+  resources :locations
   resources :projects
   resources :items
   resources :inboxes
@@ -22,8 +25,16 @@ Rails.application.routes.draw do
       get 'archive'
       get 'unarchive'
     end
-    #resources :tasks, except: [:index]
+    resources :tasks, except: [:index] do
+      member do
+        get 'complete'
+        get 'uncomplete'
+        get 'edit_tags'
+        post 'edit_tags', as: :add_tags
+      end
+    end
   end
+  resources :locations
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

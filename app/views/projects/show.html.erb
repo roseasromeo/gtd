@@ -5,7 +5,7 @@
 <% if @project.deletable? %>
   <%= link_to 'Edit Project', edit_project_path(@project) %> |
 <% end %>
-<% #link to add task here %>
+<%= link_to 'Add Task', new_project_task_path(@project, location_id: @default_location) %>
 
 <% if @project.deletable? %>
 <p>
@@ -14,22 +14,23 @@
 </p>
 <% end %>
 
-<% if false #if !(@tasks.empty?) %>
+<% if !(@tasks.empty?) %>
   <table>
     <thead>
       <tr>
         <th>Name</th>
+        <th>Completed?</th>
         <th colspan="2"></th>
       </tr>
     </thead>
 
     <tbody>
-      <% @tasks.each do |task| %>
+      <% @tasks.order(:completed).each do |task| %>
         <tr>
           <td><%= link_to task.name, task %></td>
+          <td><%= task.completed %></td>
           <td><%= link_to 'Edit', edit_project_task_path(@project,task) %></td>
           <td><%= link_to 'Delete', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-          <% #here goes the assign to project link %>
         </tr>
       <% end %>
     </tbody>

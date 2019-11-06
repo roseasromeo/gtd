@@ -1,7 +1,7 @@
 class Project < ApplicationRecord
   belongs_to :user
 
-  #has_many :tasks, dependent: :destroy
+  has_many :tasks, dependent: :destroy
 
   def archive
     if self.deletable?

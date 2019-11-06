@@ -1,11 +1,9 @@
-class CreateProjects < ActiveRecord::Migration[5.2]
+class CreateLocations < ActiveRecord::Migration[5.2]
   def change
-    create_table :projects do |t|
+    create_table :locations do |t|
       t.string :name
-      t.text :description
       t.belongs_to :user, foreign_key: true, null: false
       t.boolean :deletable, default: true
-      t.boolean :archived, default: false
 
       t.timestamps
     end

@@ -1,4 +1,4 @@
-<h1>Home</h1>
+<%= page_heading "Home" %>
 <p>This will eventually be a functional landing page</p>
 
 <div class="homepage">
@@ -7,5 +7,6 @@
   <% else %>
     <p class="links"><%= link_to 'Inbox Index', inboxes_path %></p>
     <p class="links"><%= link_to 'Project Index', projects_path %></p>
+    <p class="links"><%= link_to 'Location Index', locations_path %></p>
   <% end %>
 </div>

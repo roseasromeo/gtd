@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_06_011006) do
+ActiveRecord::Schema.define(version: 2019_11_06_050006) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,15 @@ ActiveRecord::Schema.define(version: 2019_11_06_011006) do
     t.index ["inbox_id"], name: "index_items_on_inbox_id"
   end
 
+  create_table "locations", force: :cascade do |t|
+    t.string "name"
+    t.bigint "user_id"
+    t.boolean "deletable", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_locations_on_user_id"
+  end
+
   create_table "projects", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -42,6 +51,20 @@ ActiveRecord::Schema.define(version: 2019_11_06_011006) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_projects_on_user_id"
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.bigint "project_id", null: false
+    t.bigint "location_id", null: false
+    t.string "name"
+    t.text "description"
+    t.integer "time"
+    t.integer "energy"
+    t.boolean "completed", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["location_id"], name: "index_tasks_on_location_id"
+    t.index ["project_id"], name: "index_tasks_on_project_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -54,5 +77,8 @@ ActiveRecord::Schema.define(version: 2019_11_06_011006) do
 
   add_foreign_key "inboxes", "users"
   add_foreign_key "items", "inboxes"
+  add_foreign_key "locations", "users"
   add_foreign_key "projects", "users"
+  add_foreign_key "tasks", "locations"
+  add_foreign_key "tasks", "projects"
 end

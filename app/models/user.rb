@@ -4,6 +4,8 @@ class User < ApplicationRecord
 
   has_many :inboxes, dependent: :destroy
   has_many :projects, dependent: :destroy
+  has_many :locations, dependent: :destroy
+  has_many :tags, dependent: :destroy
 
   before_save { |user| user.email = email.downcase }
 
@@ -13,6 +15,7 @@ class User < ApplicationRecord
     unless persisted?
       inboxes << Inbox.new(name: 'Default', user: self, deletable: false)
       projects << Project.new(name: 'Unassigned', user: self, deletable: false)
+      locations << Location.new(name: 'Anywhere', user: self, deletable: false)
     end
   end
 

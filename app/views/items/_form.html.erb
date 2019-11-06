@@ -16,7 +16,6 @@
     <%= f.input :name, required: true %>
     <%= f.input :content%>
     <%= f.select(:inbox_id, options_for_select(@inboxes.map{|t| [t.name, t.id]}, @inbox.id)) %>
-    <% #f.input :inbox, :as => :select, :collection => @inboxes, :include_blank => false %>
     <%= f.actions do %>
       <%= f.action :submit, label: "Save Item" %>
     <% end %>

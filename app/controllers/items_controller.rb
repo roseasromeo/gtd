@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update, :destroy]
   before_action :set_user
-  before_action :set_default_inbox, only: [:new, :edit]
+  before_action :set_default_inbox, only: [:new, :edit, :show, :destroy]
   before_action :set_inbox, only: [:new, :edit, :show, :destroy]
 
   # GET /items
@@ -92,12 +92,14 @@ class ItemsController < ApplicationController
     def set_inbox
       if params.has_key?(:inbox_id)
         @inbox = Inbox.find(params[:inbox_id])
-        puts @inbox.id
         if @inbox.user != current_user
           @inbox = @default
         end
       else
         @inbox = @item.inbox
+        if @inbox == nil
+          @inbox = @default
+        end
       end
     end
 
