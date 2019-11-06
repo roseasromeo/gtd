@@ -1,0 +1,32 @@
+<%= page_heading "Filter Tasks" %>
+
+<%= form_tag search_path, method: :get do %>
+  <% # Location -- include Anywhere? %>
+  <%= label_tag(:location_id, "Where are you?") %>
+  <%= select_tag(:location_id, options_for_select(@locations.map { |loc| [loc.name, loc.id] }, @location)) %>
+  <%= check_box_tag(:anywhere) %>
+  <%= label_tag(:anywhere, "Also include Anywhere?") %>
+
+  <% # How much time do you have? -- Present highest that meets criteria first, lowest last  %>
+  <%= label_tag(:time, "How much time do you have?") %>
+  <%= select_tag(:time, options_for_select(@time_collection)) %>
+
+  <% # How much energy do you have? -- Present highest that meets criteria first, lowest last  %>
+  <%= label_tag(:energy, "How much energy do you have?") %>
+  <%= select_tag(:energy, options_for_select([:low, :medium, :high])) %>
+
+  <% # choose tags #best matches first%>
+  <% @tags.each do |tag| %>
+    <%= label_tag "tags[]", tag.name %>
+    <%= check_box_tag "tags[]", tag.id %>
+  <% end %>
+
+  <% # Include archived projects? %>
+  <%= check_box_tag(:archived) %>
+  <%= label_tag(:archived, "Include archived projects?") %>
+  <% # Include completed tasks? %>
+  <%= check_box_tag(:completed) %>
+  <%= label_tag(:completed, "Include completed tasks?") %>
+
+  <%= submit_tag("Filter") %>
+<% end %>

@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   post '/login' => 'auth#login'
   get '/logout' => 'auth#logout', as: :logout
 
+  get '/search' => 'tasks#search', as: :search
+
   resources :users, only: [:new]
 
   resources :inboxes do

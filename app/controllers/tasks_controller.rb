@@ -1,11 +1,11 @@
 class TasksController < ApplicationController
-  before_action :set_task, except: [:new]
+  before_action :set_task, except: [:new, :create, :search]
   before_action :set_user
   before_action :set_default_project
   before_action :set_project
   before_action :set_default_location
-  before_action :set_location
-  before_action :time_collection, only: [:new, :edit]
+  before_action :set_location, except: [:search]
+  before_action :time_collection, only: [:new, :edit, :create, :update, :search]
 
   # GET /tasks
   # GET /tasks.json
@@ -132,6 +132,34 @@ class TasksController < ApplicationController
     @tags = Tag.where(user: @user)
   end
 
+  def search
+    if params[:commit] == "Filter"
+      # Perform search
+      all_tasks = Task.joins(:project).where(projects: {user: @user})
+
+      # Location
+      @location = Location.find(params[:location_id])
+      loc_tasks = all_tasks.where(location: @location)
+      # Include Anywhere?
+      if params[:anywhere] != nil && params[:anywhere] == "1"
+        any_tasks = all_tasks.where(location: @default_location)
+        loc_tasks = loc_tasks.or(any_tasks).distinct
+      end
+
+      #Time
+      time_tasks = loc_tasks
+
+      @tasks = time_tasks
+      render 'results'
+      #available_users = User.includes(:final_characters).where(:final_characters => {:user_id => nil}).or(User.includes(:final_characters).merge(FinalCharacter.where.not(character_system: @character_system)))
+      #@possible_users = available_users.or(User.where(id: @character_user.id).includes(:final_characters)).distinct
+    else
+      # Render search
+      @locations = Location.where(user: @user)
+      @tags = Tag.where(user: @user)
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_task
@@ -144,8 +172,17 @@ class TasksController < ApplicationController
         if @project.user != current_user
           @project = @default_project
         end
+      elsif params[:task] != nil && params[:task].has_key?(:project_id)
+        @project = Project.find(params[:task][:project_id])
+        if @project.user != current_user
+          @project = @default_project
+        end
       else
-        @project = @task.project
+        if @task == nil
+          @project = @default_project
+        else
+          @project = @task.project
+        end
         if @project == nil
           @project = @default_project
         end
@@ -172,7 +209,11 @@ class TasksController < ApplicationController
           @location = @default_location
         end
       else
-        @location = @task.location
+        if @task == nil
+          @location = @default_location
+        else
+          @location = @task.location
+        end
         if @location == nil
           @location = @default_location
         end
