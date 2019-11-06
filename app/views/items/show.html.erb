@@ -1,0 +1,18 @@
+<p id="notice"><%= notice %></p>
+
+<%= page_heading "#{@item.name}" %>
+
+<%= link_to 'Edit Item', edit_inbox_item_path(@inbox,@item) %>
+
+<p>
+  <strong>Content:</strong>
+  <%= @item.content %>
+</p>
+
+<p>
+  <strong>Inbox:</strong>
+  <%= @item.inbox.name %>
+</p>
+
+<%= link_to 'Edit', edit_inbox_item_path(@inbox,@item) %> |
+<%= link_to 'Back to Inbox', @inbox %>

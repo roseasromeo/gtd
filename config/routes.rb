@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :items
   resources :inboxes
   resources :users
   get 'home/index'
@@ -10,7 +11,9 @@ Rails.application.routes.draw do
   get '/logout' => 'auth#logout', as: :logout
 
   resources :users, only: [:new]
-  resources :inboxes
+  resources :inboxes do
+    resources :items, except: [:index]
+  end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

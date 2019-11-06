@@ -1,14 +1,32 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @inbox.name %>
-</p>
+<%= page_heading "#{@inbox.name} Inbox" %>
 
-<p>
-  <strong>User:</strong>
-  <%= @inbox.user %>
-</p>
+<%= link_to 'Edit Name', edit_inbox_path(@inbox) %> | <%= link_to 'Add Item', new_inbox_item_path(@inbox) %>
 
-<%= link_to 'Edit', edit_inbox_path(@inbox) %> |
-<%= link_to 'Back', inboxes_path %>
+<% if !(@items.empty?) %>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th colspan="2"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @items.each do |item| %>
+        <tr>
+          <td><%= link_to item.name, item %></td>
+          <td><%= link_to 'Edit', edit_inbox_item_path(@inbox,item) %></td>
+          <td><%= link_to 'Delete', item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% #here goes the assign to project link %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <br>
+
+<% end %>
+
+<%= link_to 'Back to Inboxes', inboxes_path %>
