@@ -76,6 +76,7 @@ class InboxesController < ApplicationController
       @inbox.items.each do |item|
         item.update(inbox: @default)
       end
+      @inbox.reload
       @inbox.destroy
       redirect_to inboxes_path
     else

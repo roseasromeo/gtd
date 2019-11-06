@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_05_222629) do
+ActiveRecord::Schema.define(version: 2019_11_06_011006) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,16 @@ ActiveRecord::Schema.define(version: 2019_11_05_222629) do
     t.index ["inbox_id"], name: "index_items_on_inbox_id"
   end
 
+  create_table "projects", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.bigint "user_id"
+    t.boolean "deletable", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_projects_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email"
     t.string "name"
@@ -43,4 +53,5 @@ ActiveRecord::Schema.define(version: 2019_11_05_222629) do
 
   add_foreign_key "inboxes", "users"
   add_foreign_key "items", "inboxes"
+  add_foreign_key "projects", "users"
 end
