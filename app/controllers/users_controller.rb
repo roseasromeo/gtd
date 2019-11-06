@@ -28,7 +28,7 @@ class UsersController < ApplicationController
     if @user.save
       #session[:user_id] = @user.id
       @errors = @user.errors
-      redirect_to root_path
+      redirect_to :login
     else
       @errors = @user.errors
       render 'new'

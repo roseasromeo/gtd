@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 2019_11_06_011006) do
     t.text "description"
     t.bigint "user_id"
     t.boolean "deletable", default: true
+    t.boolean "archived", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_projects_on_user_id"

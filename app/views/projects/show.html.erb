@@ -1,19 +1,51 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @project.name %>
-</p>
+<%= page_heading "#{@project.name}" %>
 
+<% if @project.deletable? %>
+  <%= link_to 'Edit Project', edit_project_path(@project) %> |
+<% end %>
+<% #link to add task here %>
+
+<% if @project.deletable? %>
 <p>
   <strong>Description:</strong>
   <%= @project.description %>
 </p>
+<% end %>
 
-<p>
-  <strong>User:</strong>
-  <%= @project.user %>
-</p>
+<% if false #if !(@tasks.empty?) %>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th colspan="2"></th>
+      </tr>
+    </thead>
 
-<%= link_to 'Edit', edit_project_path(@project) %> |
-<%= link_to 'Back', projects_path %>
+    <tbody>
+      <% @tasks.each do |task| %>
+        <tr>
+          <td><%= link_to task.name, task %></td>
+          <td><%= link_to 'Edit', edit_project_task_path(@project,task) %></td>
+          <td><%= link_to 'Delete', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% #here goes the assign to project link %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+<% end %>
+
+  <br>
+
+<% if @project.deletable? %>
+  <%= link_to 'Delete project', @project, method: :delete, data: { confirm: 'Are you sure? All tasks associated with this project will also be deleted (Projects can be archived instead).' } %> |
+<% end %>
+<% if @project.archived? %>
+  <%= link_to 'Unarchive project', unarchive_project_path(@project) %> |
+<% end %>
+<% if @project.deletable? && !(@project.archived?) %>
+  <%= link_to 'Archive project', archive_project_path(@project) %> |
+<% end %>
+<%= link_to 'Back to projects', projects_path %>
