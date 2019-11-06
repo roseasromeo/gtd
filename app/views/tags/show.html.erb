@@ -1,14 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @tag.name %>
-</p>
+<%= page_heading "#{@tag.name}" %>
 
-<p>
-  <strong>User:</strong>
-  <%= @tag.user %>
-</p>
-
-<%= link_to 'Edit', edit_tag_path(@tag) %> |
-<%= link_to 'Back', tags_path %>
+<%= link_to 'Edit Tag', edit_tag_path(@tag) %> |
+<%= link_to 'Back to Tags', tags_path %>

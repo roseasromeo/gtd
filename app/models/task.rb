@@ -2,7 +2,10 @@ class Task < ApplicationRecord
   belongs_to :project
   belongs_to :location
 
-  #has_many :tags, through: :task_tags
+  has_many :tag_tasks, dependent: :destroy
+  has_many :tags, through: :tag_tasks
+
+  accepts_nested_attributes_for :tag_tasks, :allow_destroy => true
 
   enum time: { five_min: 5, fifteen_min: 15, thirty_min: 30, fortyfive_min: 45, one_hr: 60, one_hr_thirty_min: 90, two_hr: 120, two_hr_thirty_min: 150, three_hr: 180, four_hr: 240 }
 

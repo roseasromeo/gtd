@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_06_050006) do
+ActiveRecord::Schema.define(version: 2019_11_06_171121) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,6 +53,23 @@ ActiveRecord::Schema.define(version: 2019_11_06_050006) do
     t.index ["user_id"], name: "index_projects_on_user_id"
   end
 
+  create_table "tag_tasks", force: :cascade do |t|
+    t.bigint "tag_id", null: false
+    t.bigint "task_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tag_id"], name: "index_tag_tasks_on_tag_id"
+    t.index ["task_id"], name: "index_tag_tasks_on_task_id"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_tags_on_user_id"
+  end
+
   create_table "tasks", force: :cascade do |t|
     t.bigint "project_id", null: false
     t.bigint "location_id", null: false
@@ -79,6 +96,9 @@ ActiveRecord::Schema.define(version: 2019_11_06_050006) do
   add_foreign_key "items", "inboxes"
   add_foreign_key "locations", "users"
   add_foreign_key "projects", "users"
+  add_foreign_key "tag_tasks", "tags"
+  add_foreign_key "tag_tasks", "tasks"
+  add_foreign_key "tags", "users"
   add_foreign_key "tasks", "locations"
   add_foreign_key "tasks", "projects"
 end

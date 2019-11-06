@@ -1,63 +1,81 @@
 class TagsController < ApplicationController
   before_action :set_tag, only: [:show, :edit, :update, :destroy]
+  before_action :set_user
 
   # GET /tags
   # GET /tags.json
   def index
-    @tags = Tag.all
+    if logged_in?
+      @tags = Tag.where(user: @user)
+    else
+      redirect_to login_path
+    end
   end
 
   # GET /tags/1
   # GET /tags/1.json
   def show
+    if logged_in?
+      @tasks = @tag.tasks
+    else
+      redirect_to login_path
+    end
   end
 
   # GET /tags/new
   def new
-    @tag = Tag.new
+    if logged_in?
+      @tag = Tag.new(user: @user)
+    else
+      redirect_to login_path
+    end
   end
 
   # GET /tags/1/edit
   def edit
+    if !(logged_in? && @tag.user == current_user)
+      redirect_to login_path
+    end
   end
 
   # POST /tags
   # POST /tags.json
   def create
-    @tag = Tag.new(tag_params)
+    if logged_in?
+      @tag = Tag.new(name: tag_params[:name], user:@user)
 
-    respond_to do |format|
       if @tag.save
-        format.html { redirect_to @tag, notice: 'Tag was successfully created.' }
-        format.json { render :show, status: :created, location: @tag }
+        redirect_to @tag
       else
-        format.html { render :new }
-        format.json { render json: @tag.errors, status: :unprocessable_entity }
+        render 'new'
       end
+    else
+      redirect_to login_path
     end
   end
 
   # PATCH/PUT /tags/1
   # PATCH/PUT /tags/1.json
   def update
-    respond_to do |format|
-      if @tag.update(tag_params)
-        format.html { redirect_to @tag, notice: 'Tag was successfully updated.' }
-        format.json { render :show, status: :ok, location: @tag }
+    if logged_in? && @tag.user == current_user
+      if @tag.update(name: tag_params[:name], user: @user)
+        redirect_to @tag
       else
-        format.html { render :edit }
-        format.json { render json: @tag.errors, status: :unprocessable_entity }
+        render 'edit'
       end
+    else
+      redirect_to login_path
     end
   end
 
   # DELETE /tags/1
   # DELETE /tags/1.json
   def destroy
-    @tag.destroy
-    respond_to do |format|
-      format.html { redirect_to tags_url, notice: 'Tag was successfully destroyed.' }
-      format.json { head :no_content }
+    if logged_in? && @tag.user == current_user
+      @tag.destroy
+      redirect_to tags_path
+    else
+      redirect_to tag_path
     end
   end
 
@@ -67,8 +85,12 @@ class TagsController < ApplicationController
       @tag = Tag.find(params[:id])
     end
 
+    def set_user
+      @user = current_user
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def tag_params
-      params.require(:tag).permit(:name, :user_id)
+      params.require(:tag).permit(:name)
     end
 end

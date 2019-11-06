@@ -4,12 +4,12 @@
 
 <p>
   <strong>Project:</strong>
-  <%= @task.project.name %>
+  <%= @project.name %>
 </p>
 
 <p>
   <strong>Location:</strong>
-  <%= @task.location.name %>
+  <%= @location.name %>
 </p>
 
 <p>
@@ -32,7 +32,16 @@
   <%= @task.completed %>
 </p>
 
-<%= link_to 'Edit Task', edit_project_task_path(@project,@task) %> |
+<% if !(@tags.empty?) %>
+  <p>
+    <strong>Tags:</strong>
+    <% @tags.each do |tag| %>
+      <%= tag.name %>
+    <% end %>
+  </p>
+<% end %>
+
+<%= link_to 'Edit Task', edit_project_task_path(@project,@task) %> | <%= link_to 'Edit Tags', edit_tags_project_task_path(@project,@task) %> | <%= link_to 'Add Another Task', new_project_task_path(@project, location_id: @location) %> |
 
 <% if @task.completed? %>
   <%= link_to 'Mark Task Uncompleted', uncomplete_project_task_path(@project,@task) %> |

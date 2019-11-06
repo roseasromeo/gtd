@@ -1,0 +1,15 @@
+<%= semantic_form_for [@project,@task] do |f| %>
+  <%= f.inputs do %>
+    <%= f.label "Tags" %><br />
+    <%= f.collection_check_boxes :tag_ids, @tags, :id, :name do |b| %>
+      <div class="collection-check-box">
+        <%= b.check_box %>
+        <%= b.label %>
+      </div>
+    <% end %>
+  <% end %>
+
+  <%= f.actions do %>
+    <%= f.action :submit, :as => :input, :label => "Save Tags" %>
+  <% end %>
+<% end %>

@@ -1,10 +1,10 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: [:show, :edit, :update, :destroy, :complete, :uncomplete]
+  before_action :set_task, except: [:new]
   before_action :set_user
-  before_action :set_default_project, only: [:new, :edit, :create, :update, :show, :destroy, :complete, :uncomplete]
-  before_action :set_project, only: [:new, :edit, :create, :update, :show, :destroy, :complete, :uncomplete]
-  before_action :set_default_location, only: [:new, :edit, :create, :update, :show, :destroy]
-  before_action :set_location, only: [:new, :edit, :create, :update, :show, :destroy]
+  before_action :set_default_project
+  before_action :set_project
+  before_action :set_default_location
+  before_action :set_location
   before_action :time_collection, only: [:new, :edit]
 
   # GET /tasks
@@ -21,6 +21,7 @@ class TasksController < ApplicationController
   # GET /tasks/1.json
   def show
     if logged_in?
+      @tags = @task.tags
     else
       redirect_to login_path
     end
@@ -76,12 +77,22 @@ class TasksController < ApplicationController
   # PATCH/PUT /tasks/1.json
   def update
     if logged_in?
-      @projects = Project.where(user: @user)
-      @locations = Location.where(user: @user)
-      if @task.update(name: task_params[:name], description: task_params[:description], project: @project, location: @location, time: Task.time_name(task_params[:time].to_i), energy: task_params[:energy])
-        redirect_to [@project,@task]
+      if params[:commit] == "Save Tags"
+        @projects = Project.where(user: @user)
+        @locations = Location.where(user: @user)
+        if @task.update(task_params)
+          redirect_to [@project,@task]
+        else
+          render 'edit_tags'
+        end
       else
-        render 'edit'
+        @projects = Project.where(user: @user)
+        @locations = Location.where(user: @user)
+        if @task.update(name: task_params[:name], description: task_params[:description], project: @project, location: @location, time: Task.time_name(task_params[:time].to_i), energy: task_params[:energy])
+          redirect_to [@project,@task]
+        else
+          render 'edit'
+        end
       end
     else
       redirect_to login_path
@@ -115,6 +126,10 @@ class TasksController < ApplicationController
     else
       redirect_to projects_path
     end
+  end
+
+  def edit_tags
+    @tags = Tag.where(user: @user)
   end
 
   private
@@ -177,6 +192,19 @@ class TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:project_id, :location_id, :name, :description, :time, :energy)
+      params.require(:task).permit(:project_id, :location_id, :name, :description, :time, :energy, tag_ids: [])
+    end
+
+    def tag_params
+      tag_params = params[:task][:tag_ids]
+      tag_params.shift
+      tag_params
+    end
+
+    def update_tags
+      success = true
+      tag_params.each do |tag_sid|
+
+      end
     end
 end

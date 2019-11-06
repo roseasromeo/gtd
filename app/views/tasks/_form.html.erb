@@ -1,11 +1,6 @@
-<%= semantic_form_for [@project,@task] do |f| %>
+<%= semantic_form_for @tag do |f| %>
   <%= f.inputs do %>
     <%= f.input :name %>
-    <%= f.input :description %>
-    <%= f.input :time, as: :select, include_blank: false, collection: @time_collection %>
-    <%= f.input :energy, as: :select, include_blank: false %>
-    <%= f.select(:project_id, options_for_select(@projects.map{|t| [t.name, t.id]}, @project.id)) %>
-    <%= f.select(:location_id, options_for_select(@locations.map{|t| [t.name, t.id]}, @location.id)) %>
   <% end %>
 
   <%= f.actions do %>

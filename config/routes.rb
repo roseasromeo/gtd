@@ -30,11 +30,11 @@ Rails.application.routes.draw do
         get 'complete'
         get 'uncomplete'
         get 'edit_tags'
-        post 'edit_tags', as: :add_tags
       end
     end
   end
   resources :locations
+  resources :tags
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
