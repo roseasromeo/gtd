@@ -44,7 +44,7 @@ gem 'formtastic'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 # Allow for nicer SQL queries
-gem 'squeel'
+#gem 'squeel'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

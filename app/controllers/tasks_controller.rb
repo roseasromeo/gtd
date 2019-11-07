@@ -6,6 +6,7 @@ class TasksController < ApplicationController
   before_action :set_default_location
   before_action :set_location, except: [:search]
   before_action :time_collection, only: [:new, :edit, :create, :update, :search]
+  before_action :energy_collection, only: [:new, :edit, :create, :update, :search]
 
   # GET /tasks
   # GET /tasks.json
@@ -146,10 +147,26 @@ class TasksController < ApplicationController
         loc_tasks = loc_tasks.or(any_tasks).distinct
       end
 
-      #Time
-      time_tasks = loc_tasks
+      # Time (includes all tasks of lower time with sorting to put highest time first)
+      time_tasks = Task.none
+      @time_collection.each do |k,v|
+        if v <= params[:time].to_i
+          time_tasks = time_tasks.or(loc_tasks.where(time: v))
+        end
+      end
+      time_tasks = time_tasks.order(time: :desc)
 
-      @tasks = time_tasks
+      # Energy (includes all tasks of lower energy with sorting to put highest energy first)
+      energy_tasks = Task.none
+      @energy_collection.each do |k,v|
+        if v <= params[:energy].to_i
+          energy_tasks = energy_tasks.or(time_tasks.where(energy: k))
+        end
+      end
+      energy_tasks = energy_tasks.order(time: :desc, energy: :desc)
+
+
+      @tasks = energy_tasks
       render 'results'
       #available_users = User.includes(:final_characters).where(:final_characters => {:user_id => nil}).or(User.includes(:final_characters).merge(FinalCharacter.where.not(character_system: @character_system)))
       #@possible_users = available_users.or(User.where(id: @character_user.id).includes(:final_characters)).distinct
@@ -229,6 +246,9 @@ class TasksController < ApplicationController
       Task.time_names.each do |k,v|
         @time_collection[k] = v
       end
+    end
+    def energy_collection
+      @energy_collection = { low: 1, medium: 2, high: 3 }
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

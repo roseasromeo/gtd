@@ -13,7 +13,7 @@
 
   <% # How much energy do you have? -- Present highest that meets criteria first, lowest last  %>
   <%= label_tag(:energy, "How much energy do you have?") %>
-  <%= select_tag(:energy, options_for_select([:low, :medium, :high])) %>
+  <%= select_tag(:energy, options_for_select(@energy_collection)) %>
 
   <% # choose tags #best matches first%>
   <% @tags.each do |tag| %>
