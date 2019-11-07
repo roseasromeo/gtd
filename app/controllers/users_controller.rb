@@ -9,8 +9,13 @@ class UsersController < ApplicationController
 
   # GET /users/1
   # GET /users/1.json
-  # def show
-  # end
+  def show
+    if @user == current_user
+
+    else
+      redirect_to root_path
+    end
+  end
 
   # GET /users/new
   def new
@@ -18,8 +23,13 @@ class UsersController < ApplicationController
   end
 
   # GET /users/1/edit
-  # def edit
-  # end
+  def edit
+    if @user == current_user
+
+    else
+      redirect_to root_path
+    end
+  end
 
   # POST /users
   # POST /users.json
@@ -37,27 +47,26 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
-  # def update
-  #   respond_to do |format|
-  #     if @user.update(user_params)
-  #       format.html { redirect_to @user, notice: 'User was successfully updated.' }
-  #       format.json { render :show, status: :ok, location: @user }
-  #     else
-  #       format.html { render :edit }
-  #       format.json { render json: @user.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
+  def update
+    if @user == current_user && @user = User.update(user_params)
+      redirect_to root_path
+    else
+      @errors = @user.errors
+      render 'edit'
+    end
+  end
 
   # DELETE /users/1
   # DELETE /users/1.json
-  # def destroy
-  #   @user.destroy
-  #   respond_to do |format|
-  #     format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
-  #     format.json { head :no_content }
-  #   end
-  # end
+  def destroy
+    if @user == current_user
+      @user.destroy
+      session[:user_id] = nil
+      redirect_to '/'
+    else
+      redirect_to login_path
+    end
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
