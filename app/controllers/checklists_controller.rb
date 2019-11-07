@@ -16,7 +16,7 @@ class ChecklistsController < ApplicationController
   # GET /checklists/1.json
   def show
     if logged_in?
-      #@checklist_items = @checklist.checklist_items
+      @checklist_items = @checklist.checklist_items
     else
       redirect_to login_path
     end
@@ -25,7 +25,12 @@ class ChecklistsController < ApplicationController
   # GET /checklists/new
   def new
     if logged_in?
-      @checklist = Checklist.new(user: @user)
+      if params[:item_id] != nil
+        item = Item.find(params[:item_id].to_i)
+        @checklist = Checklist.new(name: item.name, description: item.content)
+      else
+        @checklist = Checklist.new(user: @user)
+      end
     else
       redirect_to login_path
     end
@@ -41,9 +46,8 @@ class ChecklistsController < ApplicationController
   # POST /checklists
   # POST /checklists.json
   def create
-    @checklist = Checklist.new(checklist_params)
     if logged_in?
-      @checklist = Checklist.new(name: checklist_params[:name], description: checklist_params[:description], user: @user)
+      @checklist = Checklist.new(checklist_params.merge(user_id: @user.id))
 
       if @checklist.save
         redirect_to @checklist
@@ -59,7 +63,7 @@ class ChecklistsController < ApplicationController
   # PATCH/PUT /checklists/1.json
   def update
     if logged_in? && @checklist.user == current_user
-      if @checklist.update(name: checklist_params[:name], description: checklist_params[:description], user: @user)
+      if @checklist.update(checklist_params)
         redirect_to @checklist
       else
         render 'edit'
@@ -92,6 +96,6 @@ class ChecklistsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def checklist_params
-      params.require(:checklist).permit(:name, :description)
+      params.require(:checklist).permit(:name, :description, checklist_items_attributes: [:id, :name, :_destroy])
     end
 end

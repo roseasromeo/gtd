@@ -1,12 +1,4 @@
 Rails.application.routes.draw do
-  resources :checklists
-  resources :tags
-  resources :tasks
-  resources :locations
-  resources :projects
-  resources :items
-  resources :inboxes
-  resources :users
   get 'home/index'
 
   root 'home#index'
@@ -17,7 +9,7 @@ Rails.application.routes.draw do
 
   get '/search' => 'tasks#search', as: :search
 
-  resources :users, only: [:new]
+  resources :users, except: [:index]
 
   resources :inboxes do
     resources :items, except: [:index]
@@ -39,9 +31,7 @@ Rails.application.routes.draw do
   resources :locations
   resources :tags
 
-  resources :checklists do
-    resources :checklist_items
-  end
+  resources :checklists
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

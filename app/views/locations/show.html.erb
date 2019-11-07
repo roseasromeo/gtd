@@ -20,7 +20,7 @@
       <% @tasks.each do |task| %>
         <tr>
           <td><%= link_to task.name, task %></td>
-          <td><%= link_to 'Edit', edit_location_task_path(@location,task) %></td>
+          <td><%= link_to 'Edit', edit_project_task_path(task.project,task) %></td>
           <td><%= link_to 'Delete', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
       <% end %>
