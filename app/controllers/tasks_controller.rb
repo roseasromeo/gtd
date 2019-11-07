@@ -31,9 +31,14 @@ class TasksController < ApplicationController
   # GET /tasks/new
   def new
     if logged_in?
-      @task = Task.new
       @projects = Project.where(user: @user)
       @locations = Location.where(user: @user)
+      if params[:item_id] != nil
+        item = Item.find(params[:item_id].to_i)
+        @task = Task.new(name: item.name, description: item.content)
+      else
+        @task = Task.new
+      end
     else
       redirect_to login_path
     end
@@ -138,6 +143,16 @@ class TasksController < ApplicationController
       # Perform search
       all_tasks = Task.joins(:project).where(projects: {user: @user})
 
+      # Include archived?
+      if params[:archived] == nil || params[:archived] != "1"
+        all_tasks = all_tasks.where(projects: {archived: false})
+      end
+
+      # Include completed?
+      if params[:completed] == nil || params[:completed] != "1"
+        all_tasks = all_tasks.where(completed: false)
+      end
+
       # Location
       @location = Location.find(params[:location_id])
       loc_tasks = all_tasks.where(location: @location)
@@ -165,11 +180,19 @@ class TasksController < ApplicationController
       end
       energy_tasks = energy_tasks.order(time: :desc, energy: :desc)
 
+      # Tags
+      tagged_tasks = energy_tasks
+      if params[:tags] != nil
+        tagged_tasks = Task.none
+        energy_tasks.each do |task|
+          if task.has_all_tags(params[:tags])
+            tagged_tasks = tagged_tasks.or(energy_tasks.where(id: task.id))
+          end
+        end
+      end
 
-      @tasks = energy_tasks
+      @tasks = tagged_tasks
       render 'results'
-      #available_users = User.includes(:final_characters).where(:final_characters => {:user_id => nil}).or(User.includes(:final_characters).merge(FinalCharacter.where.not(character_system: @character_system)))
-      #@possible_users = available_users.or(User.where(id: @character_user.id).includes(:final_characters)).distinct
     else
       # Render search
       @locations = Location.where(user: @user)
@@ -181,6 +204,10 @@ class TasksController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_task
       @task = Task.find(params[:id])
+    end
+
+    def set_user
+      @user = current_user
     end
 
     def set_project
@@ -208,10 +235,6 @@ class TasksController < ApplicationController
 
     def set_default_project
       @default_project = Project.where(user: @user, name: "Unassigned").first
-    end
-
-    def set_user
-      @user = current_user
     end
 
     def set_location

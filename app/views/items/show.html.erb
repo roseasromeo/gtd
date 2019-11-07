@@ -14,5 +14,5 @@
   <%= @item.inbox.name %>
 </p>
 
-<%= link_to 'Edit', edit_inbox_item_path(@inbox,@item) %> | <%= link_to 'Add Another Item', new_inbox_item_path(@inbox) %> |
+<%= link_to 'Add Another Item', new_inbox_item_path(@inbox) %> | <%= link_to 'Convert Item into Project', new_project_path(item_id: @item) %> | <%= link_to 'Convert Item into Task', new_project_task_path(@default_project, location_id: @default_location, item_id: @item) %> |
 <%= link_to 'Back to Inbox', @inbox %> | <%= link_to 'Back to Inboxes', inboxes_path %>

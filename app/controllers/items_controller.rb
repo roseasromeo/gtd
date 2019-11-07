@@ -3,6 +3,8 @@ class ItemsController < ApplicationController
   before_action :set_user
   before_action :set_default_inbox, only: [:new, :edit, :show, :destroy]
   before_action :set_inbox, only: [:new, :edit, :show, :destroy]
+  before_action :set_default_project, only: [:show]
+  before_action :set_default_location, only: [:show]
 
   # GET /items
   # GET /items.json
@@ -109,6 +111,14 @@ class ItemsController < ApplicationController
 
     def set_default_inbox
       @default = Inbox.where(user: @user, name: "Default").first
+    end
+
+    def set_default_project
+      @default_project = Project.where(user: @user, name: "Unassigned").first
+    end
+
+    def set_default_location
+      @default_location = Location.where(user: @user, name: "Anywhere").first
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :checklists
   resources :tags
   resources :tasks
   resources :locations
@@ -37,6 +38,10 @@ Rails.application.routes.draw do
   end
   resources :locations
   resources :tags
+
+  resources :checklists do
+    resources :checklist_items
+  end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

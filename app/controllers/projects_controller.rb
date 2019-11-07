@@ -27,7 +27,12 @@ class ProjectsController < ApplicationController
   # GET /projects/new
   def new
     if logged_in?
-      @project = Project.new(user: @user)
+      if params[:item_id] != nil
+        item = Item.find(params[:item_id].to_i)
+        @project = Project.new(user: @user, name: item.name, description: item.content)
+      else
+        @project = Project.new(user: @user)
+      end
     else
       redirect_to login_path
     end

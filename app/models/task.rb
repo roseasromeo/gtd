@@ -7,6 +7,8 @@ class Task < ApplicationRecord
 
   accepts_nested_attributes_for :tag_tasks, :allow_destroy => true
 
+  scope :all_tags, -> tag_ids {select { |p| p.has_all_tags(tag_ids) == true}}
+
   enum time: { five_min: 5, fifteen_min: 15, thirty_min: 30, fortyfive_min: 45, one_hr: 60, one_hr_thirty_min: 90, two_hr: 120, two_hr_thirty_min: 150, three_hr: 180, four_hr: 240 }
 
   enum energy: [:low, :medium, :high]
@@ -27,5 +29,15 @@ class Task < ApplicationRecord
 
   def uncomplete
     self.update_attributes(completed: false)
+  end
+
+  def has_all_tags(tag_ids)
+    has_all = true
+    tag_ids.each do |tag|
+      if !(self.tags.exists?(tag.to_i))
+        has_all = false
+      end
+    end
+    has_all
   end
 end
