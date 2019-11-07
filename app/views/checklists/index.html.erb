@@ -1,31 +1,28 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Checklists</h1>
+<%= page_heading "Checklists" %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>User</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @checklists.each do |checklist| %>
+<% if !(@checklists.empty?) %>
+  <table>
+    <thead>
       <tr>
-        <td><%= checklist.name %></td>
-        <td><%= checklist.description %></td>
-        <td><%= checklist.user %></td>
-        <td><%= link_to 'Show', checklist %></td>
-        <td><%= link_to 'Edit', edit_checklist_path(checklist) %></td>
-        <td><%= link_to 'Destroy', checklist, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Name</th>
+        <th colspan="2"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
-<br>
+    <tbody>
+      <% @checklists.each do |checklist| %>
+        <tr>
+          <td><%= link_to checklist.name, checklist %></td>
+          <td><%= link_to 'Edit', edit_checklist_path(checklist) %></td>
+          <td><%= link_to 'Delete', checklist, method: :delete, data: { confirm: 'Are you sure? All items on this checklist will be deleted too.' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <br>
+<% end %>
 
 <%= link_to 'New Checklist', new_checklist_path %>

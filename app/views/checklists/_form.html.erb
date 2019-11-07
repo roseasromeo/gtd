@@ -2,7 +2,10 @@
   <%= f.inputs do %>
     <%= f.input :name %>
     <%= f.input :description %>
-    <%= f.input :user %>
+
+    <%= f.semantic_fields_for :checklist_items, @checklist_items do |item| %>
+      <%= render 'item_fields', :f => item %>
+    <% end %>
   <% end %>
 
   <%= f.actions do %>

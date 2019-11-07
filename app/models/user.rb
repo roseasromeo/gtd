@@ -6,6 +6,7 @@ class User < ApplicationRecord
   has_many :projects, dependent: :destroy
   has_many :locations, dependent: :destroy
   has_many :tags, dependent: :destroy
+  has_many :checklists, dependent: :destroy
 
   before_save { |user| user.email = email.downcase }
 

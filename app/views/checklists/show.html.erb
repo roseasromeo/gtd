@@ -1,19 +1,36 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @checklist.name %>
-</p>
+<%= page_heading "#{@checklist.name}" %>
 
 <p>
   <strong>Description:</strong>
   <%= @checklist.description %>
 </p>
 
-<p>
-  <strong>User:</strong>
-  <%= @checklist.user %>
-</p>
+<% #link_to 'Add Task', new_project_task_path(@default_project, location_id: @location) %>
 
-<%= link_to 'Edit', edit_checklist_path(@checklist) %> |
-<%= link_to 'Back', checklists_path %>
+<% if false #if !(@checklist_items.empty?) %>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th colspan="1"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @checklist_items.each do |item| %>
+        <tr>
+          <td><%= item.name %></td>
+          <td><%= link_to 'Delete', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+<% end %>
+
+  <br>
+
+<%= link_to 'Edit Checklist', edit_checklist_path(@checklist) %> |
+<%= link_to 'Back to Checklists', checklists_path %>

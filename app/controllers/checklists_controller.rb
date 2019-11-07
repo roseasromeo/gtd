@@ -1,63 +1,82 @@
 class ChecklistsController < ApplicationController
   before_action :set_checklist, only: [:show, :edit, :update, :destroy]
+  before_action :set_user
 
   # GET /checklists
   # GET /checklists.json
   def index
-    @checklists = Checklist.all
+    if logged_in?
+      @checklists = Checklist.where(user: @user)
+    else
+      redirect_to login_path
+    end
   end
 
   # GET /checklists/1
   # GET /checklists/1.json
   def show
+    if logged_in?
+      #@checklist_items = @checklist.checklist_items
+    else
+      redirect_to login_path
+    end
   end
 
   # GET /checklists/new
   def new
-    @checklist = Checklist.new
+    if logged_in?
+      @checklist = Checklist.new(user: @user)
+    else
+      redirect_to login_path
+    end
   end
 
   # GET /checklists/1/edit
   def edit
+    if !(logged_in? && @checklist.user == current_user)
+      redirect_to login_path
+    end
   end
 
   # POST /checklists
   # POST /checklists.json
   def create
     @checklist = Checklist.new(checklist_params)
+    if logged_in?
+      @checklist = Checklist.new(name: checklist_params[:name], description: checklist_params[:description], user: @user)
 
-    respond_to do |format|
       if @checklist.save
-        format.html { redirect_to @checklist, notice: 'Checklist was successfully created.' }
-        format.json { render :show, status: :created, location: @checklist }
+        redirect_to @checklist
       else
-        format.html { render :new }
-        format.json { render json: @checklist.errors, status: :unprocessable_entity }
+        render 'new'
       end
+    else
+      redirect_to login_path
     end
   end
 
   # PATCH/PUT /checklists/1
   # PATCH/PUT /checklists/1.json
   def update
-    respond_to do |format|
-      if @checklist.update(checklist_params)
-        format.html { redirect_to @checklist, notice: 'Checklist was successfully updated.' }
-        format.json { render :show, status: :ok, location: @checklist }
+    if logged_in? && @checklist.user == current_user
+      if @checklist.update(name: checklist_params[:name], description: checklist_params[:description], user: @user)
+        redirect_to @checklist
       else
-        format.html { render :edit }
-        format.json { render json: @checklist.errors, status: :unprocessable_entity }
+        render 'edit'
       end
+    else
+      redirect_to login_path
     end
   end
 
   # DELETE /checklists/1
   # DELETE /checklists/1.json
   def destroy
-    @checklist.destroy
-    respond_to do |format|
-      format.html { redirect_to checklists_url, notice: 'Checklist was successfully destroyed.' }
-      format.json { head :no_content }
+    if logged_in? && @checklist.user == current_user
+      @checklist.destroy
+      redirect_to checklists_path
+    else
+      redirect_to checklists_path
     end
   end
 
@@ -67,8 +86,12 @@ class ChecklistsController < ApplicationController
       @checklist = Checklist.find(params[:id])
     end
 
+    def set_user
+      @user = current_user
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def checklist_params
-      params.require(:checklist).permit(:name, :description, :user_id)
+      params.require(:checklist).permit(:name, :description)
     end
 end

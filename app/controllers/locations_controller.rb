@@ -44,7 +44,7 @@ class LocationsController < ApplicationController
   # POST /locations.json
   def create
     if logged_in?
-      @location = Location.new(name: location_params[:name], user:@user)
+      @location = Location.new(name: location_params[:name], user: @user)
 
       if @location.save
         redirect_to @location
