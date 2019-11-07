@@ -1,8 +1,10 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update, :destroy]
   before_action :set_user
-  before_action :set_default_inbox, only: [:new, :edit]
+  before_action :set_default_inbox, only: [:new, :edit, :show, :destroy]
   before_action :set_inbox, only: [:new, :edit, :show, :destroy]
+  before_action :set_default_project, only: [:show]
+  before_action :set_default_location, only: [:show]
 
   # GET /items
   # GET /items.json
@@ -92,12 +94,14 @@ class ItemsController < ApplicationController
     def set_inbox
       if params.has_key?(:inbox_id)
         @inbox = Inbox.find(params[:inbox_id])
-        puts @inbox.id
         if @inbox.user != current_user
           @inbox = @default
         end
       else
         @inbox = @item.inbox
+        if @inbox == nil
+          @inbox = @default
+        end
       end
     end
 
@@ -107,6 +111,14 @@ class ItemsController < ApplicationController
 
     def set_default_inbox
       @default = Inbox.where(user: @user, name: "Default").first
+    end
+
+    def set_default_project
+      @default_project = Project.where(user: @user, name: "Unassigned").first
+    end
+
+    def set_default_location
+      @default_location = Location.where(user: @user, name: "Anywhere").first
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -1,7 +1,7 @@
 class InboxesController < ApplicationController
   before_action :set_inbox, only: [:show, :edit, :update, :destroy]
   before_action :set_user
-  before_action :set_default_inbox, only: [:show, :destroy]
+  before_action :set_default_inbox, only: [:destroy]
 
   # GET /inboxes
   # GET /inboxes.json
@@ -46,7 +46,7 @@ class InboxesController < ApplicationController
       @inbox = Inbox.new(name: inbox_params[:name], user:@user)
 
       if @inbox.save
-        redirect_to inboxes_path
+        redirect_to @inbox
       else
         render 'new'
       end
@@ -60,7 +60,7 @@ class InboxesController < ApplicationController
   def update
     if logged_in?
       if @inbox.update(name: inbox_params[:name], user:@user)
-        redirect_to inboxes_path
+        redirect_to @inbox
       else
         render 'edit'
       end

@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<%= page_heading "#{@location.name}" %>
+
+<% if @location.deletable? %>
+  <%= link_to 'Edit Location', edit_location_path(@location) %> |
+<% end %>
+<%= link_to 'Add Task', new_project_task_path(@default_project, location_id: @location) %>
+
+<% if !(@tasks.empty?) %>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th colspan="2"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @tasks.each do |task| %>
+        <tr>
+          <td><%= link_to task.name, task %></td>
+          <td><%= link_to 'Edit', edit_project_task_path(task.project,task) %></td>
+          <td><%= link_to 'Delete', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+<% end %>
+
+  <br>
+
+<% if @location.deletable? %>
+  <%= link_to 'Delete Location', @location, method: :delete, data: { confirm: 'Are you sure? All tasks associated with this location will be reassigned to Anywhere.' } %> |
+<% end %>
+<%= link_to 'Back to locations', locations_path %>

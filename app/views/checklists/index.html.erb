@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+
+<%= page_heading "Checklists" %>
+
+<% if !(@checklists.empty?) %>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th colspan="2"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @checklists.each do |checklist| %>
+        <tr>
+          <td><%= link_to checklist.name, checklist %></td>
+          <td><%= link_to 'Edit', edit_checklist_path(checklist) %></td>
+          <td><%= link_to 'Delete', checklist, method: :delete, data: { confirm: 'Are you sure? All items on this checklist will be deleted too.' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <br>
+<% end %>
+
+<%= link_to 'New Checklist', new_checklist_path %>

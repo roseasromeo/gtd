@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  project: one
+  location: one
+  name: MyString
+  description: MyText
+  time: 1
+  energy: 1
+  completed: false
+
+two:
+  project: two
+  location: two
+  name: MyString
+  description: MyText
+  time: 1
+  energy: 1
+  completed: false

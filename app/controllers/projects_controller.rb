@@ -1,63 +1,108 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :edit, :update, :destroy]
+  before_action :set_project, only: [:show, :edit, :update, :destroy, :archive, :unarchive]
+  before_action :set_user
+  before_action :set_default_project, only: [:destroy]
+  before_action :set_default_location, only: [:show]
 
   # GET /projects
   # GET /projects.json
   def index
-    @projects = Project.all
+    if logged_in?
+      @projects = Project.where(user: @user).order(archived: :asc)
+    else
+      redirect_to login_path
+    end
   end
 
   # GET /projects/1
   # GET /projects/1.json
   def show
+    if logged_in?
+      @tasks = @project.tasks
+    else
+      redirect_to login_path
+    end
   end
 
   # GET /projects/new
   def new
-    @project = Project.new
+    if logged_in?
+      if params[:item_id] != nil
+        item = Item.find(params[:item_id].to_i)
+        @project = Project.new(user: @user, name: item.name, description: item.content)
+      else
+        @project = Project.new(user: @user)
+      end
+    else
+      redirect_to login_path
+    end
   end
 
   # GET /projects/1/edit
   def edit
+    if !(logged_in? && @project.user == current_user)
+      redirect_to login_path
+    end
   end
 
   # POST /projects
   # POST /projects.json
   def create
-    @project = Project.new(project_params)
+    if logged_in?
+      @project = Project.new(name: project_params[:name], description: project_params[:description], user:@user)
 
-    respond_to do |format|
       if @project.save
-        format.html { redirect_to @project, notice: 'Project was successfully created.' }
-        format.json { render :show, status: :created, location: @project }
+        redirect_to @project
       else
-        format.html { render :new }
-        format.json { render json: @project.errors, status: :unprocessable_entity }
+        render 'new'
       end
+    else
+      redirect_to login_path
     end
   end
 
   # PATCH/PUT /projects/1
   # PATCH/PUT /projects/1.json
   def update
-    respond_to do |format|
-      if @project.update(project_params)
-        format.html { redirect_to @project, notice: 'Project was successfully updated.' }
-        format.json { render :show, status: :ok, location: @project }
+    if logged_in? && @project.user == current_user
+      if @project.update(name: project_params[:name], description: project_params[:description], user: @user)
+        redirect_to @project
       else
-        format.html { render :edit }
-        format.json { render json: @project.errors, status: :unprocessable_entity }
+        render 'edit'
       end
+    else
+      redirect_to login_path
     end
   end
 
   # DELETE /projects/1
   # DELETE /projects/1.json
   def destroy
-    @project.destroy
-    respond_to do |format|
-      format.html { redirect_to projects_url, notice: 'Project was successfully destroyed.' }
-      format.json { head :no_content }
+    if logged_in? && @project.user == current_user
+      @project.destroy
+      redirect_to projects_path
+    else
+      redirect_to projects_path
+    end
+  end
+
+  def archive
+    if logged_in? && @project.user == current_user
+      if @project.deletable?
+        @project.archive
+      end
+      redirect_to projects_path
+    else
+      redirect_to projects_path
+    end
+  end
+
+  def unarchive
+    if logged_in? && @project.user == current_user
+      @project.unarchive
+      redirect_to @project
+    else
+      redirect_to projects_path
     end
   end
 
@@ -67,8 +112,20 @@ class ProjectsController < ApplicationController
       @project = Project.find(params[:id])
     end
 
+    def set_user
+      @user = current_user
+    end
+
+    def set_default_project
+      @default = Project.where(user: @user, name: "Unassigned").first
+    end
+
+    def set_default_location
+      @default_location = Location.where(user: @user, name: "Anywhere").first
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:name, :description, :user_id)
+      params.require(:project).permit(:name, :description)
     end
 end

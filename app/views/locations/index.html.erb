@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<%= page_heading "Locations" %>
+
+<% if !(@locations.empty?) %>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th colspan="2"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @locations.each do |location| %>
+        <tr>
+          <td><%= link_to location.name, location %></td>
+          <% if location.deletable? %>
+            <td><%= link_to 'Edit', edit_location_path(location) %></td>
+            <td><%= link_to 'Delete', location, method: :delete, data: { confirm: 'Are you sure? All tasks associated with this location will be reassigned to Anywhere.' } %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <br>
+
+<% end %>
+
+<%= link_to 'New Location', new_location_path %>

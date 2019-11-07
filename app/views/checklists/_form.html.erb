@@ -1,0 +1,19 @@
+<%= semantic_form_for @checklist do |f| %>
+  <%= f.inputs do %>
+    <%= f.input :name %>
+    <%= f.input :description %>
+
+    <div id='checklist_items'>
+      <%= f.semantic_fields_for :checklist_items do |item| %>
+        <%= render 'checklist_item_fields', :f => item %>
+      <% end %>
+      <div class='links'>
+        <%= link_to_add_association 'add item', f, :checklist_items %>
+      </div>
+    </div>
+  <% end %>
+
+  <%= f.actions do %>
+    <%= f.action :submit, :as => :button %>
+  <% end %>
+<% end %>
