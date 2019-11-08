@@ -1,5 +1,7 @@
 {
   "name": "gtd",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "normalize.css": "^8.0.1"
+  }
 }

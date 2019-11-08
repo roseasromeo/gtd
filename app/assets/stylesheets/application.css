@@ -10,8 +10,9 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_tree .
+ *= require normalize-rails
  *= require_self
+ *= require_tree .
  */
 
 * {
@@ -33,4 +34,15 @@
   position: sticky;
   position: -webkit-sticky;
   top: 0;
+}
+
+input.button {
+  background-color: white;
+  border-color: black;
+  border-width: thin;
+  border-radius: 5px;
+  color: black;
+  padding: 15px 15px;
+  text-align: center;
+  font-size: 16px;
 }

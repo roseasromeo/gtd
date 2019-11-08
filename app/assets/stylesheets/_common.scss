@@ -1,0 +1,48 @@
+//Common styles for use in selectors
+
+div.nav_links {
+  font-size: 16px;
+  display: flex;
+  justify-content: space-around;
+  padding: 1em 1.5em;
+  text-align: center;
+}
+
+@mixin form-shared {
+  .inputs {
+    border: none;
+  }
+  .actions {
+    border: none;
+  }
+  ol li {
+    font-size: 16px;
+    list-style-type: none;
+    label {
+      display: inline-block;
+    }
+    input {
+      border-width: 1px;
+      margin: 1px;
+    }
+  }
+}
+
+@mixin table-shared {
+  border-collapse: collapse;
+  //width: 100%;
+
+  tbody tr:first-of-type td{
+    padding-top: 1em;
+  }
+
+  thead th { border-bottom: 1px solid #000; }
+
+  th {
+    font-size: 16px;
+    background-color: white;
+  }
+  td {
+    font-size: 16px;
+  }
+}

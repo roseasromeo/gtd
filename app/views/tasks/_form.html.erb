@@ -1,4 +1,4 @@
-<%= semantic_form_for [@project,@task] do |f| %>
+<%= semantic_form_for [@project,@task], :html => { class: "task_form" } do |f| %>
   <% if @task.errors.any? %>
     <div id="error_explanation">
       <h2>

@@ -70,7 +70,7 @@ class TasksController < ApplicationController
       end
       @task = Task.new(name: task_params[:name], description: task_params[:description], project: @project, location: @location, time: Task.time_name(task_params[:time].to_i), energy: task_params[:energy])
       if @task.save
-        redirect_to [@project,@task]
+        redirect_to project_task_path(@project,@task)
       else
         render 'new'
       end
@@ -87,7 +87,7 @@ class TasksController < ApplicationController
         @projects = Project.where(user: @user)
         @locations = Location.where(user: @user)
         if @task.update(task_params)
-          redirect_to [@project,@task]
+          redirect_to project_task_path(@project,@task)
         else
           render 'edit_tags'
         end
@@ -95,7 +95,7 @@ class TasksController < ApplicationController
         @projects = Project.where(user: @user)
         @locations = Location.where(user: @user)
         if @task.update(name: task_params[:name], description: task_params[:description], project: @project, location: @location, time: Task.time_name(task_params[:time].to_i), energy: task_params[:energy])
-          redirect_to [@project,@task]
+          redirect_to project_task_path(@project,@task)
         else
           render 'edit'
         end
@@ -128,7 +128,7 @@ class TasksController < ApplicationController
   def uncomplete
     if logged_in? && @task.project.user == current_user
       @task.uncomplete
-      redirect_to [@project,@task]
+      redirect_to project_task_path(@project,@task)
     else
       redirect_to projects_path
     end

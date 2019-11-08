@@ -40,6 +40,9 @@ gem 'rails-ujs'
 gem 'cocoon'
 gem 'formtastic'
 
+# Baseline the CSS so that styles can actually be applied
+gem 'normalize-rails'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 

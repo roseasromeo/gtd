@@ -2,10 +2,12 @@
 
 <%= page_heading "#{@inbox.name} Inbox" %>
 
+<div class="nav_links">
 <%= link_to 'Edit Name', edit_inbox_path(@inbox) %> | <%= link_to 'Add Item', new_inbox_item_path(@inbox) %>
+</div>
 
 <% if !(@items.empty?) %>
-  <table>
+  <table class="items">
     <thead>
       <tr>
         <th>Name</th>
@@ -16,9 +18,9 @@
     <tbody>
       <% @items.each do |item| %>
         <tr>
-          <td><%= link_to item.name, item %></td>
+          <td><%= link_to item.name, inbox_item_path(@inbox,item) %></td>
           <td><%= link_to 'Edit', edit_inbox_item_path(@inbox,item) %></td>
-          <td><%= link_to 'Delete', item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to 'Delete', inbox_item_path(@inbox,item), method: :delete, data: { confirm: 'Are you sure?' } %></td>
           <% #here goes the assign to project link %>
         </tr>
       <% end %>
@@ -29,7 +31,9 @@
 
   <br>
 
-<% if @inbox.deletable? %>
-  <%= link_to 'Delete Inbox', @inbox, method: :delete, data: { confirm: 'Are you sure? All items associated with this inbox will be reassigned to the [DEFAULT] inbox.' } %> |
-<% end %>
-<%= link_to 'Back to Inboxes', inboxes_path %>
+<div class="nav_links">
+  <% if @inbox.deletable? %>
+    <%= link_to 'Delete Inbox', @inbox, method: :delete, data: { confirm: 'Are you sure? All items associated with this inbox will be reassigned to the [DEFAULT] inbox.' } %> |
+  <% end %>
+  <%= link_to 'Back to Inboxes', inboxes_path %>
+</div>

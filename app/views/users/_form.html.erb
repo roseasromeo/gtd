@@ -1,4 +1,4 @@
-<%= semantic_form_for(@user) do |f| %>
+<%= semantic_form_for @user, :html => { class: "user_form" } do |f| %>
   <% if @user.errors.any? %>
     <div id="error_explanation">
       <h2>

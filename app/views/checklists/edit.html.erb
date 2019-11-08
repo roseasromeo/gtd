@@ -2,5 +2,7 @@
 
 <%= render 'form', checklist: @checklist %>
 
-<%= link_to 'Show Checklist', @checklist %> |
-<%= link_to 'Back to Checklists', checklists_path %>
+<div class="nav_links">
+  <%= link_to 'Show Checklist', @checklist %> |
+  <%= link_to 'Back to Checklists', checklists_path %>
+</div>

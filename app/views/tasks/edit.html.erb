@@ -2,7 +2,7 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Show Task', @task %> |
+<%= link_to 'Show Task', project_task_path(@project,@task) %> |
 <%= link_to 'Back to Project', @project %> |
 <%= link_to 'Back to Projects', projects_path %> | <%= link_to 'Back to Location', @location %> |
 <%= link_to 'Back to Locations', locations_path %>

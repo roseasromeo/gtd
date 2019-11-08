@@ -1,8 +1,8 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update, :destroy]
   before_action :set_user
-  before_action :set_default_inbox, only: [:new, :edit, :show, :destroy]
-  before_action :set_inbox, only: [:new, :edit, :show, :destroy]
+  before_action :set_default_inbox
+  before_action :set_inbox
   before_action :set_default_project, only: [:show]
   before_action :set_default_location, only: [:show]
 
@@ -51,7 +51,7 @@ class ItemsController < ApplicationController
       @item = Item.new(item_params)
 
       if @item.save
-        redirect_to [@inbox,@item]
+        redirect_to inbox_item_path(@inbox,@item)
       else
         render 'new'
       end
@@ -65,7 +65,7 @@ class ItemsController < ApplicationController
   def update
     if logged_in?
       if @item.update(item_params)
-        redirect_to [@inbox,@item]
+        redirect_to inbox_item_path(@inbox,@item)
       else
         render 'edit'
       end

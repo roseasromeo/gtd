@@ -32,13 +32,14 @@
 
     <div class="tags">
       <% if !(@tags.empty?) %>
+      Select Tags that Tasks should match
       <% # choose tags %>
         <ul class="checkbox-grid">
           <% @tags.each do |tag| %>
             <li>
               <label>
-                <%= tag.name %>
                 <%= check_box_tag "tags[#{tag.id}]", class: "checkbox" %>
+                <%= tag.name %>
               </label>
             </li>
           <% end %>

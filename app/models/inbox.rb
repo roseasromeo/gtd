@@ -1,6 +1,6 @@
 class Inbox < ApplicationRecord
   belongs_to :user
-  validates :name, uniqueness: { case_sensitive: false }
+  validates_with NameValidator
 
   has_many :items, dependent: :destroy
 end

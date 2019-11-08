@@ -7,10 +7,8 @@
   <%= @checklist.description %>
 </p>
 
-<% #link_to 'Add Task', new_project_task_path(@default_project, location_id: @location) %>
-
-<% if false #if !(@checklist_items.empty?) %>
-  <table>
+<% if !(@checklist_items.empty?) %>
+  <table class="checklist_items">
     <thead>
       <tr>
         <th>Name</th>
@@ -32,5 +30,8 @@
 
   <br>
 
-<%= link_to 'Edit Checklist', edit_checklist_path(@checklist) %> |
-<%= link_to 'Back to Checklists', checklists_path %>
+<div class="nav_links">
+  <%= link_to 'Delete Checklist', @checklist, method: :delete, data: { confirm: 'Are you sure? All items on this checklist will be deleted too.' } %> |
+  <%= link_to 'Edit Checklist', edit_checklist_path(@checklist) %> |
+  <%= link_to 'Back to Checklists', checklists_path %>
+</div>

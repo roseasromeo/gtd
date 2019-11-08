@@ -1,3 +1,13 @@
 // Place all the styles related to the Inboxes controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import 'common';
+
+form.inbox_form, {
+  @include form-shared;
+}
+
+table.inboxes {
+  @include table-shared;
+}

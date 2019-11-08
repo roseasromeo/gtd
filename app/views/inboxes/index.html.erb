@@ -3,10 +3,10 @@
 <%= page_heading "Inboxes" %>
 
 <% if !(@inboxes.empty?) %>
-  <table>
+  <table class="inboxes">
     <thead>
       <tr>
-        <th>Name</th>
+        <th>Inbox Name</th>
         <th colspan="2"></th>
       </tr>
     </thead>
@@ -28,4 +28,6 @@
 
 <% end %>
 
-<%= link_to 'New Inbox', new_inbox_path %>
+<div class="nav_links">
+  <%= link_to 'New Inbox', new_inbox_path %>
+</div>
