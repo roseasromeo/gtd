@@ -139,7 +139,7 @@ class TasksController < ApplicationController
   end
 
   def search
-    if params[:commit] == "Filter"
+    if params[:commit] == "Find"
       # Perform search
       all_tasks = Task.joins(:project).where(projects: {user: @user})
 

@@ -5,19 +5,24 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width", maximum-scale=1.5" >
   <% if content_for? :for_head %>
     <%= yield :for_head %>
   <% end %>
 </head>
 <body>
   <div class="header">
+    <div class="menu_links">
     <% if current_user != nil %>
-      <p class="logout"><%= link_to 'Logout', logout_path %></p>
-      <p class="users"><%= link_to 'Edit User Profile', edit_user_path(current_user) %></p>
+      <%= link_to 'Logout', logout_path %>
+      <%= link_to 'Edit User Profile', edit_user_path(current_user) %>
     <% elsif current_page?(login_path) != true %>
-      <p class="login"><%= link_to 'Login', login_path %></p>
+      <%= link_to 'Login', login_path %>
     <% end %>
-    <p class="links"><%= link_to 'Home', root_path %></p>
+    <% if !(current_page?('/')) %>
+      <%= link_to 'Home', root_path %>
+    <% end %>
+    </div>
   </div>
   <%= yield %>
 </body>
