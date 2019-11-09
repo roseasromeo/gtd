@@ -2,6 +2,8 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Show Item', @item %> |
-<%= link_to 'Back to Inbox', @inbox %> |
-<%= link_to 'Back to Inboxes', inboxes_path %>
+<div class="nav_links">
+  <%= link_to 'Show Item', inbow_item_path(@inbox,@item) %> |
+  <%= link_to 'Back to Inbox', @inbox %> |
+  <%= link_to 'Back to Inboxes', inboxes_path %>
+</div>
