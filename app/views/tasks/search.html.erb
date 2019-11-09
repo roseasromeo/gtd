@@ -10,7 +10,7 @@
       </label>
       <label>
         Also include Anywhere?
-        <%= check_box_tag :anywhere, class: "checkbox" %>
+        <%= check_box_tag :anywhere, 1, false, class: "checkbox" %>
       </label>
     </div>
 
@@ -38,7 +38,7 @@
           <% @tags.each do |tag| %>
             <li>
               <label>
-                <%= check_box_tag "tags[#{tag.id}]", class: "checkbox" %>
+                <%= check_box_tag "tags[]", tag.id, false, class: "checkbox" %>
                 <%= tag.name %>
               </label>
             </li>
@@ -51,12 +51,12 @@
       <% # Include archived projects? %>
       <label>
         Include archived projects?
-        <%= check_box_tag :archived, class: "checkbox" %>
+        <%= check_box_tag :archived, 1, false, class: "checkbox" %>
       </label>
       <% # Include completed tasks? %>
       <label>
         Include completed tasks?
-        <%= check_box_tag :completed, class: "checkbox" %>
+        <%= check_box_tag :completed, 1, false, class: "checkbox" %>
       </label>
     </div>
 

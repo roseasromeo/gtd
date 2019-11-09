@@ -1,28 +1,30 @@
 class TasksController < ApplicationController
-  before_action :set_task, except: [:new, :create, :search]
+  before_action :set_task, except: [:index, :new, :create, :search]
   before_action :set_user
   before_action :set_default_project
-  before_action :set_project
+  before_action :set_project, except: [:search]
   before_action :set_default_location
   before_action :set_location, except: [:search]
   before_action :time_collection, only: [:new, :edit, :create, :update, :search]
   before_action :energy_collection, only: [:new, :edit, :create, :update, :search]
 
+  helper_method :sort_column, :sort_direction
+
   # GET /tasks
   # GET /tasks.json
-  #def index
-    #if logged_in?
-      #@inboxes = Inbox.where(user: @user)
-    #else
-      #redirect_to login_path
-    #end
-  #end
+  def index
+    if logged_in?
+      @tasks = Task.joins(:project).where(projects: {user: @user}).order(completed: :asc, name: :asc)
+    else
+      redirect_to login_path
+    end
+  end
 
   # GET /tasks/1
   # GET /tasks/1.json
   def show
     if logged_in?
-      @tags = @task.tags
+      @tags = @task.tags.order(name: :asc)
     else
       redirect_to login_path
     end
@@ -31,7 +33,7 @@ class TasksController < ApplicationController
   # GET /tasks/new
   def new
     if logged_in?
-      @projects = Project.where(user: @user)
+      @projects = Project.where(user: @user, archived: false).order(deletable: :asc, name: :asc)
       @locations = Location.where(user: @user)
       if params[:item_id] != nil
         item = Item.find(params[:item_id].to_i)
@@ -49,8 +51,8 @@ class TasksController < ApplicationController
     if !(logged_in? && @task.project.user == current_user)
       redirect_to login_path
     else
-      @projects = Project.where(user: @user)
-      @locations = Location.where(user: @user)
+      @projects = Project.where(user: @user, archived: false).order(deletable: :asc, name: :asc)
+      @locations = Location.where(user: @user).order(deletable: :asc, name: :asc)
     end
   end
 
@@ -59,8 +61,8 @@ class TasksController < ApplicationController
   def create
     if logged_in?
       @project = Project.find(task_params[:project_id])
-      @projects = Project.where(user: @user)
-      @locations = Location.where(user: @user)
+      @projects = Project.where(user: @user, archived: false).order(deletable: :asc, name: :asc)
+      @locations = Location.where(user: @user).order(deletable: :asc, name: :asc)
       if @project == nil
         @project = @default_project
       end
@@ -84,16 +86,16 @@ class TasksController < ApplicationController
   def update
     if logged_in?
       if params[:commit] == "Save Tags"
-        @projects = Project.where(user: @user)
-        @locations = Location.where(user: @user)
+        @projects = Project.where(user: @user, archived: false).order(deletable: :asc, name: :asc)
+        @locations = Location.where(user: @user).order(deletable: :asc, name: :asc)
         if @task.update(task_params)
           redirect_to project_task_path(@project,@task)
         else
           render 'edit_tags'
         end
       else
-        @projects = Project.where(user: @user)
-        @locations = Location.where(user: @user)
+        @projects = Project.where(user: @user, archived: false).order(deletable: :asc, name: :asc)
+        @locations = Location.where(user: @user).order(deletable: :asc, name: :asc)
         if @task.update(name: task_params[:name], description: task_params[:description], project: @project, location: @location, time: Task.time_name(task_params[:time].to_i), energy: task_params[:energy])
           redirect_to project_task_path(@project,@task)
         else
@@ -178,7 +180,6 @@ class TasksController < ApplicationController
           energy_tasks = energy_tasks.or(time_tasks.where(energy: k))
         end
       end
-      energy_tasks = energy_tasks.order(time: :desc, energy: :desc)
 
       # Tags
       tagged_tasks = energy_tasks
@@ -191,7 +192,7 @@ class TasksController < ApplicationController
         end
       end
 
-      @tasks = tagged_tasks
+      @tasks = tagged_tasks.order(time: :desc, energy: :desc, completed: :asc, name: :asc)
       render 'results'
     else
       # Render search

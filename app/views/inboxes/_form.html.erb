@@ -15,7 +15,7 @@
   <%= f.inputs do %>
     <%= f.input :name, required: true %>
     <%= f.actions do %>
-      <%= f.action :submit, label: "Save Inbox", :button_html => { class: "button" } %>
+      <%= f.action :submit, as: :input, :button_html => { class: "button" } %>
     <% end %>
   <% end %>
 <% end %>

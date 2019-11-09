@@ -1,8 +1,18 @@
-<%= page_heading "Edit Tags" %>
+<%= page_heading "Add/Remove Tags" %>
 
 <%= render 'tag_form' %>
 
-<%= link_to 'Show Task', project_task_path(@project,@task) %> | <%= link_to 'Make Another Tag', new_tag_path %> |
-<%= link_to 'Back to Project', @project %> |
-<%= link_to 'Back to Projects', projects_path %> | <%= link_to 'Back to Location', @location %> |
-<%= link_to 'Back to Locations', locations_path %>
+<div class="nav_links">
+  <%= link_to 'Show Task', project_task_path(@project,@task) %>
+</div>
+<div class="nav_links">
+  <%= link_to 'Make Another Tag (Refresh this page after making new tags)', new_tag_path %>
+</div>
+<div class="nav_links">
+  <%= link_to 'Back to Project', @project %> |
+  <%= link_to 'Back to Projects', projects_path %>
+</div>
+<div class="nav_links">
+  <%= link_to 'Back to Location', @location %> |
+  <%= link_to 'Back to Locations', locations_path %>
+</div>

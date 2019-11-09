@@ -1,28 +1,7 @@
 <%= page_heading "Filter Results" %>
 
-<% if !(@tasks.empty?) %>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Project</th>
-        <th>Completed?</th>
-        <th>Time</th>
-        <th>Energy</th>
-      </tr>
-    </thead>
+<%= render 'task_table', tasks: @tasks, proj_name: true, loc_name: false, options: false, time_en: true %>
 
-    <tbody>
-      <% @tasks.order(:completed).each do |task| %>
-        <tr>
-          <td><%= link_to task.name, task %></td>
-          <td><%= link_to task.project.name, task.project %></td>
-          <td><%= task.completed %></td>
-          <td><%= task.time %></td>
-          <td><%= task.energy %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-
-<% end %>
+<div class="nav_links">
+  <%= link_to "New Search", search_path %>
+</div>

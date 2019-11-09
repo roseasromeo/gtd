@@ -14,5 +14,39 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user, :admin_user?
 
+  private
+    def sort_column
+      if Task.column_names.include?(params[:sort])
+        params[:sort]
+      # elsif Project.names.include?(params[:sort])
+      #   params[:sort]
+      # elsif Location.names.include?(params[:sort])
+      #   params[:sort]
+      # elsif Task.names.include?(params[:sort])
+      #   params[:sort]
+      else
+        "name"
+      end
+    end
+
+    def sort_direction
+      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+    end
+
+    def sort_tasks(tasks, column, direction, pledges)
+      if Task.column_names.include?(column)
+        tasks = tasks.order(column + " " + direction)
+      # elsif Tags.names.include?(column)
+      #   if direction == "asc"
+      #     characters = characters.sort_by{|character| pledge_array(character, pledges, column)}
+      #   else
+      #     characters = characters.sort_by{|character| -pledge_array(character, pledges, column)}
+      #   end
+      else
+        tasks = tasks.order("name" + " " + "asc")
+      end
+      tasks
+    end
+
 
 end

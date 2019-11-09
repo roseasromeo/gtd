@@ -28,6 +28,7 @@ Rails.application.routes.draw do
       end
     end
   end
+  resources :tasks, only: [:index] #independent Task index
   resources :locations
   resources :tags
 

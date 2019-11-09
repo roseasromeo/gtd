@@ -2,40 +2,9 @@
 
 <%= page_heading "Tasks" %>
 
-<% if !(@tasks.empty?) %>
-  <table class="tasks">
-    <thead>
-      <tr>
-        <th>Project</th>
-        <th>Location</th>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Time</th>
-        <th>Energy</th>
-        <th>Completed</th>
-        <th colspan="3"></th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% @tasks.each do |task| %>
-        <tr>
-          <td><%= task.name %></td>
-          <td><%= task.project %></td>
-          <td><%= task.location %></td>
-          <td><%= task.description %></td>
-          <td><%= task.time %></td>
-          <td><%= task.energy %></td>
-          <td><%= task.completed %></td>
-          <td><%= link_to 'Show', task %></td>
-          <td><%= link_to 'Edit', edit_task_path(task) %></td>
-          <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-<% end %>
-
+<%= render 'task_table', tasks: @tasks, proj_name: false, loc_name: true, options: false, time_en: true %>
 <br>
 
-<%= link_to 'New Task', new_task_path %>
+<div class="nav_links">
+  <%= link_to 'New Task', new_project_task_path(@project) %>
+</div>

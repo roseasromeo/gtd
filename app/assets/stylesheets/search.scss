@@ -1,3 +1,6 @@
+
+@import 'common';
+
 div.search_form {
   font-size: large;
   line-height: 1.5em;
@@ -9,14 +12,5 @@ div.search_form {
     border-radius: 5px;
   }
 
-  input.checkbox {
-    width: 16px;
-    height: 16px;
-  }
-
-  .checkbox-grid li {
-    display: inline-block;
-    width: 45%;
-    font-size: 16px;
-  }
+  @include checkbox-grid;
 }

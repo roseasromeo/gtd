@@ -26,11 +26,23 @@ div.nav_links {
       margin: 1px;
     }
   }
+  textarea {
+    outline: none !important;
+    border-color: black;
+    width: 100%;
+    //box-shadow: 0 0 10px #719ECE;
+  }
+  li.text label{
+    vertical-align: top;
+  }
 }
 
 @mixin table-shared {
   border-collapse: collapse;
-  //width: 100%;
+  width: 100%;
+  white-space:normal;
+  word-wrap: break-word;
+  table-layout:fixed;
 
   tbody tr:first-of-type td{
     padding-top: 1em;
@@ -43,6 +55,27 @@ div.nav_links {
     background-color: white;
   }
   td {
+    font-size: 16px;
+  }
+
+  th.options {
+    width: 60%;
+  }
+}
+
+@mixin checkbox-grid {
+  ol {
+    padding-inline-start: 5px;
+  }
+
+  input.checkbox {
+    width: 16px;
+    height: 16px;
+  }
+
+  .checkbox-grid li {
+    display: inline-block;
+    width: 45%;
     font-size: 16px;
   }
 }

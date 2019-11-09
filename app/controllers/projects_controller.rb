@@ -8,7 +8,7 @@ class ProjectsController < ApplicationController
   # GET /projects.json
   def index
     if logged_in?
-      @projects = Project.where(user: @user).order(archived: :asc)
+      @projects = Project.where(user: @user).order(deletable: :asc, archived: :asc, name: :asc)
     else
       redirect_to login_path
     end
@@ -18,7 +18,7 @@ class ProjectsController < ApplicationController
   # GET /projects/1.json
   def show
     if logged_in?
-      @tasks = @project.tasks
+      @tasks = @project.tasks.order(completed: :asc, name: :asc)
     else
       redirect_to login_path
     end

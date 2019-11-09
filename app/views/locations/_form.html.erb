@@ -13,10 +13,9 @@
     </div>
   <% end %>
   <%= f.inputs do %>
-    <%= f.input :name %>
-  <% end %>
-
-  <%= f.actions do %>
-    <%= f.action :submit, :as => :input %>
+    <%= f.input :name, :required => true  %>
+    <%= f.actions do %>
+      <%= f.action :submit, :as => :input, :button_html => { class: "button" }  %>
+    <% end %>
   <% end %>
 <% end %>

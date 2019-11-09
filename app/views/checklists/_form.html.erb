@@ -24,9 +24,9 @@
         <%= link_to_add_association 'add item', f, :checklist_items %>
       </div>
     </div>
-  <% end %>
 
-  <%= f.actions do %>
-    <%= f.action :submit, :as => :button %>
+    <%= f.actions do %>
+      <%= f.action :submit, :as => :button, :button_html => { class: "button" } %>
+    <% end %>
   <% end %>
 <% end %>

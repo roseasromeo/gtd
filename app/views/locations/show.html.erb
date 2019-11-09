@@ -7,29 +7,8 @@
 <% end %>
 <%= link_to 'Add Task', new_project_task_path(@default_project, location_id: @location) %>
 
-<% if !(@tasks.empty?) %>
-  <table class="tasks">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th colspan="2"></th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% @tasks.each do |task| %>
-        <tr>
-          <td><%= link_to task.name, project_task_path(task.project,task) %></td>
-          <td><%= link_to 'Edit', edit_project_task_path(task.project,task) %></td>
-          <td><%= link_to 'Delete', project_task_path(task.project,task), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-
-<% end %>
-
-  <br>
+<%= render 'task_table', tasks: @tasks, proj_name: true, loc_name: false, options: false, time_en: true %>
+<br>
 
 <% if @location.deletable? %>
   <%= link_to 'Delete Location', @location, method: :delete, data: { confirm: 'Are you sure? All tasks associated with this location will be reassigned to Anywhere.' } %> |

@@ -23,6 +23,21 @@ class Task < ApplicationRecord
     time_names = { "5 min" => 5, "15 min" => 15, "30 min" => 30, "45 min" => 45, "1 hr" => 60, "1 hr 30 min" => 90, "2 hr" => 120, "2 hr 30 min" => 150, "3 hr" => 180, "4 hr" => 240}
   end
 
+  def time_read
+    Task.time_names.key(Task.times[self.time])
+  end
+
+  def energy_read
+    if self.energy == :low
+      er = "low"
+    elsif self.energy == :medium
+      er = "med"
+    else
+      er = "high"
+    end
+    er
+  end
+
   def complete
     self.update_attributes(completed: true)
   end

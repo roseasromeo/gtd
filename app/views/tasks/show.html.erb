@@ -41,7 +41,7 @@
   </p>
 <% end %>
 
-<%= link_to 'Edit Task', edit_project_task_path(@project,@task) %> | <%= link_to 'Edit Tags', edit_tags_project_task_path(@project,@task) %> | <%= link_to 'Add Another Task', new_project_task_path(@project, location_id: @location) %> |
+<%= link_to 'Edit Task', edit_project_task_path(@project,@task) %> | <%= link_to 'Add/Remove Tags', edit_tags_project_task_path(@project,@task) %> | <%= link_to 'Add Another Task', new_project_task_path(@project, location_id: @location) %> |
 
 <% if @task.completed? %>
   <%= link_to 'Mark Task Uncompleted', uncomplete_project_task_path(@project,@task) %> |

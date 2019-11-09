@@ -6,7 +6,7 @@ class ChecklistsController < ApplicationController
   # GET /checklists.json
   def index
     if logged_in?
-      @checklists = Checklist.where(user: @user)
+      @checklists = Checklist.where(user: @user).order(name: :asc)
     else
       redirect_to login_path
     end

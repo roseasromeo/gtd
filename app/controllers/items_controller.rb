@@ -29,7 +29,7 @@ class ItemsController < ApplicationController
   def new
     if logged_in?
       @item = Item.new
-      @inboxes = Inbox.where(user: @user)
+      @inboxes = Inbox.where(user: @user).order(deletable: :asc, name: :asc)
     else
       redirect_to login_path
     end
@@ -40,7 +40,7 @@ class ItemsController < ApplicationController
     if !(logged_in? && @item.inbox.user == current_user)
       redirect_to login_path
     else
-      @inboxes = Inbox.where(user: @user)
+      @inboxes = Inbox.where(user: @user).order(deletable: :asc, name: :asc)
     end
   end
 
@@ -53,6 +53,7 @@ class ItemsController < ApplicationController
       if @item.save
         redirect_to inbox_item_path(@inbox,@item)
       else
+        @inboxes = Inbox.where(user: @user).order(deletable: :asc, name: :asc)
         render 'new'
       end
     else
@@ -67,6 +68,7 @@ class ItemsController < ApplicationController
       if @item.update(item_params)
         redirect_to inbox_item_path(@inbox,@item)
       else
+        @inboxes = Inbox.where(user: @user).order(deletable: :asc, name: :asc)
         render 'edit'
       end
     else

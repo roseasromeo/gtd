@@ -30,7 +30,7 @@
     <%= f.input :content%>
     <%= f.select(:inbox_id, options_for_select(@inboxes.map{|t| [t.name, t.id]}, @inbox.id)) %>
     <%= f.actions do %>
-      <%= f.action :submit, label: "Save Item" %>
+      <%= f.action :submit, as: :input, :button_html => { class: "button" } %>
     <% end %>
   <% end %>
 <% end %>

@@ -6,7 +6,7 @@ class TagsController < ApplicationController
   # GET /tags.json
   def index
     if logged_in?
-      @tags = Tag.where(user: @user)
+      @tags = Tag.where(user: @user).order(name: :asc)
     else
       redirect_to login_path
     end
@@ -16,7 +16,7 @@ class TagsController < ApplicationController
   # GET /tags/1.json
   def show
     if logged_in?
-      @tasks = @tag.tasks
+      @tasks = @tag.tasks.order(completed: :asc, name: :asc)
     else
       redirect_to login_path
     end

@@ -19,9 +19,9 @@
     <%= f.input :energy, as: :select, include_blank: false %>
     <%= f.select(:project_id, options_for_select(@projects.map{|t| [t.name, t.id]}, @project.id)) %>
     <%= f.select(:location_id, options_for_select(@locations.map{|t| [t.name, t.id]}, @location.id)) %>
-  <% end %>
-
-  <%= f.actions do %>
-    <%= f.action :submit, :as => :input %>
+    
+    <%= f.actions do %>
+      <%= f.action :submit, :as => :input, :button_html => { class: "button" }  %>
+    <% end %>
   <% end %>
 <% end %>

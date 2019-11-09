@@ -1,0 +1,53 @@
+<% if !(tasks.empty?) %>
+  <table class="tasks">
+    <thead>
+      <tr>
+        <th class="name">Task</th>
+        <th class="completed">&#10004<br>&#9633;</th>
+        <% if proj_name %>
+          <th class="proj">Project</th>
+        <% end %>
+        <% if loc_name %>
+          <th class="loc">Location</th>
+        <% end %>
+        <% if time_en %>
+          <th class="time">Time</th>
+          <th class="energy">Energy Level</th>
+        <% end %>
+        <% if options %>
+          <th colspan="2" class="options"></th>
+        <% end %>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% tasks.order(:completed).each do |task| %>
+        <tr>
+          <td><%= link_to task.name, project_task_path(task.project,task) %></td>
+          <td>
+            <% if task.completed %>
+              &#10004
+            <% else %>
+              &#9633;
+            <% end %>
+          </td>
+          <% if proj_name %>
+            <td><%= task.project.name %></td>
+          <% end %>
+          <% if loc_name %>
+            <td><%= task.location.name %></td>
+          <% end %>
+          <% if time_en %>
+            <td><%= task.time_read %></td>
+            <td><%= task.energy_read.humanize %></td>
+          <% end %>
+          <% if options %>
+            <td><%= link_to 'Edit', edit_project_task_path(task.project,task) %></td>
+            <td><%= link_to 'Delete', project_task_path(task.project,task), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+<% end %>

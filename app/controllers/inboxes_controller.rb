@@ -7,7 +7,7 @@ class InboxesController < ApplicationController
   # GET /inboxes.json
   def index
     if logged_in?
-      @inboxes = Inbox.where(user: @user)
+      @inboxes = Inbox.where(user: @user).order(deletable: :asc, name: :asc)
     else
       redirect_to login_path
     end
@@ -17,7 +17,7 @@ class InboxesController < ApplicationController
   # GET /inboxes/1.json
   def show
     if logged_in?
-      @items = @inbox.items
+      @items = @inbox.items.order(name: :asc)
     else
       redirect_to login_path
     end

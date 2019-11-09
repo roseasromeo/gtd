@@ -8,7 +8,7 @@ class LocationsController < ApplicationController
   # GET /locations.json
   def index
     if logged_in?
-      @locations = Location.where(user: @user)
+      @locations = Location.where(user: @user).order(deletable: :asc, name: :asc)
     else
       redirect_to login_path
     end

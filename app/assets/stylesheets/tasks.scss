@@ -10,4 +10,23 @@ form.tasks_form, {
 
 table.tasks {
   @include table-shared;
+
+  th.completed {
+    width: 5%;
+  }
+  th.time {
+    width: 15%;
+  }
+  th.energy {
+    width: 17%;
+  }
+}
+
+form.tag_task_form {
+  @include form-shared;
+  label.tag_label {
+    text-align: center;
+  }
+
+  @include checkbox-grid;
 }
