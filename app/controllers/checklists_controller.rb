@@ -27,7 +27,7 @@ class ChecklistsController < ApplicationController
     if logged_in?
       if params[:item_id] != nil
         item = Item.find(params[:item_id].to_i)
-        @checklist = Checklist.new(name: item.name, description: item.content)
+        @checklist = Checklist.new(name: item.name, description: item.description)
       else
         @checklist = Checklist.new(user: @user)
       end

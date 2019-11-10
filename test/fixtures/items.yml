@@ -2,10 +2,10 @@
 
 one:
   name: MyString
-  content: MyText
-  belongs_to: 
+  description: MyText
+  belongs_to:
 
 two:
   name: MyString
-  content: MyText
-  belongs_to: 
+  description: MyText
+  belongs_to:

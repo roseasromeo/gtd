@@ -37,7 +37,7 @@ class TasksController < ApplicationController
       @locations = Location.where(user: @user)
       if params[:item_id] != nil
         item = Item.find(params[:item_id].to_i)
-        @task = Task.new(name: item.name, description: item.content)
+        @task = Task.new(name: item.name, description: item.description)
       else
         @task = Task.new
       end

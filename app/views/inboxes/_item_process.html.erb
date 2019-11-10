@@ -1,0 +1,10 @@
+<% #This is a way to display each item to process into tasks or other destinations %>
+
+<div class="item_info">
+  <%= item.name %>
+  <%= item.content %>
+</div>
+
+<% if step="action?" %>
+  <%= render "action_question" %>
+<% end %>

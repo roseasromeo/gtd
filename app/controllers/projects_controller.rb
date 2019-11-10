@@ -29,7 +29,7 @@ class ProjectsController < ApplicationController
     if logged_in?
       if params[:item_id] != nil
         item = Item.find(params[:item_id].to_i)
-        @project = Project.new(user: @user, name: item.name, description: item.content)
+        @project = Project.new(user: @user, name: item.name, description: item.description)
       else
         @project = Project.new(user: @user)
       end

@@ -15,7 +15,7 @@ class ItemsTest < ApplicationSystemTestCase
     click_on "New Item"
 
     fill_in "Belongs to", with: @item.belongs_to
-    fill_in "Content", with: @item.content
+    fill_in "Content", with: @item.description
     fill_in "Name", with: @item.name
     click_on "Create Item"
 
@@ -28,7 +28,7 @@ class ItemsTest < ApplicationSystemTestCase
     click_on "Edit", match: :first
 
     fill_in "Belongs to", with: @item.belongs_to
-    fill_in "Content", with: @item.content
+    fill_in "Content", with: @item.description
     fill_in "Name", with: @item.name
     click_on "Update Item"
 
