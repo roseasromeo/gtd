@@ -2,9 +2,9 @@
 
 <div class="item_info">
   <%= item.name %>
-  <%= item.content %>
+  <%= item.description %>
 </div>
 
-<% if step="action?" %>
-  <%= render "action_question" %>
-<% end %>
+<div class="develop_options"
+  <%= render step, item: item %>
+</div>

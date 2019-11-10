@@ -35,14 +35,3 @@
   position: -webkit-sticky;
   top: 0;
 }
-
-input.button {
-  background-color: white;
-  border-color: black;
-  border-width: thin;
-  border-radius: 5px;
-  color: black;
-  padding: 15px 15px;
-  text-align: center;
-  font-size: 16px;
-}

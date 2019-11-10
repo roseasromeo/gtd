@@ -107,3 +107,15 @@ div.nav_links {
   text-align: center;
   font-size: 16px;
 }
+
+@mixin link_button {
+  button.button {
+    @include button;
+    a {
+      text-decoration: none;
+    }
+    display: inline-block;
+    margin-top: 5px;
+  }
+  text-align: center;
+}

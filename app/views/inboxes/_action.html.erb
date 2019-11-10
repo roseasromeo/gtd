@@ -1,0 +1,9 @@
+<div class="action">
+  Is there an action for this item?
+  <br>
+  <button class="button" type="button"><%= link_to "Yes (one step)", develop_inbox_path(@inbox, item: item, next_step: "yes_one") %></button>
+  <br>
+  <button class="button" type="button"><%= link_to "Yes (multiple steps)", develop_inbox_path(@inbox, item: item, next_step: "yes_mult") %></button>
+  <br>
+  <button class="button" type="button"><%= link_to "No", develop_inbox_path(@inbox, item: item, next_step: "no") %></button>
+</div>

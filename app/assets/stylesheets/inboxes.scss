@@ -11,3 +11,7 @@ form.inbox_form, {
 table.inboxes {
   @include table-shared;
 }
+
+div.develop_options {
+  @include link_button;
+}

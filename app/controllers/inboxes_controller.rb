@@ -1,5 +1,5 @@
 class InboxesController < ApplicationController
-  before_action :set_inbox, only: [:show, :edit, :update, :destroy]
+  before_action :set_inbox, only: [:show, :edit, :update, :destroy, :develop]
   before_action :set_user
   before_action :set_default_inbox, only: [:destroy]
 
@@ -84,6 +84,23 @@ class InboxesController < ApplicationController
     end
   end
 
+  def develop
+    if @inbox.items.empty?
+      redirect_to @inbox
+    end
+    @step = set_step
+    @item = set_item
+    if @step == "delete"
+      next_item_tmp = next_item(@item.id)
+      @item.destroy
+      @item = next_item_tmp
+      @step = "action"
+    elsif @step == "next"
+      @item = next_item(@item.id)
+      @step = "action"
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_inbox
@@ -96,6 +113,32 @@ class InboxesController < ApplicationController
 
     def set_default_inbox
       @default = Inbox.where(user: @user, name: "Default").first
+    end
+
+    def set_item
+      if params[:item] != nil
+        item = Item.find(params[:item])
+      end
+      if params[:item] == nil || item.inbox != @inbox
+        item = @inbox.items.order(created_at: :desc).first
+      end
+      item
+    end
+
+    def set_step
+      step = "action"
+      if params[:next_step] != nil
+        step = params[:next_step]
+      end
+      step
+    end
+
+    def next_item(id)
+      @inbox.items.where("id > ?", id).order(id: :asc).first ||   @inbox.items.first
+    end
+
+    def prev_item(id)
+      @inbox.items.where("id < ?", id).order(id: :desc).first ||   @inbox.items.last
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

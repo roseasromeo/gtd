@@ -40,6 +40,9 @@ gem 'rails-ujs'
 gem 'cocoon'
 gem 'formtastic'
 
+# Allow for reloading just one part of a page
+# gem 'jquery-ujs'
+
 # Baseline the CSS so that styles can actually be applied
 gem 'normalize-rails'
 

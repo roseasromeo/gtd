@@ -5,13 +5,5 @@
 @import 'common';
 
 div.homepage {
-  button.button {
-    @include button;
-    a {
-      text-decoration: none;
-    }
-    display: inline-block;
-    margin-top: 5px;
-  }
-  text-align: center;
+  @include link_button;
 }
