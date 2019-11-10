@@ -1,17 +1,22 @@
-<div class="yes_one">
-  <h3 class="do_it"> DO IT! </h3>
+<div class="delegate">
+  <h3 class="do_it">Delegate this task to someone else who can do it</h3>
   <br>
-  Now that you've done that action, you can:
+  If you can, delegate it right now!
+  <br>
+  <br>
+  Then, if you will need to follow-up if it isn't done, add it to your checklist of items you are waiting on.
+  <br>
+  <button class="button" type="button"><%= link_to "Add to 'Waiting On' Checklist", develop_inbox_path(@inbox, item: item, next_step: "waiting") %></button>
+  <br>
+  <br>
+  If it doesn't need to followed-up on, you can move on.
   <br>
   <button class="button" type="button"><%= link_to "Delete Item", develop_inbox_path(@inbox, item: item, next_step: "delete"), data: { confirm: "Confirm deletion?" } %></button>
   <br>
   <button class="button" type="button"><%= link_to "Go to Next Item (without Deleting)", develop_inbox_path(@inbox, item: item, next_step: "next") %></button>
   <br>
   <br>
-  For repeating actions, consider:
-  <br>
-  <button class="button" type="button"><%= link_to "Add to existing Checklist", develop_inbox_path(@inbox, item: item, next_step: "add_checklist") %></button>
-  <button class="button" type="button"><%= link_to "Start a new Checklist", develop_inbox_path(@inbox, item: item, next_step: "make_checklist") %></button>
+  If delegating can't happen right now, the action of delegating should become a task (single step) or a project (multi-step) to address it later.
   <br>
   <button class="button" type="button"><%= link_to "Add as a Task to existing Project", develop_inbox_path(@inbox, item: item, next_step: "add_task") %></button>
   <button class="button" type="button"><%= link_to "Start a new Project", develop_inbox_path(@inbox, item: item, next_step: "start_project") %></button>

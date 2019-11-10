@@ -112,7 +112,7 @@ class ItemsController < ApplicationController
     end
 
     def set_default_inbox
-      @default = Inbox.where(user: @user, name: "Default").first
+      @default = Inbox.where(user: @user, name: "General").first
     end
 
     def set_default_project

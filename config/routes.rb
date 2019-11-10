@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   resources :inboxes do
     resources :items, except: [:index]
     member do
-      get 'develop'
+      get 'develop' => 'develop#develop', as: :develop
     end
   end
 

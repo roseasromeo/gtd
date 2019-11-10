@@ -14,7 +14,7 @@ class User < ApplicationRecord
 
   after_initialize do
     unless persisted?
-      inboxes << Inbox.new(name: 'Default', user: self, deletable: false)
+      inboxes << Inbox.new(name: 'General', user: self, deletable: false)
       inboxes << Inbox.new(name: 'Reference', user: self, deletable: false)
       inboxes << Inbox.new(name: 'Someday', user: self, deletable: false)
       projects << Project.new(name: 'Unassigned', user: self, deletable: false)

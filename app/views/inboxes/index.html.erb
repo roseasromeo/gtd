@@ -17,7 +17,7 @@
           <td><%= link_to inbox.name, inbox %></td>
           <% if inbox.deletable %>
             <td><%= link_to 'Edit', edit_inbox_path(inbox) %></td>
-            <td><%= link_to 'Delete', inbox, method: :delete, data: { confirm: 'Are you sure? All items associated with this inbox will be reassigned to the [DEFAULT] inbox.' } %></td>
+            <td><%= link_to 'Delete', inbox, method: :delete, data: { confirm: 'Are you sure? All items associated with this inbox will be reassigned to the General inbox.' } %></td>
           <% end %>
         </tr>
       <% end %>

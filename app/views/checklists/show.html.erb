@@ -13,8 +13,7 @@
   <table class="checklist_items">
     <thead>
       <tr>
-        <th>Name</th>
-        <th colspan="1"></th>
+        <th>Items</th>
       </tr>
     </thead>
 
@@ -22,7 +21,6 @@
       <% @checklist_items.each do |item| %>
         <tr>
           <td><%= item.name %></td>
-          <td><%= link_to 'Delete', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
       <% end %>
     </tbody>
