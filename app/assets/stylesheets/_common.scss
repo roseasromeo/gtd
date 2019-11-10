@@ -35,6 +35,10 @@ div.nav_links {
   li.text label{
     vertical-align: top;
   }
+  @include select_style;
+  input.button {
+    @include button;
+  }
 }
 
 @mixin table-shared {
@@ -78,4 +82,28 @@ div.nav_links {
     width: 45%;
     font-size: 16px;
   }
+}
+
+@mixin select_style{
+  select {
+    font-size: 16px;
+    border-color: black;
+    border-width: thin;
+    border-radius: 5px;
+  }
+}
+
+@mixin show_page {
+  font-size: 16px;
+}
+
+@mixin button {
+  background-color: white;
+  border-color: black;
+  border-width: thin;
+  border-radius: 5px;
+  color: black;
+  padding: 15px 15px;
+  text-align: center;
+  font-size: 16px;
 }

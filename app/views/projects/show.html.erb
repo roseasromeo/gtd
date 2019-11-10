@@ -10,10 +10,12 @@
 </div>
 
 <% if @project.deletable? %>
-<p>
-  <strong>Description:</strong>
-  <%= @project.description %>
-</p>
+  <div class="project_show_page">
+    <p>
+      <strong>Description:</strong>
+      <%= @project.description %>
+    </p>
+  </div>
 <% end %>
 
 <%= render 'task_table', tasks: @tasks, proj_name: false, loc_name: true, options: false, time_en: true %>

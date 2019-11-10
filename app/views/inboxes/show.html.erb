@@ -3,7 +3,7 @@
 <%= page_heading "#{@inbox.name} Inbox" %>
 
 <div class="nav_links">
-<%= link_to 'Edit Name', edit_inbox_path(@inbox) %> | <%= link_to 'Add Item', new_inbox_item_path(@inbox) %>
+  <%= link_to 'Edit Name', edit_inbox_path(@inbox) %> | <%= link_to 'Add Item', new_inbox_item_path(@inbox) %>
 </div>
 
 <% if !(@items.empty?) %>

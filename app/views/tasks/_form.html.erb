@@ -1,4 +1,4 @@
-<%= semantic_form_for [@project,@task], :html => { class: "task_form" } do |f| %>
+<%= semantic_form_for [@project,@task], html: { class: "task_form" } do |f| %>
   <% if @task.errors.any? %>
     <div id="error_explanation">
       <h2>
@@ -15,13 +15,28 @@
   <%= f.inputs do %>
     <%= f.input :name %>
     <%= f.input :description %>
-    <%= f.input :time, as: :select, include_blank: false, collection: @time_collection %>
-    <%= f.input :energy, as: :select, include_blank: false %>
-    <%= f.select(:project_id, options_for_select(@projects.map{|t| [t.name, t.id]}, @project.id)) %>
-    <%= f.select(:location_id, options_for_select(@locations.map{|t| [t.name, t.id]}, @location.id)) %>
-    
+    <label>
+      Time:
+      <%= f.select(:time, options_for_select(@time_collection, Task.times[@task.time])) %>
+    </label>
+    <br>
+    <label>
+      Energy Level:
+      <%= f.select(:energy, options_for_select(@energy_collection, Task.energies[@task.energy])) %>
+    </label>
+    <br>
+    <label>
+      Project:
+      <%= f.select(:project_id, options_for_select(@projects.map{|t| [t.name, t.id]}, @project.id)) %>
+    </label>
+    <br>
+    <label>
+      Location:
+      <%= f.select(:location_id, options_for_select(@locations.map{|t| [t.name, t.id]}, @location.id)) %>
+    </label>
+
     <%= f.actions do %>
-      <%= f.action :submit, :as => :input, :button_html => { class: "button" }  %>
+      <%= f.action :submit, as: :input, button_html: { class: "button" }  %>
     <% end %>
   <% end %>
 <% end %>

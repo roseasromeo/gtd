@@ -7,13 +7,13 @@
   <% if flash[:alert] %>
     <h3 class="alert"> <%= flash[:alert] %> </h3>
   <% end %>
-  <%= semantic_form_for :user do |f| %>
+  <%= semantic_form_for :user, html: { class: "auth_form" } do |f| %>
     <%= f.inputs do %>
       <%= f.input :email %>
       <%= f.input :password %>
 
       <%= f.actions do %>
-        <%= f.action :submit, :label => "Log in", :as => :button %>
+        <%= f.action :submit, label: "Log In", as: :input, button_html: { class: "button" } %>
       <% end %>
     <% end %>
   <% end %>

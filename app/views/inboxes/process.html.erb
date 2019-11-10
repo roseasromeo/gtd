@@ -1,0 +1,8 @@
+<%= page_heading "Process Inbox #{@inbox.name}" %>
+
+<%= render 'item_process'%>
+
+<div class="nav_links">
+  <%= link_to 'Back to Inbox', inbox_path(@inbox)  %> |
+  <%= link_to 'Back to Inboxes', inboxes_path  %>
+</div>

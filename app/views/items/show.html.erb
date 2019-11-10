@@ -2,19 +2,23 @@
 
 <%= page_heading "#{@item.name}" %>
 
-<%= link_to 'Edit Item', edit_inbox_item_path(@inbox,@item) %>
+<div class="nav_links">
+  <%= link_to 'Edit Item', edit_inbox_item_path(@inbox,@item) %>
+</div>
 
-<p>
-  <strong>Content:</strong>
-  <%= @item.content %>
-</p>
+<div class="item_show_page">
+  <p>
+    <strong>Content:</strong>
+    <%= @item.content %>
+  </p>
 
-<p>
-  <strong>Inbox:</strong>
-  <%= @item.inbox.name %>
-</p>
+  <p>
+    <strong>Inbox:</strong>
+    <%= @item.inbox.name %>
+  </p>
+</div>
 
 <div class="nav_links">
-  <%= link_to 'Add Another Item', new_inbox_item_path(@inbox) %> | <%= link_to 'Convert Item into Project', new_project_path(item_id: @item), target: :_blank %> | <%= link_to 'Convert Item into Task', new_project_task_path(@default_project, location_id: @default_location, item_id: @item), target: :_blank %> | <%= link_to 'Convert Item into Checklist', new_checklist_path(item_id: @item), target: :_blank %> |
+  <%= link_to 'Add Another Item', new_inbox_item_path(@inbox) %> |
   <%= link_to 'Back to Inbox', @inbox %> | <%= link_to 'Back to Inboxes', inboxes_path %>
 </div>

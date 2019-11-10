@@ -1,3 +1,17 @@
 // Place all the styles related to the Home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import 'common';
+
+div.homepage {
+  button.button {
+    @include button;
+    a {
+      text-decoration: none;
+    }
+    display: inline-block;
+    margin-top: 5px;
+  }
+  text-align: center;
+}

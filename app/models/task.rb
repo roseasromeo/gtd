@@ -28,14 +28,8 @@ class Task < ApplicationRecord
   end
 
   def energy_read
-    if self.energy == :low
-      er = "low"
-    elsif self.energy == :medium
-      er = "med"
-    else
-      er = "high"
-    end
-    er
+    er_out = { "low": 0, "med": 1, "high": 2 }
+    er_out.key(Task.energies[self.energy])
   end
 
   def complete

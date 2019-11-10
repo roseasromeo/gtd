@@ -1,10 +1,13 @@
 <p id="notice"><%= notice %></p>
 
 <%= page_heading "User Account for #{@user.name}" %>
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
+
+<div class="user_show_page">
+  <p>
+    <strong>Email:</strong>
+    <%= @user.email %>
+  </p>
+</div>
 
 <%= link_to 'Edit User Profile', edit_user_path(@user) %> | <%= link_to 'Delete User Account', @user, method: :delete, data: { confirm: 'Are you sure? All data associated with this account will also be deleted. This action cannot be reversed.' } %> |
 <%= link_to 'Back to Login', login_path %>

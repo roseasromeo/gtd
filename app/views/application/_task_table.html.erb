@@ -39,7 +39,7 @@
           <% end %>
           <% if time_en %>
             <td><%= task.time_read %></td>
-            <td><%= task.energy_read.humanize %></td>
+            <td><%= task.energy_read %></td>
           <% end %>
           <% if options %>
             <td><%= link_to 'Edit', edit_project_task_path(task.project,task) %></td>

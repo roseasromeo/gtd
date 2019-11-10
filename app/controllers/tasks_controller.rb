@@ -70,7 +70,7 @@ class TasksController < ApplicationController
       if @location == nil
         @location = @default_location
       end
-      @task = Task.new(name: task_params[:name], description: task_params[:description], project: @project, location: @location, time: Task.time_name(task_params[:time].to_i), energy: task_params[:energy])
+      @task = Task.new(name: task_params[:name], description: task_params[:description], project: @project, location: @location, time: Task.time_name(task_params[:time].to_i), energy: @energy_collection.key(task_params[:energy].to_i))
       if @task.save
         redirect_to project_task_path(@project,@task)
       else
@@ -96,7 +96,7 @@ class TasksController < ApplicationController
       else
         @projects = Project.where(user: @user, archived: false).order(deletable: :asc, name: :asc)
         @locations = Location.where(user: @user).order(deletable: :asc, name: :asc)
-        if @task.update(name: task_params[:name], description: task_params[:description], project: @project, location: @location, time: Task.time_name(task_params[:time].to_i), energy: task_params[:energy])
+        if @task.update(name: task_params[:name], description: task_params[:description], project: @project, location: @location, time: Task.time_name(task_params[:time].to_i), energy: @energy_collection.key(task_params[:energy].to_i))
           redirect_to project_task_path(@project,@task)
         else
           render 'edit'
@@ -177,7 +177,7 @@ class TasksController < ApplicationController
       energy_tasks = Task.none
       @energy_collection.each do |k,v|
         if v <= params[:energy].to_i
-          energy_tasks = energy_tasks.or(time_tasks.where(energy: k))
+          energy_tasks = energy_tasks.or(time_tasks.where(energy: v.to_i))
         end
       end
 
@@ -272,24 +272,11 @@ class TasksController < ApplicationController
       end
     end
     def energy_collection
-      @energy_collection = { low: 1, medium: 2, high: 3 }
+      @energy_collection = { low: 0, medium: 1, high: 2 }
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
       params.require(:task).permit(:project_id, :location_id, :name, :description, :time, :energy, tag_ids: [])
-    end
-
-    def tag_params
-      tag_params = params[:task][:tag_ids]
-      tag_params.shift
-      tag_params
-    end
-
-    def update_tags
-      success = true
-      tag_params.each do |tag_sid|
-
-      end
     end
 end

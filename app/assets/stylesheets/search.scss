@@ -1,3 +1,4 @@
+// Styling for the search form
 
 @import 'common';
 
@@ -5,12 +6,7 @@ div.search_form {
   font-size: large;
   line-height: 1.5em;
 
-  select {
-    font-size: 16px;
-    border-color: black;
-    border-width: thin;
-    border-radius: 5px;
-  }
+  @include select_style;
 
   @include checkbox-grid;
 }

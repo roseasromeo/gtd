@@ -2,10 +2,12 @@
 
 <%= page_heading "#{@checklist.name}" %>
 
-<p>
-  <strong>Description:</strong>
-  <%= @checklist.description %>
-</p>
+<div class="checklist_show_page">
+  <p>
+    <strong>Description:</strong>
+    <%= @checklist.description %>
+  </p>
+</div>
 
 <% if !(@checklist_items.empty?) %>
   <table class="checklist_items">

@@ -4,7 +4,7 @@
 
 @import 'common';
 
-form.tasks_form, {
+form.task_form, {
   @include form-shared;
 }
 
@@ -29,4 +29,8 @@ form.tag_task_form {
   }
 
   @include checkbox-grid;
+}
+
+div.task_show_page {
+  @include show_page;
 }
