@@ -31,7 +31,9 @@
   <br>
 
 <div class="nav_links">
-  <%= link_to 'Delete Checklist', @checklist, method: :delete, data: { confirm: 'Are you sure? All items on this checklist will be deleted too.' } %> |
+  <% if @checklist.deletable %>
+    <%= link_to 'Delete Checklist', @checklist, method: :delete, data: { confirm: 'Are you sure? All items on this checklist will be deleted too.' } %> |
+  <% end %>
   <%= link_to 'Edit Checklist', edit_checklist_path(@checklist) %> |
   <%= link_to 'Back to Checklists', checklists_path %>
 </div>

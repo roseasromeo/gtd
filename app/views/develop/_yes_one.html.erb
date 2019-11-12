@@ -3,7 +3,7 @@
   <br>
   <button class="button" type="button"><%= link_to "Yes!", develop_inbox_path(@inbox, item: item, next_step: "do_it") %></button>
   <br>
-  <button class="button" type="button"><%= link_to "No (too long/not right now)", develop_inbox_path(@inbox, item: item, next_step: "add_task") %></button>
+  <button class="button" type="button"><%= link_to "No (too long/not right now)", develop_inbox_path(@inbox, item: item, next_step: "add_single") %></button>
   <br>
   <button class="button" type="button"><%= link_to "No (Not an action I can take)", develop_inbox_path(@inbox, item: item, next_step: "delegate") %></button>
 </div>

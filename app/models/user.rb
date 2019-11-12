@@ -18,7 +18,9 @@ class User < ApplicationRecord
       inboxes << Inbox.new(name: 'Reference', user: self, deletable: false)
       inboxes << Inbox.new(name: 'Someday', user: self, deletable: false)
       projects << Project.new(name: 'Unassigned', user: self, deletable: false)
+      projects << Project.new(name: 'Single Step', user: self, deletable: false)
       locations << Location.new(name: 'Anywhere', user: self, deletable: false)
+      checklists << Checklist.new(name: 'Waiting On', description: "For things that you are waiting on other people for.", user: self, deletable: false)
     end
   end
 

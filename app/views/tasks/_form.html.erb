@@ -13,6 +13,9 @@
     </div>
   <% end %>
   <%= f.inputs do %>
+    <% if form_location == "develop" %>
+      <%= f.hidden_field :item_id, as: :hidden, value: item.id %>
+    <% end %>
     <%= f.input :name %>
     <%= f.input :description %>
     <label>
@@ -36,7 +39,7 @@
     </label>
 
     <%= f.actions do %>
-      <%= f.action :submit, as: :input, button_html: { class: "button" }  %>
+      <%= f.action :submit, as: :input, button_html: { class: "button", name: form_location }  %>
     <% end %>
   <% end %>
 <% end %>

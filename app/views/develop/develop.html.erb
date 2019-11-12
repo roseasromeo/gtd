@@ -1,6 +1,8 @@
 <%= page_heading "Process Inbox #{@inbox.name}" %>
 
-<%= render 'item_develop', item: @item, step: @step %>
+<%= render 'develop/item_develop', item: @item, step: @step %>
+
+<button class="button" type="button"><%= link_to "Back to Start of Process (this item)", develop_inbox_path(@inbox, item: @item, next_step: "action") %></button>
 
 <div class="nav_links">
   <%= link_to 'Back to Inbox', inbox_path(@inbox)  %> |

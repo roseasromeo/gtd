@@ -9,15 +9,14 @@
   <button class="button" type="button"><%= link_to "Add to 'Waiting On' Checklist", develop_inbox_path(@inbox, item: item, next_step: "waiting") %></button>
   <br>
   <br>
-  If it doesn't need to followed-up on, you can move on.
+  If it doesn't need follow-up, you can move on.
   <br>
   <button class="button" type="button"><%= link_to "Delete Item", develop_inbox_path(@inbox, item: item, next_step: "delete"), data: { confirm: "Confirm deletion?" } %></button>
-  <br>
-  <button class="button" type="button"><%= link_to "Go to Next Item (without Deleting)", develop_inbox_path(@inbox, item: item, next_step: "next") %></button>
+  <button class="button"x type="button"><%= link_to "Go to Next Item (without Deleting)", develop_inbox_path(@inbox, item: item, next_step: "next") %></button>
   <br>
   <br>
   If delegating can't happen right now, the action of delegating should become a task (single step) or a project (multi-step) to address it later.
   <br>
-  <button class="button" type="button"><%= link_to "Add as a Task to existing Project", develop_inbox_path(@inbox, item: item, next_step: "add_task") %></button>
+  <button class="button" type="button"><%= link_to "Add a Task", develop_inbox_path(@inbox, item: item, next_step: "add_single") %></button>
   <button class="button" type="button"><%= link_to "Start a new Project", develop_inbox_path(@inbox, item: item, next_step: "start_project") %></button>
 </div>

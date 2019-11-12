@@ -13,20 +13,29 @@
     </div>
   <% end %>
   <%= f.inputs do %>
-    <%= f.input :name %>
-    <%= f.input :description %>
-
+    <% if form_location == "develop" %>
+      <%= f.hidden_field :item_id, as: :hidden, value: item.id %>
+    <% end %>
+    <% if @checklist.deletable %>
+      <%= f.input :name %>
+      <%= f.input :description %>
+    <% else %>
+      <%= f.input :id, as: :hidden, value: @checklist.id %>
+      <%= @checklist.name %>
+      <br>
+      <%= @checklist.description %>
+    <% end %>
     <div id='checklist_items'>
       <%= f.semantic_fields_for :checklist_items do |item| %>
-        <%= render 'checklist_item_fields', :f => item %>
+        <%= render 'checklists/checklist_item_fields', :f => item %>
       <% end %>
       <div class='links'>
-        <%= link_to_add_association 'add item', f, :checklist_items %>
+        <%= link_to_add_association 'add item', f, :checklist_items, partial: "checklists/checklist_item_fields" %>
       </div>
     </div>
 
     <%= f.actions do %>
-      <%= f.action :submit, :as => :button, :button_html => { class: "button" } %>
+      <%= f.action :submit, :as => :button, :button_html => { class: "button", name: form_location } %>
     <% end %>
   <% end %>
 <% end %>

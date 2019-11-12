@@ -1,6 +1,6 @@
 <%= page_heading "Edit Task" %>
 
-<%= render 'form' %>
+<%= render 'form', form_location: "new" %>
 
 <%= link_to 'Show Task', project_task_path(@project,@task) %> |
 <%= link_to 'Back to Project', @project %> |

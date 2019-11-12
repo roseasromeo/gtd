@@ -73,7 +73,7 @@ class LocationsController < ApplicationController
   # DELETE /locations/1
   # DELETE /locations/1.json
   def destroy
-    if logged_in? && @location.user == current_user
+    if logged_in? && @location.user == current_user && @project.deletable?
       @location.tasks.each do |task|
         task.update(location: @default)
       end

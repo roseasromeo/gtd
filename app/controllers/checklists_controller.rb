@@ -50,9 +50,21 @@ class ChecklistsController < ApplicationController
       @checklist = Checklist.new(checklist_params.merge(user_id: @user.id))
 
       if @checklist.save
-        redirect_to @checklist
+        if params[:develop] != nil
+          @item = Item.find(params[:checklist][:item_id])
+          redirect_to develop_inbox_path(@item.inbox, item: @item.id, next_step: "checklist", checklist_id: @checklist)
+        else
+          redirect_to checklist_path(@checklist)
+        end
       else
-        render 'new'
+        if params[:develop] != nil
+          @item = Item.find(params[:checklist][:item_id])
+          @inbox = @item.inbox
+          @step = "make_checklist"
+          render "develop/develop"
+        else
+          render 'new'
+        end
       end
     else
       redirect_to login_path
@@ -63,10 +75,27 @@ class ChecklistsController < ApplicationController
   # PATCH/PUT /checklists/1.json
   def update
     if logged_in? && @checklist.user == current_user
-      if @checklist.update(checklist_params)
-        redirect_to @checklist
+      if !(@checklist.deletable)
+        cl_params = checklist_params.permit(checklist_items_attributes: [:id, :name, :_destroy])
       else
-        render 'edit'
+        cl_params = checklist_params
+      end
+      if @checklist.update(cl_params)
+        if params[:develop] != nil
+          @item = Item.find(params[:checklist][:item_id])
+          redirect_to develop_inbox_path(@item.inbox, item: @item.id, next_step: "checklist", checklist_id: @checklist)
+        else
+          redirect_to checklist_path(@checklist)
+        end
+      else
+        if params[:develop] != nil
+          @item = Item.find(params[:checklist][:item_id])
+          @inbox = @item.inbox
+          @step = "add_to_checklist"
+          render "develop/develop"
+        else
+          render 'edit'
+        end
       end
     else
       redirect_to login_path
@@ -76,7 +105,7 @@ class ChecklistsController < ApplicationController
   # DELETE /checklists/1
   # DELETE /checklists/1.json
   def destroy
-    if logged_in? && @checklist.user == current_user
+    if logged_in? && @checklist.user == current_user && @project.deletable?
       @checklist.destroy
       redirect_to checklists_path
     else

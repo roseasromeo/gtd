@@ -72,9 +72,20 @@ class TasksController < ApplicationController
       end
       @task = Task.new(name: task_params[:name], description: task_params[:description], project: @project, location: @location, time: Task.time_name(task_params[:time].to_i), energy: @energy_collection.key(task_params[:energy].to_i))
       if @task.save
-        redirect_to project_task_path(@project,@task)
+        if params[:develop] != nil
+          @item = Item.find(params[:task][:item_id])
+          redirect_to develop_inbox_path(@item.inbox, item: @item.id, next_step: "added_task")
+        else
+          redirect_to project_task_path(@project,@task)
+        end
       else
-        render 'new'
+        if params[:develop] != nil
+          @item = Item.find(params[:task][:item_id])
+          @step = "add_task"
+          render "develop/develop"
+        else
+          render 'new'
+        end
       end
     else
       redirect_to login_path
@@ -271,6 +282,7 @@ class TasksController < ApplicationController
         @time_collection[k] = v
       end
     end
+
     def energy_collection
       @energy_collection = { low: 0, medium: 1, high: 2 }
     end

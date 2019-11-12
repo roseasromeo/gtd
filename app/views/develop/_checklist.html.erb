@@ -1,0 +1,6 @@
+<div class="added_task">
+  Move on to the next item:
+  <br>
+  <button class="button" type="button"><%= link_to "Delete Item", develop_inbox_path(@inbox, item: item, next_step: "delete"), data: { confirm: "Confirm deletion?" } %></button>
+  <button class="button" type="button"><%= link_to "Go to Next Item (without Deleting)", develop_inbox_path(@inbox, item: item, next_step: "next") %></button>
+</div>

@@ -50,11 +50,22 @@ class ProjectsController < ApplicationController
   def create
     if logged_in?
       @project = Project.new(name: project_params[:name], description: project_params[:description], user:@user)
-
       if @project.save
-        redirect_to @project
+        if params[:develop] != nil
+          @item = Item.find(params[:project][:item_id])
+          redirect_to develop_inbox_path(@item.inbox, item: @item.id, next_step: "started_project", project_id: @project)
+        else
+          redirect_to project_path(@project)
+        end
       else
-        render 'new'
+        if params[:develop] != nil
+          @item = Item.find(params[:project][:item_id])
+          @inbox = @item.inbox
+          @step = "start_project"
+          render "develop/develop"
+        else
+          render 'new'
+        end
       end
     else
       redirect_to login_path
@@ -78,7 +89,7 @@ class ProjectsController < ApplicationController
   # DELETE /projects/1
   # DELETE /projects/1.json
   def destroy
-    if logged_in? && @project.user == current_user
+    if logged_in? && @project.user == current_user && @project.deletable?
       @project.destroy
       redirect_to projects_path
     else
