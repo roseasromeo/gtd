@@ -1,0 +1,16 @@
+// Styling for the filter form
+
+@import 'common';
+
+div.filter_form {
+  font-size: large;
+  line-height: 1.5em;
+
+  @include select_style;
+
+  @include checkbox-grid;
+
+  input.button {
+    @include button;
+  }
+}

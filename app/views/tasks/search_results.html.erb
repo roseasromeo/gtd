@@ -1,0 +1,11 @@
+<%= page_heading "Search Results" %>
+
+<h3>Keyword Matches</h3>
+<%= render 'task_table', tasks: @tasks, proj_name: true, loc_name: false, options: false, time_en: true %>
+
+<h3>Tag Matches</h3>
+<%= render 'task_table', tasks: @tasks_tags, proj_name: true, loc_name: false, options: false, time_en: true %>
+
+<div class="nav_links">
+  <%= link_to "New Search", search_path %>
+</div>

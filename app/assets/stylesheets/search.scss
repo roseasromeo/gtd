@@ -6,7 +6,9 @@ div.search_form {
   font-size: large;
   line-height: 1.5em;
 
-  @include select_style;
+  //@include select_style;
 
-  @include checkbox-grid;
+  //@include checkbox-grid;
+
+  @include form_shared;
 }

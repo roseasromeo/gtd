@@ -18,8 +18,12 @@ class DevelopController < ApplicationController
         redirect_to @inbox
       end
     elsif @step == "next"
-      @item = next_item(@item.id)
-      @step = "action"
+      if @inbox.items.empty?
+        
+      else
+        @item = next_item(@item.id)
+        @step = "action"
+      end
     elsif @step == "add_task"
       task_setup
       @task = Task.new(name: @item.name, description: @item.description)
@@ -42,12 +46,19 @@ class DevelopController < ApplicationController
     elsif @step == "waiting"
       set_waiting_checklist
       checklist_item = @checklist.checklist_items.build(name: "#{@item.name} #{@item.description}")
+    elsif @step == "someday"
+      set_someday_inbox
+      @item.update(inbox: @someday)
     end
   end
 
   private
     def set_inbox
       @inbox = Inbox.find(params[:id])
+    end
+
+    def set_someday_inbox
+      @someday = Inbox.where(name: "Someday/Maybe").first
     end
 
     def set_user

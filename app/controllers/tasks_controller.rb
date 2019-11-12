@@ -1,12 +1,12 @@
 class TasksController < ApplicationController
-  before_action :set_task, except: [:index, :new, :create, :search]
+  before_action :set_task, except: [:index, :new, :create, :filter, :search]
   before_action :set_user
   before_action :set_default_project
-  before_action :set_project, except: [:search]
+  before_action :set_project, except: [:filter, :search]
   before_action :set_default_location
-  before_action :set_location, except: [:search]
-  before_action :time_collection, only: [:new, :edit, :create, :update, :search]
-  before_action :energy_collection, only: [:new, :edit, :create, :update, :search]
+  before_action :set_location, except: [:filter, :search]
+  before_action :time_collection, only: [:new, :edit, :create, :update, :filter, :search]
+  before_action :energy_collection, only: [:new, :edit, :create, :update, :filter, :search]
 
   helper_method :sort_column, :sort_direction
 
@@ -151,9 +151,9 @@ class TasksController < ApplicationController
     @tags = Tag.where(user: @user)
   end
 
-  def search
-    if params[:commit] == "Find"
-      # Perform search
+  def filter
+    if params[:commit] == "Filter"
+      # Perform filter
       all_tasks = Task.joins(:project).where(projects: {user: @user})
 
       # Include archived?
@@ -204,11 +204,33 @@ class TasksController < ApplicationController
       end
 
       @tasks = tagged_tasks.order(time: :desc, energy: :desc, completed: :asc, name: :asc)
-      render 'results'
+      render 'filter_results'
     else
-      # Render search
+      # Render filter
       @locations = Location.where(user: @user)
       @tags = Tag.where(user: @user)
+    end
+  end
+
+  def search
+    if params[:commit] == "Search"
+      # Perform search
+      @tasks = Task.search(params[:keyword],@user)
+      @tasks_tags = Task.search_tags(params[:keyword],@user)
+
+      # Include archived?
+      if params[:archived] == nil || params[:archived] != "1"
+        @tasks = @tasks.where(projects: {archived: false})
+      end
+
+      # Include completed?
+      if params[:completed] == nil || params[:completed] != "1"
+        @tasks = @tasks.where(completed: false)
+      end
+
+      render 'search_results'
+    else
+      # Render search
     end
   end
 

@@ -38,7 +38,7 @@
   <p>
     <strong>Tags:</strong>
     <% @tags.each do |tag| %>
-      <%= tag.name %>
+      <%= link_to tag.name, tag %>
     <% end %>
   </p>
 <% end %>

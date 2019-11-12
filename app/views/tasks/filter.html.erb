@@ -1,0 +1,65 @@
+<%= page_heading "Filter Tasks" %>
+
+<div class="filter_form">
+  <%= form_tag filter_path, method: :get do %>
+    <div class="location">
+      <% # Location -- include Anywhere? %>
+      <label>
+        Where are you?
+        <%= select_tag(:location_id, options_for_select(@locations.map { |loc| [loc.name, loc.id] }, @location)) %>
+      </label>
+      <label>
+        Also include Anywhere?
+        <%= check_box_tag :anywhere, 1, false, class: "checkbox" %>
+      </label>
+    </div>
+
+    <div class="time">
+      <% # How much time do you have? -- Present highest that meets criteria first, lowest last  %>
+      <label>
+        How much time do you have?
+        <%= select_tag(:time, options_for_select(@time_collection)) %>
+      </label>
+    </div>
+
+    <div class="energy">
+      <% # How much energy do you have? -- Present highest that meets criteria first, lowest last  %>
+      <label>
+        What level of energy do you have?
+        <%= select_tag(:energy, options_for_select(@energy_collection)) %>
+      </label>
+    </div>
+
+    <div class="tags">
+      <% if !(@tags.empty?) %>
+      Select Tags that Tasks should match
+      <% # choose tags %>
+        <ul class="checkbox-grid">
+          <% @tags.each do |tag| %>
+            <li>
+              <label>
+                <%= check_box_tag "tags[]", tag.id, false, class: "checkbox" %>
+                <%= tag.name %>
+              </label>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
+
+    <div class="other">
+      <% # Include archived projects? %>
+      <label>
+        Include archived projects?
+        <%= check_box_tag :archived, 1, false, class: "checkbox" %>
+      </label>
+      <% # Include completed tasks? %>
+      <label>
+        Include completed tasks?
+        <%= check_box_tag :completed, 1, false, class: "checkbox" %>
+      </label>
+    </div>
+
+    <%= submit_tag "Filter", class: "button" %>
+  <% end %>
+</div>

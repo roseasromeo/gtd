@@ -16,7 +16,7 @@ class User < ApplicationRecord
     unless persisted?
       inboxes << Inbox.new(name: 'General', user: self, deletable: false)
       inboxes << Inbox.new(name: 'Reference', user: self, deletable: false)
-      inboxes << Inbox.new(name: 'Someday', user: self, deletable: false)
+      inboxes << Inbox.new(name: 'Someday/Maybe', user: self, deletable: false)
       projects << Project.new(name: 'Unassigned', user: self, deletable: false)
       projects << Project.new(name: 'Single Step', user: self, deletable: false)
       locations << Location.new(name: 'Anywhere', user: self, deletable: false)

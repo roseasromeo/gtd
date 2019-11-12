@@ -49,4 +49,14 @@ class Task < ApplicationRecord
     end
     has_all
   end
+
+  private
+    def self.search(search,user)
+      Task.joins(:project).where(projects: {user: user}).joins(:location).where("lower(tasks.name) LIKE :search OR lower(tasks.description) LIKE :search OR lower(projects.name) LIKE :search OR lower(projects.description) LIKE :search OR lower(locations.name) LIKE :search", search: "%#{search.downcase}%").distinct
+    end
+
+    def self.search_tags(search,user)
+      Task.joins(:project).where(projects: {user: user}).joins(:tags).where("lower(tags.name) LIKE :search", search: "%#{search.downcase}%").distinct
+    end
+
 end
