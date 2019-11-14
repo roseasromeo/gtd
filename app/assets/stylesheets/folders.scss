@@ -1,13 +1,3 @@
 // Place all the styles related to the Folders controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
-
-@import 'common';
-
-form.folder_form, {
-  @include form-shared;
-}
-
-table.folders {
-  @include table-shared;
-}

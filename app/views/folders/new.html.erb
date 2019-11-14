@@ -1,7 +1,5 @@
-<%= page_heading "New Reference Folder" %>
+<h1>New Folder</h1>
 
-<%= render 'form', form_location: "new" %>
+<%= render 'form', folder: @folder %>
 
-<div class="nav_links">
-  <%= link_to 'Back to Folders', folders_path  %>
-</div>
+<%= link_to 'Back', folders_path %>

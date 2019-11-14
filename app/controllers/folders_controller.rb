@@ -1,86 +1,63 @@
 class FoldersController < ApplicationController
   before_action :set_folder, only: [:show, :edit, :update, :destroy]
-  before_action :set_user
-  before_action :set_default_folder, only: [:destroy]
 
   # GET /folders
   # GET /folders.json
   def index
-    if logged_in?
-      @folders = Folder.where(user: @user).order(deletable: :asc, name: :asc)
-    else
-      redirect_to login_path
-    end
+    @folders = Folder.all
   end
 
   # GET /folders/1
   # GET /folders/1.json
   def show
-    if logged_in?
-      @ref_items = @folder.ref_items.order(name: :asc)
-    else
-      redirect_to login_path
-    end
   end
 
   # GET /folders/new
   def new
-    if logged_in?
-      @folder = Folder.new(user: @user)
-    else
-      redirect_to login_path
-    end
+    @folder = Folder.new
   end
 
   # GET /folders/1/edit
   def edit
-    if !(logged_in? && @folder.user == current_user)
-      redirect_to login_path
-    end
   end
 
   # POST /folders
   # POST /folders.json
   def create
-    if logged_in?
-      @folder = Folder.new(name: folder_params[:name], description: folder_params[:description], user:@user)
+    @folder = Folder.new(folder_params)
 
+    respond_to do |format|
       if @folder.save
-        redirect_to @folder
+        format.html { redirect_to @folder, notice: 'Folder was successfully created.' }
+        format.json { render :show, status: :created, location: @folder }
       else
-        render 'new'
+        format.html { render :new }
+        format.json { render json: @folder.errors, status: :unprocessable_entity }
       end
-    else
-      redirect_to login_path
     end
   end
 
   # PATCH/PUT /folders/1
   # PATCH/PUT /folders/1.json
   def update
-    if logged_in?
-      if @folder.update(name: folder_params[:name], description: folder_params[:description], user:@user)
-        redirect_to @folder
+    respond_to do |format|
+      if @folder.update(folder_params)
+        format.html { redirect_to @folder, notice: 'Folder was successfully updated.' }
+        format.json { render :show, status: :ok, location: @folder }
       else
-        render 'edit'
+        format.html { render :edit }
+        format.json { render json: @folder.errors, status: :unprocessable_entity }
       end
-    else
-      redirect_to login_path
     end
   end
 
   # DELETE /folders/1
   # DELETE /folders/1.json
   def destroy
-    if logged_in? && @folder.user == current_user
-      @folder.ref_items.each do |item|
-        item.update(folder: @default)
-      end
-      @folder.reload
-      @folder.destroy
-      redirect_to folders_path
-    else
-      redirect_to folders_path
+    @folder.destroy
+    respond_to do |format|
+      format.html { redirect_to folders_url, notice: 'Folder was successfully destroyed.' }
+      format.json { head :no_content }
     end
   end
 
@@ -90,16 +67,8 @@ class FoldersController < ApplicationController
       @folder = Folder.find(params[:id])
     end
 
-    def set_user
-      @user = current_user
-    end
-
-    def set_default_folder
-      @default = Folder.where(user: @user, name: "General Reference").first
-    end
-
     # Never trust parameters from the scary internet, only allow the white list through.
     def folder_params
-      params.require(:folder).permit(:name, :description)
+      params.require(:folder).permit(:name, :description, :deletable, :user_id)
     end
 end
