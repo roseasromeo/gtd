@@ -1,7 +1,8 @@
 <%= page_heading "Filter Results" %>
 
-<%= render 'task_table', tasks: @tasks, proj_name: true, loc_name: false, options: false, time_en: true %>
+<%= render 'task_table', tasks: @tasks, proj_name: true, loc_name: false, options: false, time_en: true, selecting: false %>
 
 <div class="nav_links">
   <%= link_to "New Filter", filter_path %>
+  <%= link_to "Mass Assign Tags", mass_assign_path(task_ids: @ids, from: "filter") %>
 </div>

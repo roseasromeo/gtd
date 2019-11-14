@@ -18,7 +18,7 @@
   </div>
 <% end %>
 
-<%= render 'task_table', tasks: @tasks, proj_name: false, loc_name: true, options: false, time_en: true %>
+<%= render 'task_table', tasks: @tasks, proj_name: false, loc_name: true, options: false, time_en: true, selecting: false %>
 <br>
 
 <div class="nav_links">
@@ -31,5 +31,6 @@
   <% if @project.deletable? && !(@project.archived?) %>
     <%= link_to 'Archive Project', archive_project_path(@project) %> |
   <% end %>
-  <%= link_to 'Back to Projects', projects_path %>
+  <%= link_to 'Back to Projects', projects_path %> |
+  <%= link_to "Mass Assign Tags", mass_assign_path(task_ids: @ids, from: "project_#{@project.id}") %>
 </div>

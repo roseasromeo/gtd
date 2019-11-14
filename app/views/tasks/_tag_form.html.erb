@@ -1,17 +1,8 @@
-<%= semantic_form_for [@project,@task], html: { class: "tag_task_form" } do |f| %>
+<%= semantic_form_for [@project,task], html: { class: "tag_task_form" } do |f| %>
   <%= f.inputs do %>
-    <%= f.input :id, as: :hidden, value: @task.id %>
+    <%= f.input :id, as: :hidden, value: task.id %>
     <%= f.label "Tags", class: "tag_label" %><br />
-    <ul class="checkbox-grid">
-      <% @tags.each do |tag| %>
-        <li>
-          <label>
-            <%= check_box_tag "task[tag_ids][]", tag.id, @task.tags.exists?(id: tag.id), class: "checkbox" %>
-            <%= tag.name %>
-          </label>
-        </li>
-      <% end %>
-    </ul>
+    <%= render "tags_checkboxes", tags: @tags, task: task %>
   <% end %>
 
   <%= f.actions do %>

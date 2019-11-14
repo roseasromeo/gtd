@@ -1,0 +1,14 @@
+// Styling for the filter form
+
+@import 'common';
+
+div.mass_assign {
+  font-size: large;
+  line-height: 1.5em;
+
+  @include checkbox-grid;
+
+  input.button {
+    @include button;
+  }
+}

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_12_034454) do
+ActiveRecord::Schema.define(version: 2019_11_14_022917) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,16 @@ ActiveRecord::Schema.define(version: 2019_11_12_034454) do
     t.datetime "updated_at", null: false
     t.boolean "deletable", default: true, null: false
     t.index ["user_id"], name: "index_checklists_on_user_id"
+  end
+
+  create_table "folders", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.boolean "deletable", default: true, null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_folders_on_user_id"
   end
 
   create_table "inboxes", force: :cascade do |t|
@@ -112,6 +122,7 @@ ActiveRecord::Schema.define(version: 2019_11_12_034454) do
 
   add_foreign_key "checklist_items", "checklists"
   add_foreign_key "checklists", "users"
+  add_foreign_key "folders", "users"
   add_foreign_key "inboxes", "users"
   add_foreign_key "items", "inboxes"
   add_foreign_key "locations", "users"

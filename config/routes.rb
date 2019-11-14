@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :folders
   get 'home/index'
 
   root 'home#index'
@@ -9,6 +10,7 @@ Rails.application.routes.draw do
 
   get '/filter' => 'tasks#filter', as: :filter
   get '/search' => 'tasks#search', as: :search
+  get '/mass_assign' => 'tasks#mass_assign', as: :mass_assign
 
   resources :users, except: [:index]
 

@@ -2,6 +2,9 @@
   <table class="tasks">
     <thead>
       <tr>
+        <% if selecting %>
+          <th class="selected"></th>
+        <% end %>
         <th class="name">Task</th>
         <th class="completed">&#10004<br>&#9633;</th>
         <% if proj_name %>
@@ -23,6 +26,9 @@
     <tbody>
       <% tasks.order(:completed).each do |task| %>
         <tr>
+          <% if selecting %>
+            <td><%= check_box_tag "task[ids][]", task.id, false, class: "checkbox" %></td>
+          <% end %>
           <td><%= link_to task.name, project_task_path(task.project,task) %></td>
           <td>
             <% if task.completed %>

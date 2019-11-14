@@ -1,10 +1,10 @@
 class TasksController < ApplicationController
-  before_action :set_task, except: [:index, :new, :create, :filter, :search]
+  before_action :set_task, except: [:index, :new, :create, :filter, :search, :mass_assign]
   before_action :set_user
   before_action :set_default_project
-  before_action :set_project, except: [:filter, :search]
+  before_action :set_project, except: [:filter, :search, :mass_assign]
   before_action :set_default_location
-  before_action :set_location, except: [:filter, :search]
+  before_action :set_location, except: [:filter, :search, :mass_assign]
   before_action :time_collection, only: [:new, :edit, :create, :update, :filter, :search]
   before_action :energy_collection, only: [:new, :edit, :create, :update, :filter, :search]
 
@@ -99,10 +99,17 @@ class TasksController < ApplicationController
       if params[:commit] == "Save Tags"
         @projects = Project.where(user: @user, archived: false).order(deletable: :asc, name: :asc)
         @locations = Location.where(user: @user).order(deletable: :asc, name: :asc)
-        if @task.update(task_params)
+        if task_params[:tag_ids] == nil
+          @task.tag_tasks.each do |tag_task|
+            tag_task.destroy
+          end
           redirect_to project_task_path(@project,@task)
         else
-          render 'edit_tags'
+          if @task.update(task_params)
+            redirect_to project_task_path(@project,@task)
+          else
+            render 'edit_tags'
+          end
         end
       else
         @projects = Project.where(user: @user, archived: false).order(deletable: :asc, name: :asc)
@@ -194,16 +201,23 @@ class TasksController < ApplicationController
 
       # Tags
       tagged_tasks = energy_tasks
-      if params[:tags] != nil
+      if params[:task] != nil && params[:task][:tag_ids] != nil
         tagged_tasks = Task.none
         energy_tasks.each do |task|
-          if task.has_all_tags(params[:tags])
+          if task.has_all_tags(params[:task][:tag_ids])
             tagged_tasks = tagged_tasks.or(energy_tasks.where(id: task.id))
           end
         end
       end
 
       @tasks = tagged_tasks.order(time: :desc, energy: :desc, completed: :asc, name: :asc)
+
+      @ids = []
+      if !(@tasks.empty?)
+        @tasks.each do |task|
+          @ids << task.id
+        end
+      end
       render 'filter_results'
     else
       # Render filter
@@ -215,12 +229,27 @@ class TasksController < ApplicationController
   def search
     if params[:commit] == "Search"
       # Perform search
-      @tasks = Task.search(params[:keyword],@user)
-      @tasks_tags = Task.search_tags(params[:keyword],@user)
+      tasks_nd = Task.search(params[:keyword],@user)
+      tasks_tags = Task.search_tags(params[:keyword],@user)
+
+      @tasks = Task.none
+      @ids = []
+      if !(tasks_nd.empty?)
+        tasks_nd.each do |task|
+          @ids << task.id
+        end
+      end
+      if !(tasks_tags.empty?)
+        tasks_tags.each do |task|
+          @ids << task.id
+        end
+      end
+
+      @tasks = Task.where(id: @ids)
 
       # Include archived?
       if params[:archived] == nil || params[:archived] != "1"
-        @tasks = @tasks.where(projects: {archived: false})
+        @tasks = @tasks.joins(:project).where(projects: {archived: false})
       end
 
       # Include completed?
@@ -228,9 +257,58 @@ class TasksController < ApplicationController
         @tasks = @tasks.where(completed: false)
       end
 
+      if !(@tasks.empty?)
+        @tasks.each do |task|
+          @ids << task.id
+        end
+      end
+
       render 'search_results'
     else
       # Render search
+    end
+  end
+
+  def mass_assign
+    if params[:commit] == nil
+      ids = []
+      params[:task_ids].each do |id|
+        ids << id.to_i
+      end
+      @tasks = Task.where(id: ids)
+      @tags = Tag.where(user: @user)
+      @from = params[:from]
+    else
+      if params[:task] != nil && params[:task][:ids] != nil
+        params[:task][:ids].each do |id|
+          task = Task.find(id)
+          if task.project.user == @user
+            if params[:task][:tag_ids] != nil
+              params[:task][:tag_ids].each do |tag_id|
+                tag = Tag.find(tag_id)
+                if tag.user == @user
+                  if task.tags.where(id: tag.id).empty?
+                    tag_task = TagTask.new(tag: tag, task: task)
+                    tag_task.save
+                  end
+                end
+              end
+            end
+          end
+        end
+      end
+      if params[:from] == "filter"
+        redirect_to :filter
+      elsif params[:from] == "search"
+        redirect_to :search
+      elsif params[:from].start_with?("project")
+        string_arr = params["from"].split("_")
+        project = Project.find(string_arr.second.to_i)
+        redirect_to project_path(project)
+      else
+        redirect_to root_path
+      end
+      # Need to figure out way to confirm that tags were added
     end
   end
 

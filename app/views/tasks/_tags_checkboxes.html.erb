@@ -1,0 +1,15 @@
+<ul class="checkbox-grid">
+  <% tags.each do |tag| %>
+    <% if task != nil %>
+      <% checked = task.tags.exists?(id: tag.id) %>
+    <% else %>
+      <% checked = false %>
+    <% end %>
+    <li>
+      <label>
+        <%= check_box_tag "task[tag_ids][]", tag.id, checked, class: "checkbox" %>
+        <%= tag.name %>
+      </label>
+    </li>
+  <% end %>
+</ul>

@@ -19,6 +19,12 @@ class ProjectsController < ApplicationController
   def show
     if logged_in?
       @tasks = @project.tasks.order(completed: :asc, name: :asc)
+      @ids = []
+      if !(@tasks.empty?)
+        @tasks.each do |task|
+          @ids << task.id
+        end
+      end
     else
       redirect_to login_path
     end

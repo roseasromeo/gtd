@@ -34,16 +34,7 @@
       <% if !(@tags.empty?) %>
       Select Tags that Tasks should match
       <% # choose tags %>
-        <ul class="checkbox-grid">
-          <% @tags.each do |tag| %>
-            <li>
-              <label>
-                <%= check_box_tag "tags[]", tag.id, false, class: "checkbox" %>
-                <%= tag.name %>
-              </label>
-            </li>
-          <% end %>
-        </ul>
+        <%= render "tags_checkboxes", tags: @tags, task: nil %>
       <% end %>
     </div>
 

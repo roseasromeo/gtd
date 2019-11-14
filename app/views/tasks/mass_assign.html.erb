@@ -1,0 +1,14 @@
+<%= page_heading "Mass Assign Tags" %>
+
+<div class="mass_assign">
+  <%= form_tag mass_assign_path, method: :get do %>
+    <%= render 'task_table', tasks: @tasks, proj_name: false, loc_name: false, options: false, time_en: false, selecting: true %>
+
+    <div class="tags">
+      Tags
+      <%= render 'tags_checkboxes', tags: @tags, task: nil %>
+    </div>
+    <%= hidden_field_tag 'from', @from %>
+    <%= submit_tag "Mass Assign", class: "button" %>
+  <% end %>
+</div>

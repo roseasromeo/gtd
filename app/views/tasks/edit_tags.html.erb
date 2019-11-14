@@ -1,12 +1,12 @@
 <%= page_heading "Add/Remove Tags" %>
 
-<%= render 'tag_form' %>
+<%= render 'tag_form', task: @task %>
 
 <div class="nav_links">
   <%= link_to 'Show Task', project_task_path(@project,@task) %>
 </div>
 <div class="nav_links">
-  <%= link_to 'Make Another Tag (Refresh this page after making new tags)', new_tag_path %>
+  <%= link_to 'Make Another Tag (Refresh this page after making new tags)', new_tag_path, target: '_blank' %>
 </div>
 <div class="nav_links">
   <%= link_to 'Back to Project', @project %> |
