@@ -44,22 +44,11 @@ class FoldersController < ApplicationController
   def create
     if logged_in?
       @folder = Folder.new(name: folder_params[:name], description: folder_params[:description], user:@user)
+
       if @folder.save
-        if params[:develop] != nil
-          @item = Item.find(params[:folder][:item_id])
-          redirect_to develop_inbox_path(@item.inbox, item: @item.id, next_step: "added_folder", folder_id: @folder)
-        else
-          redirect_to folder_path(@folder)
-        end
+        redirect_to @folder
       else
-        if params[:develop] != nil
-          @item = Item.find(params[:folder][:item_id])
-          @inbox = @item.inbox
-          @step = "add_folder"
-          render "develop/develop"
-        else
-          render 'new'
-        end
+        render 'new'
       end
     else
       redirect_to login_path
