@@ -79,7 +79,7 @@ class ItemsController < ApplicationController
   # DELETE /items/1
   # DELETE /items/1.json
   def destroy
-    if logged_in? && @item.user == current_user
+    if logged_in? && @item.inbox.user == current_user
       @item.destroy
       redirect_to inboxes_path
     else

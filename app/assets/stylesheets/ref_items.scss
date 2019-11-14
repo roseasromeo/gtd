@@ -1,13 +1,13 @@
-// Place all the styles related to the Folders controller here.
+// Place all the styles related to the RefItems controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
 @import 'common';
 
-form.folder_form, {
+form.ref_item_form, {
   @include form-shared;
 }
 
-table.folders {
+table.ref_items {
   @include table-shared;
 }

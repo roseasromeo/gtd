@@ -1,33 +1,33 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Folders</h1>
+<%= page_heading "Reference Folders" %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Deletable</th>
-      <th>User</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @folders.each do |folder| %>
+<% if !(@folders.empty?) %>
+  <table class="folders">
+    <thead>
       <tr>
-        <td><%= folder.name %></td>
-        <td><%= folder.description %></td>
-        <td><%= folder.deletable %></td>
-        <td><%= folder.user %></td>
-        <td><%= link_to 'Show', folder %></td>
-        <td><%= link_to 'Edit', edit_folder_path(folder) %></td>
-        <td><%= link_to 'Destroy', folder, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Folder Name</th>
+        <th colspan="2"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
-<br>
+    <tbody>
+      <% @folders.each do |folder| %>
+        <tr>
+          <td><%= link_to folder.name, folder %></td>
+          <% if folder.deletable %>
+            <td><%= link_to 'Edit', edit_folder_path(folder) %></td>
+            <td><%= link_to 'Delete', folder, method: :delete, data: { confirm: 'Are you sure? All items associated with this folder will be reassigned to the General Reference Folder.' } %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
-<%= link_to 'New Folder', new_folder_path %>
+  <br>
+
+<% end %>
+
+<div class="nav_links">
+  <%= link_to 'New Folder', new_folder_path %>
+</div>

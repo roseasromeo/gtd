@@ -36,7 +36,7 @@
     <%= link_to 'Process Items in Inbox', develop_inbox_path(@inbox) %> |
   <% end %>
   <% if @inbox.deletable? %>
-    <%= link_to 'Delete Inbox', @inbox, method: :delete, data: { confirm: 'Are you sure? All items associated with this inbox will be reassigned to the [DEFAULT] inbox.' } %> |
+    <%= link_to 'Delete Inbox', @inbox, method: :delete, data: { confirm: 'Are you sure? All items associated with this inbox will be reassigned to the General inbox.' } %> |
   <% end %>
   <%= link_to 'Back to Inboxes', inboxes_path %>
 </div>
