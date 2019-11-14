@@ -27,6 +27,8 @@ class DevelopController < ApplicationController
     elsif @step == "add_task"
       task_setup
       @task = Task.new(name: @item.name, description: @item.description)
+    elsif @step == "added_task"
+      set_project
     elsif @step == "add_single"
       @step = "add_task"
       task_setup
@@ -52,6 +54,12 @@ class DevelopController < ApplicationController
     elsif @step == "add_ref_item"
       ref_item_setup
       @ref_item = RefItem.new(name: @item.name, description: @item.description)
+    elsif @step == "added_ref_item"
+      set_folder
+    elsif @step == "add_folder"
+      @folder = Folder.new(user: @user, name: @item.name, description: @item.description)
+    elsif @step == "added_folder"
+      set_folder
     end
   end
 

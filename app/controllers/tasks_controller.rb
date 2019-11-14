@@ -74,7 +74,7 @@ class TasksController < ApplicationController
       if @task.save
         if params[:develop] != nil
           @item = Item.find(params[:task][:item_id])
-          redirect_to develop_inbox_path(@item.inbox, item: @item.id, next_step: "added_task")
+          redirect_to develop_inbox_path(@item.inbox, item: @item.id, project_id: @project, next_step: "added_task")
         else
           redirect_to project_task_path(@project,@task)
         end

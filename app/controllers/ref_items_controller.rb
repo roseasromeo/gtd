@@ -45,10 +45,21 @@ class RefItemsController < ApplicationController
       @ref_item = RefItem.new(ref_item_params)
 
       if @ref_item.save
-        redirect_to folder_ref_item_path(@folder,@ref_item)
+        if params[:develop] != nil
+          @item = Item.find(params[:task][:ref_item_id])
+          redirect_to develop_inbox_path(@item.inbox, item: @item.id, next_step: "added_ref_item", folder_id: @folder)
+        else
+          redirect_to folder_ref_item_path(@folder,@ref_item)
+        end
       else
-        @folders = Folder.where(user: @user).order(deletable: :asc, name: :asc)
-        render 'new'
+        if params[:develop] != nil
+          @item = Item.find(params[:ref_item][:item_id])
+          @step = "add_ref_item"
+          render "develop/develop"
+        else
+          @folders = Folder.where(user: @user).order(deletable: :asc, name: :asc)
+          render 'new'
+        end
       end
     else
       redirect_to login_path
