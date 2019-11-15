@@ -19,7 +19,7 @@ class DevelopController < ApplicationController
       end
     elsif @step == "next"
       if @inbox.items.empty?
-        
+
       else
         @item = next_item(@item.id)
         @step = "action"
@@ -27,6 +27,8 @@ class DevelopController < ApplicationController
     elsif @step == "add_task"
       task_setup
       @task = Task.new(name: @item.name, description: @item.description)
+    elsif @step == "added_task"
+      set_project
     elsif @step == "add_single"
       @step = "add_task"
       task_setup
@@ -49,6 +51,15 @@ class DevelopController < ApplicationController
     elsif @step == "someday"
       set_someday_inbox
       @item.update(inbox: @someday)
+    elsif @step == "add_ref_item"
+      ref_item_setup
+      @ref_item = RefItem.new(name: @item.name, description: @item.description)
+    elsif @step == "added_ref_item"
+      set_folder
+    elsif @step == "add_folder"
+      @folder = Folder.new(user: @user, name: @item.name, description: @item.description)
+    elsif @step == "added_folder"
+      set_folder
     end
   end
 
@@ -185,5 +196,33 @@ class DevelopController < ApplicationController
 
     def set_waiting_checklist
       @checklist = Checklist.where(user: @user, name: "Waiting On").first
+    end
+
+    def set_default_folder
+      @default = Folder.where(user: @user, name: "General Reference").first
+    end
+
+    def folders
+      @folders = Folder.where(user: @user)
+    end
+
+    def set_folder
+      if params.has_key?(:folder_id)
+        @folder = Folder.find(params[:folder_id])
+        if @folder.user != current_user
+          @folder = @default
+        end
+      else
+        @folder = @ref_item.folder
+        if @folder == nil
+          @folder = @default
+        end
+      end
+    end
+
+    def task_setup
+      set_default_folder
+      folders
+      set_folder
     end
 end

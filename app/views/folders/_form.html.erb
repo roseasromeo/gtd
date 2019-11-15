@@ -1,12 +1,25 @@
-<%= semantic_form_for @folder do |f| %>
-  <%= f.inputs do %>
-    <%= f.input :name %>
-    <%= f.input :description %>
-    <%= f.input :deletable %>
-    <%= f.input :user %>
+<%= semantic_form_for @folder, :html => { class: "folder_form" } do |f| %>
+  <% if @folder.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@folder.errors.count, "error") %> prohibited
+        this folder from being saved:
+      </h2>
+      <ul>
+        <% @folder.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
   <% end %>
-
-  <%= f.actions do %>
-    <%= f.action :submit, :as => :input %>
+  <%= f.inputs do %>
+    <% if form_location == "develop" %>
+      <%= f.hidden_field :item_id, as: :hidden, value: item.id %>
+    <% end %>
+    <%= f.input :name, required: true %>
+    <%= f.input :description %>
+    <%= f.actions do %>
+      <%= f.action :submit, as: :input, :button_html => { class: "button", name: form_location  } %>
+    <% end %>
   <% end %>
 <% end %>

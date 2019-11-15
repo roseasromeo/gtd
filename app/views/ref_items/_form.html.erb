@@ -1,0 +1,26 @@
+<%= semantic_form_for [@folder, @ref_item], :html => { class: "ref_item_form" } do |f| %>
+  <% if @ref_item.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@ref_item.errors.count, "error") %> prohibited
+        this reference item from being saved:
+      </h2>
+      <ul>
+        <% @ref_item.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= f.inputs do %>
+    <% if form_location == "develop" %>
+      <%= f.hidden_field :item_id, as: :hidden, value: item.id %>
+    <% end %>
+    <%= f.input :name, required: true %>
+    <%= f.input :description%>
+    <%= f.select(:folder_id, options_for_select(@folders.map{|t| [t.name, t.id]}, @folder.id)) %>
+    <%= f.actions do %>
+      <%= f.action :submit, as: :input, :button_html => { class: "button", name: form_location } %>
+    <% end %>
+  <% end %>
+<% end %>

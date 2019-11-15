@@ -1,24 +1,50 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @folder.name %>
-</p>
+<%= page_heading "#{@folder.name} Reference Folder" %>
 
-<p>
-  <strong>Description:</strong>
-  <%= @folder.description %>
-</p>
+<% if @folder.deletable? %>
+  <div class="folder_show_page">
+    <p>
+      <strong>Description:</strong>
+      <%= @folder.description %>
+    </p>
+  </div>
+<% end %>
 
-<p>
-  <strong>Deletable:</strong>
-  <%= @folder.deletable %>
-</p>
+<div class="nav_links">
+  <% if @folder.deletable? %>
+    <%= link_to 'Edit Reference Folder', edit_folder_path(@folder) %> |
+  <% end %>
+  <%= link_to 'Add Reference Item', new_folder_ref_item_path(@folder) %>
+</div>
 
-<p>
-  <strong>User:</strong>
-  <%= @folder.user %>
-</p>
+<% if !(@ref_items.empty?) %>
+  <table class="items">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th colspan="2"></th>
+      </tr>
+    </thead>
 
-<%= link_to 'Edit', edit_folder_path(@folder) %> |
-<%= link_to 'Back', folders_path %>
+    <tbody>
+      <% @ref_items.each do |item| %>
+        <tr>
+          <td><%= link_to item.name, folder_ref_item_path(@folder,item) %></td>
+          <td><%= link_to 'Edit', edit_folder_ref_item_path(@folder,item) %></td>
+          <td><%= link_to 'Delete', folder_ref_item_path(@folder,item), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+<% end %>
+
+  <br>
+
+<div class="nav_links">
+  <% if @folder.deletable? %>
+    <%= link_to 'Delete Folder', @folder, method: :delete, data: { confirm: 'Are you sure? All items associated with this folder will be reassigned to the General Reference Folder.' } %> |
+  <% end %>
+  <%= link_to 'Back to Folders', folders_path %>
+</div>

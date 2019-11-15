@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<%= page_heading "#{@ref_item.name}" %>
+
+<div class="nav_links">
+  <%= link_to 'Edit Reference Item', edit_folder_ref_item_path(@folder,@ref_item) %>
+</div>
+
+<div class="ref_item_show_page">
+  <p>
+    <strong>Description:</strong>
+    <%= @ref_item.description %>
+  </p>
+
+  <p>
+    <strong>Folder:</strong>
+    <%= @ref_item.folder.name %>
+  </p>
+</div>
+
+<div class="nav_links">
+  <%= link_to 'Add Another Reference Item', new_folder_ref_item_path(@folder) %> |
+  <%= link_to 'Back to Folder', @folder %> | <%= link_to 'Back to Folders', folders_path %>
+</div>

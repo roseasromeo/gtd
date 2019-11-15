@@ -1,6 +1,8 @@
-<h1>Editing Folder</h1>
+<%= page_heading "Edit Reference Folder" %>
 
-<%= render 'form', folder: @folder %>
+<%= render 'form', form_location: "edit" %>
 
-<%= link_to 'Show', @folder %> |
-<%= link_to 'Back', folders_path %>
+<div class="nav_links">
+  <%= link_to 'Show Folder', folder_path(@folder)  %> |
+  <%= link_to 'Back to Folders', folders_path  %>
+</div>
