@@ -199,7 +199,7 @@ class DevelopController < ApplicationController
     end
 
     def set_default_folder
-      @default = Folder.where(user: @user, name: "General Reference").first
+      @default_folder = Folder.where(user: @user, name: "General Reference").first
     end
 
     def folders
@@ -210,17 +210,21 @@ class DevelopController < ApplicationController
       if params.has_key?(:folder_id)
         @folder = Folder.find(params[:folder_id])
         if @folder.user != current_user
-          @folder = @default
+          @folder = @default_folder
         end
       else
-        @folder = @ref_item.folder
+        if @task == nil
+          @folder = @default_folder
+        else
+          @folder = @ref_item.folder
+        end
         if @folder == nil
-          @folder = @default
+          @folder = @default_folder
         end
       end
     end
 
-    def task_setup
+    def ref_item_setup
       set_default_folder
       folders
       set_folder

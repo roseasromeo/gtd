@@ -3,6 +3,7 @@
   <br>
   <button class="button" type="button"><%= link_to "Add Reference Item to the same Folder", develop_inbox_path(@inbox, item: item, next_step: "add_ref_item", folder_id: @folder) %></button>
   <br>
+  <br>
   Move on to the next item:
   <br>
   <button class="button" type="button"><%= link_to "Delete Item", develop_inbox_path(@inbox, item: item, next_step: "delete"), data: { confirm: "Confirm deletion?" } %></button>

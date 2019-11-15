@@ -46,7 +46,7 @@ class RefItemsController < ApplicationController
 
       if @ref_item.save
         if params[:develop] != nil
-          @item = Item.find(params[:task][:ref_item_id])
+          @item = Item.find(params[:ref_item][:item_id])
           redirect_to develop_inbox_path(@item.inbox, item: @item.id, next_step: "added_ref_item", folder_id: @folder)
         else
           redirect_to folder_ref_item_path(@folder,@ref_item)
