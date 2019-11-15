@@ -44,19 +44,15 @@
 <% end %>
 
 <div class="nav_links">
-  <%= link_to 'Edit Task', edit_project_task_path(@project,@task) %> | <%= link_to 'Add/Remove Tags', edit_tags_project_task_path(@project,@task) %> | <%= link_to 'Add Another Task', new_project_task_path(@project, location_id: @location) %>
-</div>
-
-<div class="nav_links">
+  <button class="button" type="button"><%= link_to 'Edit Task', edit_project_task_path(@project,@task) %></button>
+  <button class="button" type="button"><%= link_to 'Add/Remove Tags', edit_tags_project_task_path(@project,@task) %></button>
+  <button class="button" type="button"><%= link_to 'Add Another Task', new_project_task_path(@project, location_id: @location) %></button>
   <% if @task.completed? %>
-    <%= link_to 'Mark Task Uncompleted', uncomplete_project_task_path(@project,@task) %> |
+    <button class="button" type="button"><%= link_to 'Mark Task Uncompleted', uncomplete_project_task_path(@project,@task) %></button>
   <% end %>
   <% if !(@task.completed?) %>
-    <%= link_to 'Mark Task Completed', complete_project_task_path(@project,@task) %>
+    <button class="button" type="button"><%= link_to 'Mark Task Completed', complete_project_task_path(@project,@task) %></button>
   <% end %>
-</div>
-
-<div class="nav_links">
-  <%= link_to 'Back to Project', project_path(@project) %> |
-  <%= link_to 'Back to Location', location_path(@location) %>
+  <button class="button" type="button"><%= link_to 'Back to Project', project_path(@project) %></button>
+  <button class="button" type="button"><%= link_to 'Back to Location', location_path(@location) %></button>
 </div>

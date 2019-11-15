@@ -30,7 +30,7 @@
         <%= render 'checklists/checklist_item_fields', :f => item %>
       <% end %>
       <div class='links'>
-        <%= link_to_add_association 'add item', f, :checklist_items, partial: "checklists/checklist_item_fields" %>
+        <button class="button" type="button"><%= link_to_add_association 'add item', f, :checklist_items, partial: "checklists/checklist_item_fields" %></button>
       </div>
     </div>
 

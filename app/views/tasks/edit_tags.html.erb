@@ -3,16 +3,10 @@
 <%= render 'tag_form', task: @task %>
 
 <div class="nav_links">
-  <%= link_to 'Show Task', project_task_path(@project,@task) %>
-</div>
-<div class="nav_links">
-  <%= link_to 'Make Another Tag (Refresh this page after making new tags)', new_tag_path, target: '_blank' %>
-</div>
-<div class="nav_links">
-  <%= link_to 'Back to Project', @project %> |
-  <%= link_to 'Back to Projects', projects_path %>
-</div>
-<div class="nav_links">
-  <%= link_to 'Back to Location', @location %> |
-  <%= link_to 'Back to Locations', locations_path %>
+  <button class="button" type="button"><%= link_to 'Show Task', project_task_path(@project,@task) %></button>
+  <button class="button" type="button"><%= link_to 'Make Another Tag (Refresh this page after making new tags)', new_tag_path, target: '_blank' %></button>
+  <button class="button" type="button"><%= link_to 'Back to Project', @project %></button>
+  <button class="button" type="button"><%= link_to 'Back to Projects', projects_path %></button>
+  <button class="button" type="button"><%= link_to 'Back to Location', @location %></button>
+  <button class="button" type="button"><%= link_to 'Back to Locations', locations_path %></button>
 </div>

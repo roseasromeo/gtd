@@ -2,12 +2,15 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+@import 'common';
+
 div.menu_links {
   font-size: large;
   display: flex;
   justify-content: space-around;
   a {
-    padding: 1em 1.5em;
+    //padding: 1em 1.5em;
     text-align: center;
   }
+  @include link_button;
 }

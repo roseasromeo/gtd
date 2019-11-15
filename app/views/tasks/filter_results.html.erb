@@ -3,6 +3,6 @@
 <%= render 'task_table', tasks: @tasks, proj_name: true, loc_name: false, options: false, time_en: true, selecting: false %>
 
 <div class="nav_links">
-  <%= link_to "New Filter", filter_path %>
-  <%= link_to "Mass Assign Tags", mass_assign_path(task_ids: @ids, from: "filter") %>
+  <button class="button" type="button"><%= link_to "New Filter", filter_path %></button>
+  <button class="button" type="button"><%= link_to "Mass Assign Tags", mass_assign_path(task_ids: @ids, from: "filter") %></button>
 </div>

@@ -14,13 +14,13 @@
   <div class="header">
     <div class="menu_links">
     <% if !(current_page?('/')) %>
-      <%= link_to 'Home', root_path %>
+      <button class="button" type="button"><%= link_to 'Home', root_path %></button>
     <% end %>
     <% if current_user != nil %>
-      <%= link_to 'Logout', logout_path %>
-      <%= link_to 'Edit User Profile', edit_user_path(current_user) %>
+      <button class="button" type="button"><%= link_to 'Logout', logout_path %></button>
+      <button class="button" type="button"><%= link_to 'Edit User Profile', edit_user_path(current_user) %></button>
     <% elsif current_page?(login_path) != true %>
-      <%= link_to 'Login', login_path %>
+      <button class="button" type="button"><%= link_to 'Login', login_path %></button>
     <% end %>
     </div>
   </div>

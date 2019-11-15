@@ -1,13 +1,5 @@
 //Common styles for use in selectors
 
-div.nav_links {
-  font-size: 16px;
-  display: flex;
-  justify-content: space-around;
-  padding: 1em 1.5em;
-  text-align: center;
-}
-
 h1.page_title {
   line-height: normal;
 }
@@ -128,4 +120,13 @@ h1.page_title {
     margin-top: 5px;
   }
   text-align: center;
+}
+
+div.nav_links {
+  font-size: 16px;
+  display: flex;
+  justify-content: space-around;
+  padding: 1em 1.5em;
+  text-align: center;
+  @include link_button;
 }

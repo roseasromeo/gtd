@@ -5,6 +5,6 @@
 <button class="button" type="button"><%= link_to "Back to Start of Process (this item)", develop_inbox_path(@inbox, item: @item, next_step: "action") %></button>
 
 <div class="nav_links">
-  <%= link_to 'Back to Inbox', inbox_path(@inbox)  %> |
-  <%= link_to 'Back to Inboxes', inboxes_path  %>
+  <button class="button" type="button"><%= link_to 'Back to Inbox', inbox_path(@inbox) %></button>
+  <button class="button" type="button"><%= link_to 'Back to Inboxes', inboxes_path %></button>
 </div>

@@ -3,7 +3,7 @@
 <%= page_heading "#{@ref_item.name}" %>
 
 <div class="nav_links">
-  <%= link_to 'Edit Reference Item', edit_folder_ref_item_path(@folder,@ref_item) %>
+  <button class="button" type="button"><%= link_to 'Edit Reference Item', edit_folder_ref_item_path(@folder,@ref_item) %></button>
 </div>
 
 <div class="ref_item_show_page">
@@ -19,6 +19,7 @@
 </div>
 
 <div class="nav_links">
-  <%= link_to 'Add Another Reference Item', new_folder_ref_item_path(@folder) %> |
-  <%= link_to 'Back to Folder', @folder %> | <%= link_to 'Back to Folders', folders_path %>
+  <button class="button" type="button"><%= link_to 'Add Another Reference Item', new_folder_ref_item_path(@folder) %></button>
+  <button class="button" type="button"><%= link_to 'Back to Folder', @folder %></button>
+  <button class="button" type="button"><%= link_to 'Back to Folders', folders_path %></button>
 </div>

@@ -6,6 +6,9 @@
 
 form.checklist_form, {
   @include form-shared;
+  div.links {
+    @include link_button;
+  }
 }
 
 table.checklists {
