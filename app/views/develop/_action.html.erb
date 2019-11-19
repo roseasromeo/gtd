@@ -1,15 +1,15 @@
 <div class="action">
   Is there an action for this item?
   <br>
-  <button class="button" type="button"><%= link_to "Yes (one step)", develop_inbox_path(@inbox, item: item, next_step: "yes_one") %></button>
+  <button class="button <%=@mode%>" type="button"><%= link_to "Yes (one step)", develop_inbox_path(@inbox, item: item, next_step: "yes_one") %></button>
   <br>
-  <button class="button" type="button"><%= link_to "Yes (multiple steps)", develop_inbox_path(@inbox, item: item, next_step: "yes_mult") %></button>
+  <button class="button <%=@mode%>" type="button"><%= link_to "Yes (multiple steps)", develop_inbox_path(@inbox, item: item, next_step: "yes_mult") %></button>
   <br>
-  <button class="button" type="button"><%= link_to "No", develop_inbox_path(@inbox, item: item, next_step: "no") %></button>
+  <button class="button <%=@mode%>" type="button"><%= link_to "No", develop_inbox_path(@inbox, item: item, next_step: "no") %></button>
   <br>
   <br>
   If you've already processed this item (but didn't delete it), then you can move on:
   <br>
-  <button class="button" type="button"><%= link_to "Delete Item", develop_inbox_path(@inbox, item: item, next_step: "delete"), data: { confirm: "Confirm deletion?" } %></button>
-  <button class="button" type="button"><%= link_to "Go to Next Item (without Deleting)", develop_inbox_path(@inbox, item: item, next_step: "next") %></button>
+  <button class="button <%=@mode%>" type="button"><%= link_to "Delete Item", develop_inbox_path(@inbox, item: item, next_step: "delete"), data: { confirm: "Confirm deletion?" } %></button>
+  <button class="button <%=@mode%>" type="button"><%= link_to "Go to Next Item (without Deleting)", develop_inbox_path(@inbox, item: item, next_step: "next") %></button>
 </div>

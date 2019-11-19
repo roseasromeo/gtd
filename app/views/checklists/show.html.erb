@@ -10,7 +10,7 @@
 </div>
 
 <% if !(@checklist_items.empty?) %>
-  <table class="checklist_items">
+  <table class="checklist_items <%=@mode%>">
     <thead>
       <tr>
         <th>Items</th>
@@ -32,8 +32,8 @@
 
 <div class="nav_links">
   <% if @checklist.deletable %>
-    <button class="button" type="button"><%= link_to 'Delete Checklist', @checklist, method: :delete, data: { confirm: 'Are you sure? All items on this checklist will be deleted too.' } %></button>
+    <button class="button <%=@mode%>" type="button"><%= link_to 'Delete Checklist', @checklist, method: :delete, data: { confirm: 'Are you sure? All items on this checklist will be deleted too.' } %></button>
   <% end %>
-  <button class="button" type="button"><%= link_to 'Edit Checklist', edit_checklist_path(@checklist) %></button>
-  <button class="button" type="button"><%= link_to 'Back to Checklists', checklists_path %></button>
+  <button class="button <%=@mode%>" type="button"><%= link_to 'Edit Checklist', edit_checklist_path(@checklist) %></button>
+  <button class="button <%=@mode%>" type="button"><%= link_to 'Back to Checklists', checklists_path %></button>
 </div>

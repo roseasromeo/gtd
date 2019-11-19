@@ -1,11 +1,11 @@
 <div class="started_project">
   Projects are composed of multiple steps to reach their desired outcome--each one should be a Task:
   <br>
-  <button class="button" type="button"><%= link_to "Add a Task to this Project", develop_inbox_path(@inbox, item: item, next_step: "add_task", project_id: @project) %></button>
+  <button class="button <%=@mode %>" type="button"><%= link_to "Add a Task to this Project", develop_inbox_path(@inbox, item: item, next_step: "add_task", project_id: @project) %></button>
   <br>
   <br>
   If you don't want to add the tasks now, move on to the next item:
   <br>
-  <button class="button" type="button"><%= link_to "Delete Item", develop_inbox_path(@inbox, item: item, next_step: "delete"), data: { confirm: "Confirm deletion?" } %></button>
-  <button class="button" type="button"><%= link_to "Go to Next Item (without Deleting)", develop_inbox_path(@inbox, item: item, next_step: "next") %></button>
+  <button class="button <%=@mode %>" type="button"><%= link_to "Delete Item", develop_inbox_path(@inbox, item: item, next_step: "delete"), data: { confirm: "Confirm deletion?" } %></button>
+  <button class="button <%=@mode %>" type="button"><%= link_to "Go to Next Item (without Deleting)", develop_inbox_path(@inbox, item: item, next_step: "next") %></button>
 </div>

@@ -3,15 +3,15 @@
   <br>
   Now that you've done that action, you can:
   <br>
-  <button class="button" type="button"><%= link_to "Delete Item", develop_inbox_path(@inbox, item: item, next_step: "delete"), data: { confirm: "Confirm deletion?" } %></button>
-  <button class="button" type="button"><%= link_to "Go to Next Item (without Deleting)", develop_inbox_path(@inbox, item: item, next_step: "next") %></button>
+  <button class="button <%=@mode%>" type="button"><%= link_to "Delete Item", develop_inbox_path(@inbox, item: item, next_step: "delete"), data: { confirm: "Confirm deletion?" } %></button>
+  <button class="button <%=@mode%>" type="button"><%= link_to "Go to Next Item (without Deleting)", develop_inbox_path(@inbox, item: item, next_step: "next") %></button>
   <br>
   <br>
   For an action that will repeat, consider:
   <br>
-  <button class="button" type="button"><%= link_to "Add to existing Checklist", develop_inbox_path(@inbox, item: item, next_step: "choose_checklist") %></button>
-  <button class="button" type="button"><%= link_to "Start a new Checklist", develop_inbox_path(@inbox, item: item, next_step: "make_checklist") %></button>
+  <button class="button <%=@mode%>" type="button"><%= link_to "Add to existing Checklist", develop_inbox_path(@inbox, item: item, next_step: "choose_checklist") %></button>
+  <button class="button <%=@mode%>" type="button"><%= link_to "Start a new Checklist", develop_inbox_path(@inbox, item: item, next_step: "make_checklist") %></button>
   <br>
-  <button class="button" type="button"><%= link_to "Add as a Task to existing Project", develop_inbox_path(@inbox, item: item, next_step: "add_task") %></button>
-  <button class="button" type="button"><%= link_to "Start a new Project", develop_inbox_path(@inbox, item: item, next_step: "start_project") %></button>
+  <button class="button <%=@mode%>" type="button"><%= link_to "Add as a Task to existing Project", develop_inbox_path(@inbox, item: item, next_step: "add_task") %></button>
+  <button class="button <%=@mode%>" type="button"><%= link_to "Start a new Project", develop_inbox_path(@inbox, item: item, next_step: "start_project") %></button>
 </div>

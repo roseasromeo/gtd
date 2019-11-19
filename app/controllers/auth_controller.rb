@@ -1,4 +1,5 @@
 class AuthController < ApplicationController
+  before_action :mode
 
   def new
     flash[:alert] = ""

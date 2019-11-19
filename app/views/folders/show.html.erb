@@ -13,13 +13,13 @@
 
 <div class="nav_links">
   <% if @folder.deletable? %>
-    <button class="button" type="button"><%= link_to 'Edit Reference Folder', edit_folder_path(@folder) %></button>
+    <button class="button <%=@mode %>" type="button"><%= link_to 'Edit Reference Folder', edit_folder_path(@folder) %></button>
   <% end %>
-  <button class="button" type="button"><%= link_to 'Add Reference Item', new_folder_ref_item_path(@folder) %></button>
+  <button class="button <%=@mode %>" type="button"><%= link_to 'Add Reference Item', new_folder_ref_item_path(@folder) %></button>
 </div>
 
 <% if !(@ref_items.empty?) %>
-  <table class="items">
+  <table class="items <%=@mode%>">
     <thead>
       <tr>
         <th>Name</th>
@@ -44,7 +44,7 @@
 
 <div class="nav_links">
   <% if @folder.deletable? %>
-    <button class="button" type="button"><%= link_to 'Delete Folder', @folder, method: :delete, data: { confirm: 'Are you sure? All items associated with this folder will be reassigned to the General Reference Folder.' } %></button>
+    <button class="button <%=@mode %>" type="button"><%= link_to 'Delete Folder', @folder, method: :delete, data: { confirm: 'Are you sure? All items associated with this folder will be reassigned to the General Reference Folder.' } %></button>
   <% end %>
-  <button class="button" type="button"><%= link_to 'Back to Folders', folders_path %></button>
+  <button class="button <%=@mode %>" type="button"><%= link_to 'Back to Folders', folders_path %></button>
 </div>

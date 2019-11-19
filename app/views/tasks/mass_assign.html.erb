@@ -9,6 +9,6 @@
       <%= render 'tags_checkboxes', tags: @tags, task: nil %>
     </div>
     <%= hidden_field_tag 'from', @from %>
-    <%= submit_tag "Mass Assign", class: "button" %>
+    <%= submit_tag "Mass Assign", class: "button #{@mode}" %>
   <% end %>
 </div>

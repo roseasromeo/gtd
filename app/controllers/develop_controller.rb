@@ -1,4 +1,5 @@
 class DevelopController < ApplicationController
+  before_action :mode
   before_action :set_inbox, :set_user
 
   def develop

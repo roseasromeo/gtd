@@ -2,22 +2,22 @@
   <br>
   File it away for reference:
   <br>
-  <button class="button" type="button"><%= link_to "Reference", develop_inbox_path(@inbox, item: item, next_step: "reference") %></button>
+  <button class="button <%=@mode%>" type="button"><%= link_to "Reference", develop_inbox_path(@inbox, item: item, next_step: "reference") %></button>
   <br>
   <br>
   Maybe think about it at a later point:
-  <button class="button" type="button"><%= link_to "Someday/Maybe", develop_inbox_path(@inbox, item: item, next_step: "someday") %></button>
+  <button class="button <%=@mode%>" type="button"><%= link_to "Someday/Maybe", develop_inbox_path(@inbox, item: item, next_step: "someday") %></button>
   <br>
   <br>
   Move on:
   <br>
-  <button class="button" type="button"><%= link_to "Delete Item", develop_inbox_path(@inbox, item: item, next_step: "delete"), data: { confirm: "Confirm deletion?" } %></button>
-  <button class="button"x type="button"><%= link_to "Go to Next Item (without Deleting)", develop_inbox_path(@inbox, item: item, next_step: "next") %></button>
+  <button class="button <%=@mode%>" type="button"><%= link_to "Delete Item", develop_inbox_path(@inbox, item: item, next_step: "delete"), data: { confirm: "Confirm deletion?" } %></button>
+  <button class="button <%=@mode%>"x type="button"><%= link_to "Go to Next Item (without Deleting)", develop_inbox_path(@inbox, item: item, next_step: "next") %></button>
   <br>
   <br>
   Add it to a checklist instead for future action:
   <br>
-  <button class="button" type="button"><%= link_to "Add to existing Checklist", develop_inbox_path(@inbox, item: item, next_step: "choose_checklist") %></button>
-  <button class="button" type="button"><%= link_to "Start a new Checklist", develop_inbox_path(@inbox, item: item, next_step: "make_checklist") %></button>
+  <button class="button <%=@mode%>" type="button"><%= link_to "Add to existing Checklist", develop_inbox_path(@inbox, item: item, next_step: "choose_checklist") %></button>
+  <button class="button <%=@mode%>" type="button"><%= link_to "Start a new Checklist", develop_inbox_path(@inbox, item: item, next_step: "make_checklist") %></button>
   <br>
 </div>

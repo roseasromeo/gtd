@@ -3,6 +3,6 @@
 <%= render 'form', form_location: "edit" %>
 
 <div class="nav_links">
-  <button class="button" type="button"><%= link_to 'Show Checklist', @checklist %></button>
-  <button class="button" type="button"><%= link_to 'Back to Checklists', checklists_path %></button>
+  <button class="button <%=@mode%>" type="button"><%= link_to 'Show Checklist', @checklist %></button>
+  <button class="button <%=@mode%>" type="button"><%= link_to 'Back to Checklists', checklists_path %></button>
 </div>

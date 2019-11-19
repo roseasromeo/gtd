@@ -1,5 +1,49 @@
 //Common styles for use in selectors
 
+$light: #DCDCDC;
+$dark: #333333;
+$error: red;
+
+html {
+  p.inline-errors {
+    color: $error;
+  }
+  .light-mode {
+    background-color: $light;
+    color: $dark;
+    font-weight: bold;
+    a:link {
+      color: $dark;
+    }
+    a:visited {
+      color: $dark;
+    }
+    th {
+      background-color: $light;
+    }
+    thead th {
+      border-color: $dark;
+    }
+  }
+  .dark-mode {
+    background-color: $dark;
+    color: $light;
+    font-weight: bold;
+    a:link {
+      color: $light;
+    }
+    a:visited {
+      color: $light;
+    }
+    th {
+      background-color: $dark;
+    }
+    thead th {
+      border-color: $light;
+    }
+  }
+}
+
 h1.page_title {
   line-height: normal;
 }
@@ -22,15 +66,24 @@ h1.page_title {
       margin: 1px;
     }
   }
-  textarea {
+  textarea.light-mode {
     outline: none !important;
-    border-color: black;
     width: 100%;
-    //box-shadow: 0 0 10px #719ECE;
+    border-color: $dark;
+  }
+  textarea.dark-mode {
+    outline: none !important;
+    width: 100%;
+    border-color: $light;
   }
   input.text {
     border-width: 1px;
-    border-color: black;
+    .light-mode {
+      border-color: $dark;
+    }
+    .dark-mode {
+      border-color: $light;
+    }
     width: 100%;
     //box-shadow: 0 0 10px #719ECE;
   }
@@ -54,11 +107,12 @@ h1.page_title {
     padding-top: 1em;
   }
 
-  thead th { border-bottom: 1px solid #000; }
+  thead th {
+    border-bottom: 1px solid;
+  }
 
   th {
     font-size: 16px;
-    background-color: white;
   }
   td {
     font-size: 16px;
@@ -89,9 +143,14 @@ h1.page_title {
 @mixin select_style{
   select {
     font-size: 16px;
-    border-color: black;
     border-width: thin;
     border-radius: 5px;
+    .light-mode {
+      border-color: $dark;
+    }
+    .dark-mode {
+      border-color: $light;
+    }
   }
 }
 
@@ -100,14 +159,24 @@ h1.page_title {
 }
 
 @mixin button {
-  background-color: white;
-  border-color: black;
-  border-width: thin;
+  border-width: 2px;
   border-radius: 5px;
-  color: black;
+  border-style: solid;
   padding: 15px 15px;
   text-align: center;
   font-size: 16px;
+}
+
+button.light-mode {
+  background-color: $light;
+  border-color: $dark;
+  color: $dark;
+}
+
+button.dark-mode {
+  background-color: $dark;
+  border-color: $light;
+  color: $light;
 }
 
 @mixin link_button {
@@ -123,10 +192,5 @@ h1.page_title {
 }
 
 div.nav_links {
-  font-size: 16px;
-  display: flex;
-  justify-content: space-around;
-  padding: 1em 1.5em;
-  text-align: center;
   @include link_button;
 }

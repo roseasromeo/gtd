@@ -2,5 +2,4 @@
 
 <%= render 'form'%>
 
-<%= link_to 'Show User Profile', @user %>
-<%= link_to 'Back to Login', login_path %>
+<button class="button <%=@mode %>" type="button"><%= link_to 'Show User Profile', @user %></button>

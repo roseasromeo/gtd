@@ -1,4 +1,5 @@
 class RefItemsController < ApplicationController
+  before_action :mode
   before_action :set_ref_item, only: [:show, :edit, :update, :destroy]
   before_action :set_user
   before_action :set_default_folder

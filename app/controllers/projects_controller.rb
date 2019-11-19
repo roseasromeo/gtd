@@ -1,4 +1,5 @@
 class ProjectsController < ApplicationController
+  before_action :mode
   before_action :set_project, only: [:show, :edit, :update, :destroy, :archive, :unarchive]
   before_action :set_user
   before_action :set_default_project, only: [:destroy]

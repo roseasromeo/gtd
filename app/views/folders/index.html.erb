@@ -3,7 +3,7 @@
 <%= page_heading "Reference Folders" %>
 
 <% if !(@folders.empty?) %>
-  <table class="folders">
+  <table class="folders <%=@mode%>">
     <thead>
       <tr>
         <th>Folder Name</th>
@@ -29,5 +29,5 @@
 <% end %>
 
 <div class="nav_links">
-  <button class="button" type="button"><%= link_to 'New Folder', new_folder_path %></button>
+  <button class="button <%=@mode %>" type="button"><%= link_to 'New Folder', new_folder_path %></button>
 </div>

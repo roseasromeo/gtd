@@ -3,7 +3,7 @@
 <%= page_heading "#{@item.name}" %>
 
 <div class="nav_links">
-  <button class="button" type="button"><%= link_to 'Edit Item', edit_inbox_item_path(@inbox,@item) %></button>
+  <button class="button <%=@mode %>" type="button"><%= link_to 'Edit Item', edit_inbox_item_path(@inbox,@item) %></button>
 </div>
 
 <div class="item_show_page">
@@ -19,7 +19,7 @@
 </div>
 
 <div class="nav_links">
-  <button class="button" type="button"><%= link_to 'Add Another Item', new_inbox_item_path(@inbox) %></button>
-  <button class="button" type="button"><%= link_to 'Back to Inbox', @inbox %></button>
-  <button class="button" type="button"><%= link_to 'Back to Inboxes', inboxes_path %></button>
+  <button class="button <%=@mode %>" type="button"><%= link_to 'Add Another Item', new_inbox_item_path(@inbox) %></button>
+  <button class="button <%=@mode %>" type="button"><%= link_to 'Back to Inbox', @inbox %></button>
+  <button class="button <%=@mode %>" type="button"><%= link_to 'Back to Inboxes', inboxes_path %></button>
 </div>

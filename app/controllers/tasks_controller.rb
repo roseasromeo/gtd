@@ -1,4 +1,5 @@
 class TasksController < ApplicationController
+  before_action :mode
   before_action :set_task, except: [:index, :new, :create, :filter, :search, :mass_assign]
   before_action :set_user
   before_action :set_default_project

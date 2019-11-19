@@ -3,7 +3,7 @@
 <%= page_heading "Projects" %>
 
 <% if !(@projects.empty?) %>
-  <table class="projects">
+  <table class="projects <%=@mode%>">
     <thead>
       <tr>
         <th>Project Name</th>
@@ -35,5 +35,5 @@
 <% end %>
 
 <div class="nav_links">
-  <button class="button" type="button"><%= link_to 'New Project', new_project_path %></button>
+  <button class="button <%=@mode %>" type="button"><%= link_to 'New Project', new_project_path %></button>
 </div>

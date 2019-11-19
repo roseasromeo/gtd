@@ -1,11 +1,11 @@
 <div class="added_ref_item">
   If there are more reference items to add from this item:
   <br>
-  <button class="button" type="button"><%= link_to "Add Reference Item to the same Folder", develop_inbox_path(@inbox, item: item, next_step: "add_ref_item", folder_id: @folder) %></button>
+  <button class="button <%=@mode%>" type="button"><%= link_to "Add Reference Item to the same Folder", develop_inbox_path(@inbox, item: item, next_step: "add_ref_item", folder_id: @folder) %></button>
   <br>
   <br>
   Move on to the next item:
   <br>
-  <button class="button" type="button"><%= link_to "Delete Item", develop_inbox_path(@inbox, item: item, next_step: "delete"), data: { confirm: "Confirm deletion?" } %></button>
-  <button class="button" type="button"><%= link_to "Go to Next Item (without Deleting)", develop_inbox_path(@inbox, item: item, next_step: "next") %></button>
+  <button class="button <%=@mode%>" type="button"><%= link_to "Delete Item", develop_inbox_path(@inbox, item: item, next_step: "delete"), data: { confirm: "Confirm deletion?" } %></button>
+  <button class="button <%=@mode%>" type="button"><%= link_to "Go to Next Item (without Deleting)", develop_inbox_path(@inbox, item: item, next_step: "next") %></button>
 </div>

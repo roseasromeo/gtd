@@ -16,30 +16,30 @@
     <% if form_location == "develop" %>
       <%= f.hidden_field :item_id, as: :hidden, value: item.id %>
     <% end %>
-    <%= f.input :name %>
-    <%= f.input :description %>
+    <%= f.input :name, :input_html => { class: @mode } %>
+    <%= f.input :description, :input_html => { class: @mode } %>
     <label>
       Time:
-      <%= f.select(:time, options_for_select(@time_collection, Task.times[@task.time])) %>
+      <%= f.select(:time, options_for_select(@time_collection, Task.times[@task.time]), {}, { class: @mode }) %>
     </label>
     <br>
     <label>
       Energy Level:
-      <%= f.select(:energy, options_for_select(@energy_collection, Task.energies[@task.energy])) %>
+      <%= f.select(:energy, options_for_select(@energy_collection, Task.energies[@task.energy]), {}, { class: @mode }) %>
     </label>
     <br>
     <label>
       Project:
-      <%= f.select(:project_id, options_for_select(@projects.map{|t| [t.name, t.id]}, @project.id)) %>
+      <%= f.select(:project_id, options_for_select(@projects.map{|t| [t.name, t.id]}, @project.id), {}, { class: @mode }) %>
     </label>
     <br>
     <label>
       Location:
-      <%= f.select(:location_id, options_for_select(@locations.map{|t| [t.name, t.id]}, @location.id)) %>
+      <%= f.select(:location_id, options_for_select(@locations.map{|t| [t.name, t.id]}, @location.id), {}, { class: @mode }) %>
     </label>
 
     <%= f.actions do %>
-      <%= f.action :submit, as: :input, button_html: { class: "button", name: form_location }  %>
+      <%= f.action :submit, as: :input, button_html: { class: "button #{@mode}", name: form_location }  %>
     <% end %>
   <% end %>
 <% end %>

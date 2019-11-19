@@ -9,5 +9,13 @@
   </p>
 </div>
 
-<%= link_to 'Edit User Profile', edit_user_path(@user) %> | <%= link_to 'Delete User Account', @user, method: :delete, data: { confirm: 'Are you sure? All data associated with this account will also be deleted. This action cannot be reversed.' } %> |
-<%= link_to 'Back to Login', login_path %>
+<div class="nav_links">
+  <% if @user.mode %>
+    <button class="button <%=@mode %>" type="button"><%= link_to 'Enable Light Mode', switch_mode_user_path(@user) %></button>
+  <% else %>
+    <button class="button <%=@mode %>" type="button"><%= link_to 'Enable Dark Mode', switch_mode_user_path(@user) %></button>
+  <% end %>
+  <br>
+  <button class="button <%=@mode %>" type="button"><%= link_to 'Edit User Profile', edit_user_path(@user) %></button>
+  <button class="button <%=@mode %>" type="button"><%= link_to 'Delete User Account', @user, method: :delete, data: { confirm: 'Are you sure? All data associated with this account will also be deleted. This action cannot be reversed.' } %></button>
+</div>

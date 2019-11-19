@@ -3,7 +3,7 @@
 <%= page_heading "Tags" %>
 
 <% if !(@tags.empty?) %>
-  <table class="tags">
+  <table class="tags <%=@mode%>">
     <thead>
       <tr>
         <th>Name</th>
@@ -27,5 +27,5 @@
 <% end %>
 
 <div class="nav_links">
-  <button class="button" type="button"><%= link_to 'New Tag', new_tag_path %></button>
+  <button class="button <%=@mode %>" type="button"><%= link_to 'New Tag', new_tag_path %></button>
 </div>

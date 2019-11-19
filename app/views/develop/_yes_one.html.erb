@@ -1,9 +1,9 @@
 <div class="yes_one">
   Can <u>you</u> complete this action now in 2 minutes or less?
   <br>
-  <button class="button" type="button"><%= link_to "Yes!", develop_inbox_path(@inbox, item: item, next_step: "do_it") %></button>
+  <button class="button <%=@mode %>" type="button"><%= link_to "Yes!", develop_inbox_path(@inbox, item: item, next_step: "do_it") %></button>
   <br>
-  <button class="button" type="button"><%= link_to "No (too long/not right now)", develop_inbox_path(@inbox, item: item, next_step: "add_single") %></button>
+  <button class="button <%=@mode %>" type="button"><%= link_to "No (too long/not right now)", develop_inbox_path(@inbox, item: item, next_step: "add_single") %></button>
   <br>
-  <button class="button" type="button"><%= link_to "No (Not an action I can take)", develop_inbox_path(@inbox, item: item, next_step: "delegate") %></button>
+  <button class="button <%=@mode %>" type="button"><%= link_to "No (Not an action I can take)", develop_inbox_path(@inbox, item: item, next_step: "delegate") %></button>
 </div>

@@ -13,7 +13,7 @@
       <%= f.input :password %>
 
       <%= f.actions do %>
-        <%= f.action :submit, label: "Log In", as: :input, button_html: { class: "button" } %>
+        <%= f.action :submit, label: "Log In", as: :input, button_html: { class: "button #{@mode}" } %>
       <% end %>
     <% end %>
   <% end %>

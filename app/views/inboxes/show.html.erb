@@ -3,12 +3,12 @@
 <%= page_heading "#{@inbox.name} Inbox" %>
 
 <div class="nav_links">
-  <button class="button" type="button"><%= link_to 'Edit Name', edit_inbox_path(@inbox) %></button>
-  <button class="button" type="button"><%= link_to 'Add Item', new_inbox_item_path(@inbox) %></button>
+  <button class="button <%=@mode %>" type="button"><%= link_to 'Edit Name', edit_inbox_path(@inbox) %></button>
+  <button class="button <%=@mode %>" type="button"><%= link_to 'Add Item', new_inbox_item_path(@inbox) %></button>
 </div>
 
 <% if !(@items.empty?) %>
-  <table class="items">
+  <table class="items <%=@mode%>">
     <thead>
       <tr>
         <th>Name</th>
@@ -34,10 +34,10 @@
 
 <div class="nav_links">
   <% if !(@items.empty?) %>
-    <button class="button" type="button"><%= link_to 'Process Items in Inbox', develop_inbox_path(@inbox) %></button>
+    <button class="button <%=@mode %>" type="button"><%= link_to 'Process Items in Inbox', develop_inbox_path(@inbox) %></button>
   <% end %>
   <% if @inbox.deletable? %>
-    <button class="button" type="button"><%= link_to 'Delete Inbox', @inbox, method: :delete, data: { confirm: 'Are you sure? All items associated with this inbox will be reassigned to the General inbox.' } %></button>
+    <button class="button <%=@mode %>" type="button"><%= link_to 'Delete Inbox', @inbox, method: :delete, data: { confirm: 'Are you sure? All items associated with this inbox will be reassigned to the General inbox.' } %></button>
   <% end %>
-  <button class="button" type="button"><%= link_to 'Back to Inboxes', inboxes_path %></button>
+  <button class="button <%=@mode %>" type="button"><%= link_to 'Back to Inboxes', inboxes_path %></button>
 </div>

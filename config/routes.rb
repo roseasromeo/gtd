@@ -12,7 +12,11 @@ Rails.application.routes.draw do
   get '/search' => 'tasks#search', as: :search
   get '/mass_assign' => 'tasks#mass_assign', as: :mass_assign
 
-  resources :users, except: [:index]
+  resources :users, except: [:index] do
+    member do
+      get 'switch_mode'
+    end
+  end
 
   resources :inboxes do
     resources :items, except: [:index]

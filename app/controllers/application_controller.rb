@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
     current_user != nil
   end
 
-  helper_method :current_user, :admin_user?
+  helper_method :current_user, :admin_user?, :mode
 
   private
     def sort_column
@@ -48,5 +48,16 @@ class ApplicationController < ActionController::Base
       tasks
     end
 
+    def mode
+      if current_user != nil
+        if current_user.mode
+          @mode = "dark-mode"
+        else
+          @mode = "light-mode"
+        end
+      else
+        @mode = "light-mode"
+      end
+    end
 
 end

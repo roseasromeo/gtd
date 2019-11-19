@@ -1,8 +1,8 @@
 <div class='nested-fields'>
   <%= f.inputs do %>
-    <%= f.input :name %>
+    <%= f.input :name, :input_html => { class: @mode } %>
     <div class='links'>
-      <button class="button" type="button"><%= link_to_remove_association "remove item", f %></button>
+      <button class="button <%=@mode%>" type="button"><%= link_to_remove_association "remove item", f %></button>
     </div>
   <% end %>
 </div>

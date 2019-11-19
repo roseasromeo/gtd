@@ -3,7 +3,7 @@
 <%= page_heading "Checklists" %>
 
 <% if !(@checklists.empty?) %>
-  <table class="checklists">
+  <table class="checklists <%=@mode%>">
     <thead>
       <tr>
         <th>Name</th>
@@ -26,5 +26,5 @@
 <% end %>
 
 <div class="nav_links">
-  <button class="button" type="button"><%= link_to 'New Checklist', new_checklist_path %></button>
+  <button class="button <%=@mode%>" type="button"><%= link_to 'New Checklist', new_checklist_path %></button>
 </div>
