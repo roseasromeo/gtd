@@ -82,7 +82,7 @@ class ItemsController < ApplicationController
   def destroy
     if logged_in? && @item.inbox.user == current_user
       @item.destroy
-      redirect_to inboxes_path
+      redirect_to inbox_path(@inbox)
     else
       redirect_to inboxes_path
     end

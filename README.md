@@ -23,4 +23,21 @@ Things you may want to cover:
 
 * ...
 # gtd
-Implementation of the Getting Things Done System
+Implementation of a time management system
+
+Welcome to
+
+In this README, the following will be covered:
+* APP USAGE: How to use the app
+* TECHNICAL: General technical information about this repository
+* HEROKU: How to create your own HerokuAPP version of this system (without modifying the code)
+* FORK: How to "fork" this repository in order to have your version if you want to modify the code
+
+# APP USAGE
+
+# TECHNICAL
+This repository is currently using Ruby 2.6.1, though an update to 2.6.5 is planned
+
+# HEROKU
+
+# FORK
