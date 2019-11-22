@@ -1,0 +1,33 @@
+<%= semantic_form_for @print_checklist, :html => { class: "print_checklist_form" } do |f| %>
+  <% if @print_checklist.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@print_checklist.errors.count, "error") %> prohibited
+        this printable checklist from being saved:
+      </h2>
+      <ul>
+        <% @print_checklist.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= f.inputs do %>
+    <% if form_location == "develop" %>
+      <%= f.hidden_field :item_id, as: :hidden, value: item.id %>
+    <% end %>
+    <%= f.input :id, as: :hidden, value: @print_checklist.id %>
+    <%= @print_checklist.name %>
+    <br>
+    <%= @print_checklist.description %>
+    <div id='print_checklist_items'>
+      <%= f.semantic_fields_for :print_checklist_items do |item| %>
+        <%= render 'print_checklists/print_checklist_item_fields', f: item %>
+      <% end %>
+    </div>
+
+    <%= f.actions do %>
+      <%= f.action :submit, :as => :input, :button_html => { class: "button #{@mode}", name: form_location } %>
+    <% end %>
+  <% end %>
+<% end %>

@@ -35,5 +35,7 @@
     <button class="button <%=@mode%>" type="button"><%= link_to 'Delete Checklist', @checklist, method: :delete, data: { confirm: 'Are you sure? All items on this checklist will be deleted too.' } %></button>
   <% end %>
   <button class="button <%=@mode%>" type="button"><%= link_to 'Edit Checklist', edit_checklist_path(@checklist) %></button>
+  <br>
+  <button class="button <%=@mode%>" type="button"><%= link_to 'Make Printable Checklist', printable_checklist_path(@checklist) %></button>
   <button class="button <%=@mode%>" type="button"><%= link_to 'Back to Checklists', checklists_path %></button>
 </div>

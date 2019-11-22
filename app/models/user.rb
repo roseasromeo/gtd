@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   validates :email, :name, :password_digest, presence: true
-  validates :email, :name, uniqueness: { case_sensitive: false }
+  validates :email, uniqueness: { case_sensitive: false }
   validates :password, confirmation: { case_sensitive: true }
 
   has_many :inboxes, dependent: :destroy

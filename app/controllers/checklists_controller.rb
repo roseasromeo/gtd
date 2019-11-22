@@ -1,6 +1,6 @@
 class ChecklistsController < ApplicationController
   before_action :mode
-  before_action :set_checklist, only: [:show, :edit, :update, :destroy]
+  before_action :set_checklist, only: [:show, :edit, :update, :destroy, :printable]
   before_action :set_user
 
   # GET /checklists
@@ -106,11 +106,25 @@ class ChecklistsController < ApplicationController
   # DELETE /checklists/1
   # DELETE /checklists/1.json
   def destroy
-    if logged_in? && @checklist.user == current_user && @project.deletable?
+    if logged_in? && @checklist.user == current_user && @checklist.deletable?
       @checklist.destroy
       redirect_to checklists_path
     else
       redirect_to checklists_path
+    end
+  end
+
+  def printable
+    if @checklist.user == @user
+      @print_checklist = PrintChecklist.new(user: @checklist.user, name: @checklist.name, description: @checklist.description)
+      @checklist.checklist_items.each do |item|
+        @print_checklist.print_checklist_items.build(name: item.name)
+      end
+      if @print_checklist.save
+        redirect_to @print_checklist
+      else
+        redirect_to @checklist
+      end
     end
   end
 

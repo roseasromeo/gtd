@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :folders
   get 'home/index'
 
   root 'home#index'
@@ -42,7 +41,12 @@ Rails.application.routes.draw do
   resources :locations
   resources :tags
 
-  resources :checklists
+  resources :checklists do
+    member do
+      get 'printable'
+    end
+  end
+  resources :print_checklists
 
   resources :folders do
     resources :ref_items, except: [:index]

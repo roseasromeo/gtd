@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<%= page_heading "#{@print_checklist.name}" %>
+
+<div class="print_checklist_show_page">
+  <p>
+    <strong>Description:</strong>
+    <%= @print_checklist.description %>
+  </p>
+</div>
+
+<% if !(@print_checklist_items.empty?) %>
+  <table class="print_checklist_items <%=@mode%>">
+    <thead>
+      <tr>
+        <th>Items</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @print_checklist_items.each do |item| %>
+        <tr>
+          <td>
+            <% if item.completed %>
+              &#10004
+            <% else %>
+              &#9633;
+            <% end %>
+            <%= item.name %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+<% end %>
+
+  <br>
+
+<div class="nav_links">
+  <button class="button <%=@mode%>" type="button"><%= link_to 'Delete Printable Checklist', @print_checklist, method: :delete, data: { confirm: 'Are you sure?' } %></button>
+  <button class="button <%=@mode%>" type="button"><%= link_to 'Check Tasks as Completed', edit_print_checklist_path(@print_checklist) %></button>
+  <button class="button <%=@mode%>" type="button"><%= link_to 'Back to Printable Checklists', print_checklists_path %></button>
+</div>

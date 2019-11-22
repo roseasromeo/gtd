@@ -27,7 +27,7 @@
     <% end %>
     <div id='checklist_items'>
       <%= f.semantic_fields_for :checklist_items do |item| %>
-        <%= render 'checklists/checklist_item_fields', :f => item %>
+        <%= render 'checklists/checklist_item_fields', f: item %>
       <% end %>
       <div class='links'>
         <button class="button <%=@mode%>" type="button"><%= link_to_add_association 'add item', f, :checklist_items, partial: "checklists/checklist_item_fields" %></button>
@@ -35,7 +35,7 @@
     </div>
 
     <%= f.actions do %>
-      <%= f.action :submit, :as => :input, :button_html => { class: "button #{@mode}", name: form_location } %>
+      <%= f.action :submit, as: :input, button_html: { class: "button #{@mode}", name: form_location } %>
     <% end %>
   <% end %>
 <% end %>
