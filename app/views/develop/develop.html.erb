@@ -1,10 +1,10 @@
-<%= page_heading "Process Inbox #{@inbox.name}" %>
+<%= page_heading "Process Bin #{@inbox.name}" %>
 
 <%= render 'develop/item_develop', item: @item, step: @step %>
 
 <button class="button <%=@mode %>" type="button"><%= link_to "Back to Start of Process (this item)", develop_inbox_path(@inbox, item: @item, next_step: "action") %></button>
 
 <div class="nav_links">
-  <button class="button <%=@mode %>" type="button"><%= link_to 'Back to Inbox', inbox_path(@inbox) %></button>
-  <button class="button <%=@mode %>" type="button"><%= link_to 'Back to Inboxes', inboxes_path %></button>
+  <button class="button <%=@mode %>" type="button"><%= link_to 'Back to Bin', inbox_path(@inbox) %></button>
+  <button class="button <%=@mode %>" type="button"><%= link_to 'Back to Bins', inboxes_path %></button>
 </div>

@@ -15,7 +15,7 @@
   <%= f.inputs do %>
     <%= f.input :name, required: true, :input_html => { class: @mode } %>
     <%= f.actions do %>
-      <%= f.action :submit, as: :input, :button_html => { class: "button #{@mode}" } %>
+      <%= f.action :submit, as: :input, label: button_name, :button_html => { class: "button #{@mode}" } %>
     <% end %>
   <% end %>
 <% end %>

@@ -13,13 +13,13 @@
   </p>
 
   <p>
-    <strong>Inbox:</strong>
+    <strong>Bin:</strong>
     <%= @item.inbox.name %>
   </p>
 </div>
 
 <div class="nav_links">
   <button class="button <%=@mode %>" type="button"><%= link_to 'Add Another Item', new_inbox_item_path(@inbox) %></button>
-  <button class="button <%=@mode %>" type="button"><%= link_to 'Back to Inbox', @inbox %></button>
-  <button class="button <%=@mode %>" type="button"><%= link_to 'Back to Inboxes', inboxes_path %></button>
+  <button class="button <%=@mode %>" type="button"><%= link_to 'Back to Bin', @inbox %></button>
+  <button class="button <%=@mode %>" type="button"><%= link_to 'Back to Bins', inboxes_path %></button>
 </div>

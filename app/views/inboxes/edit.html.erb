@@ -1,8 +1,8 @@
-<%= page_heading "Edit Inbox" %>
+<%= page_heading "Edit Bin" %>
 
-<%= render 'form' %>
+<%= render 'form', button_name: "Save Bin" %>
 
 <div class="nav_links">
-  <button class="button <%=@mode %>" type="button"><%= link_to 'Show Inbox', inbox_path(@inbox)  %></button>
-  <button class="button <%=@mode %>" type="button"><%= link_to 'Back to Inboxes', inboxes_path  %></button>
+  <button class="button <%=@mode %>" type="button"><%= link_to 'Show Bin', inbox_path(@inbox)  %></button>
+  <button class="button <%=@mode %>" type="button"><%= link_to 'Back to Bins', inboxes_path  %></button>
 </div>
