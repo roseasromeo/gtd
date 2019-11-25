@@ -6,7 +6,7 @@
       <% # Location -- include Anywhere? %>
       <label>
         Where are you?
-        <%= select_tag(:location_id, options_for_select(@locations.map { |loc| [loc.name, loc.id] }, @location), {}, { class: @mode }) %>
+        <%= select_tag(:location_id, options_for_select(@locations.map { |loc| [loc.name, loc.id] }), { class: @mode }) %>
       </label>
       <label>
         Also include Anywhere?
@@ -18,7 +18,7 @@
       <% # How much time do you have? -- Present highest that meets criteria first, lowest last  %>
       <label>
         How much time do you have?
-        <%= select_tag(:time, options_for_select(@time_collection), {}, { class: @mode }) %>
+        <%= select_tag(:time, options_for_select(@time_collection), { class: @mode }) %>
       </label>
     </div>
 
@@ -26,7 +26,7 @@
       <% # How much energy do you have? -- Present highest that meets criteria first, lowest last  %>
       <label>
         What level of energy do you have?
-        <%= select_tag(:energy, options_for_select(@energy_collection), {}, { class: @mode }) %>
+        <%= select_tag(:energy, options_for_select(@energy_collection), { class: @mode }) %>
       </label>
     </div>
 
