@@ -17,9 +17,9 @@ class User < ApplicationRecord
 
   after_initialize do
     unless persisted?
-      inboxes << Inbox.new(name: 'General', user: self, deletable: false)
+      inboxes << Inbox.new(name: 'General', user: self, deletable: false, description: "If you decide to use this app as a single Digital Inbox, add all items to this Bin. If you decide to place items in many Bins before processing them into Tasks/Projects/etc., this Bin should be used for any items that don't fit in the other Bins you've made.")
+      inboxes << Inbox.new(name: 'Someday/Maybe', user: self, deletable: false, description: "A place to put all items that should be revisited at another point in time or under different circumstances. Most items will start in another Bin and get moved here during processing. We recommend revisiting the items in this bin occasionally to see if they become relevant or can be deleted.")
       folders << Folder.new(name: 'General Reference', user: self, deletable: false)
-      inboxes << Inbox.new(name: 'Someday/Maybe', user: self, deletable: false)
       projects << Project.new(name: 'Unassigned', user: self, deletable: false)
       projects << Project.new(name: 'Single Step', user: self, deletable: false)
       locations << Location.new(name: 'Anywhere', user: self, deletable: false)

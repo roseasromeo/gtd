@@ -2,8 +2,12 @@
 
 <%= page_heading "#{@inbox.name} Bin" %>
 
+<%= @inbox.description %>
+
 <div class="nav_links">
-  <button class="button <%=@mode %>" type="button"><%= link_to 'Edit Name', edit_inbox_path(@inbox) %></button>
+  <% if @inbox.deletable? %>
+    <button class="button <%=@mode %>" type="button"><%= link_to 'Edit Bin', edit_inbox_path(@inbox) %></button>
+  <% end %>
   <button class="button <%=@mode %>" type="button"><%= link_to 'Add Item', new_inbox_item_path(@inbox) %></button>
 </div>
 
