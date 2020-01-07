@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   get '/search' => 'tasks#search', as: :search
   get '/mass_assign' => 'tasks#mass_assign', as: :mass_assign
 
+  get '/getting_started' => 'home#started', as: :getting_started
+
   resources :users, except: [:index] do
     member do
       get 'switch_mode'
